@@ -42,10 +42,10 @@
         <div class="w-full lg:flex-[1.6] lg:max-w-none lg:-mr-16">
           <div id="hero-track-wrap" style="overflow:hidden;border-radius:1rem;position:relative;">
             <div id="hero-track" style="display:flex;transition:transform 0.6s ease;width:400%;">
-              <img src="/images/PC1.b3349138.png" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
-              <img src="/images/PC2.7c63cef8.png" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
-              <img src="/images/PC3.89c40db5.png" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
-              <img src="/images/PC1.b3349138.png" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
+              <img :src="'/images/PC1.png'" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
+              <img :src="'/images/PC2.png'" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
+              <img :src="'/images/PC3.png'" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
+              <img :src="'/images/PC1.png'" alt="TranEasy" style="width:25%;flex-shrink:0;display:block;" />
             </div>
           </div>
           <div id="hero-dots" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;">

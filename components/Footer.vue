@@ -5,7 +5,7 @@
         <!-- Brand -->
         <div class="col-span-2 md:col-span-1">
           <NuxtLink :to="localePath('/')" class="flex items-center gap-2 mb-4">
-            <img src="/images/traneasy logo1.svg" alt="TranEasy" class="h-10 w-auto" />
+            <img :src="'/images/traneasy logo1.svg'" alt="TranEasy" class="h-10 w-auto" />
           </NuxtLink>
           <p class="text-slate-400 text-sm leading-relaxed mb-5">{{ $t('footer.description') }}</p>
           <a href="https://www.traneasy.com.cn" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-sm transition-colors">www.traneasy.com.cn</a>

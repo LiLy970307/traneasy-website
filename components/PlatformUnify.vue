@@ -37,9 +37,9 @@
         <div class="relative flex items-center justify-end lg:translate-x-32">
           <div class="w-full relative overflow-hidden rounded-2xl shadow-2xl border border-white/10 bg-black/20">
             <div class="carousel-track">
-              <div class="carousel-slide"><img src="/images/111.png" alt="TranEasy" /></div>
-              <div class="carousel-slide"><img src="/images/222.png" alt="TranEasy" /></div>
-              <div class="carousel-slide"><img src="/images/333.png" alt="TranEasy" /></div>
+              <div class="carousel-slide"><img :src="'/images/111.png'" alt="TranEasy" /></div>
+              <div class="carousel-slide"><img :src="'/images/222.png'" alt="TranEasy" /></div>
+              <div class="carousel-slide"><img :src="'/images/333.png'" alt="TranEasy" /></div>
             </div>
           </div>
         </div>
