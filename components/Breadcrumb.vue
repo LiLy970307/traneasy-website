@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="breadcrumb" class="w-full bg-white border-b border-slate-100">
+  <!-- <nav aria-label="breadcrumb" class="w-full bg-white border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-3">
       <ol class="flex items-center flex-wrap gap-1.5 text-sm">
         <li v-for="(item, i) in allItems" :key="i" class="flex items-center gap-1.5">
@@ -11,7 +11,7 @@
         </li>
       </ol>
     </div>
-  </nav>
+  </nav> -->
 </template>
 
 <script setup lang="ts">

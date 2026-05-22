@@ -1,34 +1,29 @@
 <template>
-  <div class="w-[700px] bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden">
-    <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-4">
-      <p class="text-white font-semibold text-sm tracking-wide uppercase">{{ $t('nav.products') }}</p>
-      <p class="text-blue-100 text-xs mt-0.5">{{ $t('nav.productsTagline') }}</p>
-    </div>
-    <div class="grid grid-cols-2 gap-px bg-slate-100 p-px">
-      <NuxtLink
-        v-for="item in productItems"
-        :key="item.href"
-        :to="localePath('/' + item.href)"
-        class="flex items-start gap-4 p-5 bg-white hover:bg-blue-50 transition-colors group"
-      >
-        <div class="w-11 h-11 rounded-2xl bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center text-2xl flex-shrink-0 transition-colors">
-          {{ item.icon }}
-        </div>
-        <div>
-          <div class="text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">
-            {{ $t('nav.' + item.titleKey) }}
+  <div class="w-full bg-white">
+    <div class="mx-auto max-w-[1280px] px-10 py-12">
+      <div class="grid grid-cols-3 gap-x-16 gap-y-12">
+        <NuxtLink
+          v-for="item in productItems"
+          :key="item.title"
+          :to="item.href ? localePath(item.href) : undefined"
+          :class="[
+            'group flex min-h-[84px] items-start gap-4 rounded-2xl px-2 py-1 transition-colors',
+            item.href ? 'cursor-pointer hover:bg-slate-50' : 'cursor-default'
+          ]"
+        >
+          <div class="flex h-6 w-6 flex-shrink-0 items-center justify-center pt-1">
+            <img :src="item.iconSrc" :alt="item.title" class="h-5 w-5 object-contain" />
           </div>
-          <div class="text-xs text-slate-500 mt-1 leading-relaxed">
-            {{ $t('nav.' + item.descKey) }}
+          <div class="min-w-0">
+            <h3 class="text-[18px] font-semibold leading-[28px] text-[#000213]">
+              {{ item.title }}
+            </h3>
+            <p class="mt-1 max-w-[260px] text-[14px] leading-[26px] text-[#8B90A0]">
+              {{ item.description }}
+            </p>
           </div>
-        </div>
-      </NuxtLink>
-    </div>
-    <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-      <span class="text-xs text-slate-500">{{ $t('nav.viewAllFeatures') }}</span>
-      <NuxtLink :to="localePath('/features')" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
-        {{ $t('nav.exploreAll') }} →
-      </NuxtLink>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -37,11 +32,47 @@
 const localePath = useLocalePath()
 
 const productItems = [
-  { icon: '🎙️', titleKey: 'prod1Title', descKey: 'prod1Desc', href: 'features#realtime' },
-  { icon: '🖥️', titleKey: 'prod2Title', descKey: 'prod2Desc', href: 'features#screen' },
-  { icon: '🎥', titleKey: 'prod3Title', descKey: 'prod3Desc', href: 'features#meeting' },
-  { icon: '🤖', titleKey: 'prod4Title', descKey: 'prod4Desc', href: 'features#ai' },
-  { icon: '📡', titleKey: 'prod5Title', descKey: 'prod5Desc', href: 'features#offline' },
-  { icon: '💬', titleKey: 'prod6Title', descKey: 'prod6Desc', href: 'features#subtitle' },
+  {
+    title: '全渠道沟通',
+    description: '聚合全球主流社交平台，告别多平台切换的混乱',
+    iconSrc: '/images/product/dropdown-1.svg',
+    href: '/features'
+  },
+  {
+    title: '数据分析',
+    description: '用数据复盘业务，用图表驱动决策，告别凭感觉做外贸',
+    iconSrc: '/images/product/dropdown-2.svg',
+    href: '/dataAnalysis'
+  },
+  {
+    title: '精准消息群发',
+    description: '用自动化工具实现千人千面的批量触达',
+    iconSrc: '/images/product/dropdown-3.svg',
+    href: '/features'
+  },
+  {
+    title: '实时翻译',
+    description: '让沟通像母语一样自然流畅。',
+    iconSrc: '/images/product/dropdown-4.svg',
+    href: '/features#realtime'
+  },
+  {
+    title: '工单系统/分流链接',
+    description: '自动化线索管理，让每个商机都有迹可循',
+    iconSrc: '/images/product/dropdown-5.svg',
+    href: '/features'
+  },
+  {
+    title: '跨境团队协作管理',
+    description: '从单打独斗到平团队作战，打造高执行力的跨境铁军',
+    iconSrc: '/images/product/dropdown-6.svg',
+    href: '/features'
+  },
+  {
+    title: '客户关系管理',
+    description: '用精细化的 CRM 系统挖掘客户的终身价值',
+    iconSrc: '/images/product/dropdown-7.svg',
+    href: '/features'
+  },
 ]
 </script>

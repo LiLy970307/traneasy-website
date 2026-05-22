@@ -1,100 +1,165 @@
 <template>
-  <footer class="bg-slate-900 text-white pt-16 pb-8">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-12">
-        <!-- Brand -->
-        <div class="col-span-2 md:col-span-1">
-          <NuxtLink :to="localePath('/')" class="flex items-center gap-2 mb-4">
-            <img :src="'/images/traneasy logo1.svg'" alt="TranEasy" class="h-10 w-auto" />
+  <footer class="bg-[#040716] text-white pt-20">
+    <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+      <div
+        class="grid gap-y-14 gap-x-10 lg:grid-cols-[1.15fr_0.95fr_0.95fr_1.1fr]"
+      >
+        <div>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">产品</h4>
+          <ul class="space-y-6 text-[15px] leading-none text-white/75">
+            <li v-for="item in productItems" :key="item.label">
+              <component
+                :is="item.href ? 'NuxtLink' : 'span'"
+                v-bind="item.href ? { to: localePath(item.href) } : {}"
+                class="transition-colors hover:text-white"
+              >
+                {{ item.label }}
+              </component>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">集成</h4>
+          <ul class="space-y-6 text-[15px] leading-none text-white/75">
+            <li v-for="item in integrationItems" :key="item.label">
+              <component
+                :is="item.href ? 'NuxtLink' : 'span'"
+                v-bind="item.href ? { to: localePath(item.href) } : {}"
+                class="transition-colors hover:text-white"
+              >
+                {{ item.label }}
+              </component>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">关于</h4>
+          <ul class="space-y-6 text-[15px] leading-none text-white/75">
+            <li v-for="item in aboutItems" :key="item.label">
+              <component
+                :is="item.href ? 'NuxtLink' : 'span'"
+                v-bind="item.href ? { to: localePath(item.href) } : {}"
+                class="transition-colors hover:text-white"
+              >
+                {{ item.label }}
+              </component>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg:justify-self-end lg:text-left">
+          <NuxtLink :to="localePath('/')" class="inline-flex items-center">
+            <img :src="footerLogoSrc" alt="易翻译" class="h-12 w-auto" />
           </NuxtLink>
-          <p class="text-slate-400 text-sm leading-relaxed mb-5">{{ $t('footer.description') }}</p>
-          <a href="https://www.traneasy.com.cn" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-sm transition-colors">www.traneasy.com.cn</a>
-        </div>
+          <p
+            class="mt-6 max-w-xs text-[15px] font-semibold leading-8 text-white/90"
+          >
+            跨越语言鸿沟 链接全球商机
+          </p>
 
-        <!-- Products -->
-        <div>
-          <h4 class="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wide">{{ $t('nav.products') }}</h4>
-          <ul class="space-y-2.5">
-            <li v-for="{ key, href } in productLinks" :key="key">
-              <NuxtLink :to="localePath('/' + href)" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.' + key) }}</NuxtLink>
-            </li>
-          </ul>
-        </div>
+          <div class="mt-12 flex items-center gap-4">
+            <a
+              v-for="item in socialItems"
+              :key="item.label"
+              :href="item.href || undefined"
+              :target="item.href ? '_blank' : undefined"
+              :rel="item.href ? 'noopener noreferrer' : undefined"
+              class="flex h-11 w-11 items-center justify-center border border-white/15 text-white/95 transition-colors hover:border-white/30 hover:bg-white/5"
+              :aria-label="item.label"
+            >
+              <img
+                :src="item.icon"
+                :alt="item.label"
+                class="h-6 w-6 object-contain"
+              />
+            </a>
+          </div>
 
-        <!-- Solutions -->
-        <div>
-          <h4 class="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wide">{{ $t('nav.solutions') }}</h4>
-          <ul class="space-y-2.5">
-            <li v-for="{ key, href } in solutionLinks" :key="key">
-              <NuxtLink :to="localePath('/' + href)" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.' + key) }}</NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Resources -->
-        <div>
-          <h4 class="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wide">{{ $t('nav.resources') }}</h4>
-          <ul class="space-y-2.5">
-            <li v-for="{ key, href } in resourceLinks" :key="key">
-              <NuxtLink :to="localePath('/' + href)" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.' + key) }}</NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h4 class="font-semibold text-slate-200 mb-4 text-sm uppercase tracking-wide">{{ $t('footer.links') }}</h4>
-          <ul class="space-y-2.5">
-            <li><NuxtLink :to="localePath('/')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.home') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/integrations')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.integrations') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/pricing')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.pricing') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/login')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('nav.login') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/privacy')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('footer.privacy') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/terms')" class="text-slate-400 hover:text-blue-400 text-sm transition-colors">{{ $t('footer.terms') }}</NuxtLink></li>
-          </ul>
+          <div class="mt-14">
+            <h4 class="text-[15px] font-semibold text-white">联系我们</h4>
+            <p class="mt-6 text-[15px] text-white/75">
+              投诉建议：yifanyi@traneasy.com.cn
+            </p>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="border-t border-slate-800 pt-6 pb-4">
-        <p class="text-slate-600 text-xs leading-relaxed text-center mb-4">{{ seoText }}</p>
-      </div>
-      <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-slate-500 text-sm">{{ $t('footer.copyright') }}</p>
-        <NuxtLink :to="localePath('/') + '#download'" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-xl transition-colors shadow-sm whitespace-nowrap">
-          {{ $t('nav.downloadBtn') }}
-        </NuxtLink>
+    <div class="mt-16 border-t border-[#0d53c7]">
+      <div
+        class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-[15px] text-white/80 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12"
+      >
+        <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-5">
+          <span>蜀ICP备2024115121号</span>
+          <span>Copyright © 2025-2026 UCloud</span>
+          <NuxtLink
+            :to="localePath('/privacy')"
+            class="transition-colors hover:text-white"
+            >隐私政策</NuxtLink
+          >
+        </div>
+        <p>© 2026 TalentBridge. All rights reserved.</p>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-const localePath = useLocalePath()
-const { messages } = useLocaleData()
-const seoText = computed(() => messages.value.footer?.seoText || '')
+const localePath = useLocalePath();
+const footerLogoSrc = "/images/icon/footerLogo.svg";
 
-const productLinks = [
-  { key: 'prod1Title', href: 'features#realtime' },
-  { key: 'prod2Title', href: 'features#screen' },
-  { key: 'prod3Title', href: 'features#meeting' },
-  { key: 'prod4Title', href: 'features#ai' },
-  { key: 'prod5Title', href: 'features#offline' },
-  { key: 'prod6Title', href: 'features#subtitle' },
-]
+interface FooterLinkItem {
+  label: string;
+  href?: string;
+}
 
-const solutionLinks = [
-  { key: 'sol1Title', href: 'use-cases/ecommerce' },
-  { key: 'sol2Title', href: 'use-cases/meetings' },
-  { key: 'sol3Title', href: 'use-cases/education' },
-  { key: 'sol4Title', href: 'use-cases/customer-support' },
-  { key: 'sol5Title', href: 'use-cases' },
-  { key: 'sol6Title', href: 'use-cases' },
-]
+const productItems: readonly FooterLinkItem[] = [
+  { label: "全渠道沟通" },
+  { label: "数据分析" },
+  { label: "精准消息群发" },
+  { label: "实时翻译" },
+  { label: "工单系统/分流链接" },
+  { label: "团队协作" },
+  { label: "客户关系管理" },
+];
 
-const resourceLinks = [
-  { key: 'resBlog', href: 'blog' },
-  { key: 'resFaq', href: 'faq' },
-  { key: 'resCompare', href: 'compare' },
-  { key: 'resAbout', href: 'about' },
-]
+const integrationItems: readonly FooterLinkItem[] = [
+  { label: "WhatsApp" },
+  { label: "Telegram" },
+  { label: "Facebook" },
+  { label: "instgram" },
+  { label: "Line" },
+  { label: "tiktok" },
+];
+
+const aboutItems: readonly FooterLinkItem[] = [
+  { label: "合作伙伴关系" },
+  { label: "服务协议", href: "/terms" },
+  { label: "用户行为规范" },
+  { label: "隐私政策", href: "/privacy" },
+  { label: "自动续订协议" },
+  { label: "SDK隐私政策" },
+  { label: "SDK合规配置指引" },
+];
+
+const socialItems = [
+  {
+    label: "Facebook",
+    icon: "/images/icon/Facebook_transparency.svg",
+    href: "",
+  },
+  {
+    label: "Instagram",
+    icon: "/images/icon/Instagram_transparency.svg",
+    href: "",
+  },
+  { label: "Twitter", icon: "/images/icon/Twitter_transparency.svg", href: "" },
+  {
+    label: "LinkedIn",
+    icon: "/images/icon/LinkedIn_transparency.svg",
+    href: "",
+  },
+];
 </script>
