@@ -1,0 +1,21 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon_dkh">
+<path id="Vector" d="M9.9987 3.33325H3.33203L12.4987 36.6666H19.1654L9.9987 3.33325Z" fill="url(#paint0_linear_410_4404)"/>
+<path id="Vector_2" d="M9.9987 3.3335H3.33203L12.4987 36.6668H19.1654L9.9987 3.3335Z" stroke="url(#paint1_linear_410_4404)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M19.168 36.6666L36.668 3.33325" stroke="url(#paint2_linear_410_4404)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_410_4404" x1="11.2487" y1="3.33325" x2="11.2487" y2="36.6666" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="1" stop-color="white" stop-opacity="0.12"/>
+</linearGradient>
+<linearGradient id="paint1_linear_410_4404" x1="11.2487" y1="-2.72711" x2="11.2487" y2="51.8183" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F2F2FF" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#F2F2FF"/>
+</linearGradient>
+<linearGradient id="paint2_linear_410_4404" x1="27.918" y1="-2.72735" x2="27.918" y2="51.8181" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F2F2FF" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#F2F2FF"/>
+</linearGradient>
+</defs>
+</svg>

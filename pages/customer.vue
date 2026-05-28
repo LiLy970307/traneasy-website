@@ -10,25 +10,25 @@
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
         >
-          精准消息群发
+          客户关系管理
         </h1>
         <p
           class="mx-auto mt-4 max-w-5xl text-[24px] font-semibold leading-[1.5] text-[#000213] sm:text-[36px]"
         >
-          用自动化工具实现千人千面的批量触达
+          用精细化的 CRM 系统挖掘客户的终身价值
         </p>
         <p
           class="mx-auto mt-6 max-w-5xl text-[14px] leading-7 text-[#5F6472] sm:text-[16px]"
         >
-          为您提供企业级的精准消息群发解决方案。支持图文、视频、链接等多种格式，结合自动化发送与变量插入能力，
-          让每一次批量触达依旧保持个性化表达，稳定覆盖海量目标客户。
+          深度融合了 CRM
+          客户关系管理理念，我们将客户从“初次接触到复购”的全过程数字化，帮助您构建高价值的私域流量池。
         </p>
       </div>
 
       <div class="mx-auto mt-14 max-w-6xl">
         <img
-          src="/images/product/message-image.png"
-          alt="Traneasy 精准消息群发"
+          src="/images/product/customer-image.png"
+          alt="Traneasy 客户关系管理界面"
           width="2048"
           height="1074"
           class="h-auto w-full"
@@ -57,9 +57,10 @@
         <h2
           class="max-w-5xl text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
         >
-          传统方式 vs 精准消息群发
+          传统方式 vs 客户关系管理
           <br />
-          告别低效手动群发与高风险操作，用自动化触达让每一条营销信息都更快、更准、更自然。
+          告别 Excel 表格和低效备注，构建 360
+          度客户画像，让每一次跟进都精准到位。
         </h2>
 
         <div
@@ -70,7 +71,7 @@
           >
             <div>对比维度</div>
             <div>传统方式</div>
-            <div>Traneasy 精准消息群发</div>
+            <div>Traneasy 客户关系管理</div>
           </div>
 
           <div
@@ -102,7 +103,7 @@
 
     <ProductSceneSection
       eyebrow="应用场景"
-      title="低成本获取高流量"
+      title="私域流量的精细化耕作"
       button-label="立即下载"
       :button-to="downloadLink"
       :items="sceneItems"
@@ -116,7 +117,7 @@
           常见问题
         </h2>
         <p class="mt-3 text-[18px] leading-8 text-[#3A4050]">
-          高效触达全球客户，让每一条营销信息都精准落地。
+          360° 客户画像沉淀，让每一个客户都成为可复购的资产！
         </p>
 
         <div class="mt-10 space-y-4">
@@ -157,9 +158,9 @@
       >
         <div>
           <h2 class="text-[32px] font-semibold leading-[1.45] text-[#000213]">
-            立即开启精准消息群发
+            立即开启客户关系管理
             <br />
-            让每一条营销信息，都精准触达目标客户
+            把分散的客户信息，收拢成可沉淀的资产
           </h2>
 
           <NuxtLink
@@ -192,18 +193,18 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
 
-const pageTitle = "精准消息群发 - Traneasy 易翻译";
+const pageTitle = "客户关系管理 - Traneasy 易翻译";
 const pageDescription =
-  "通过自动化批量发送、智能随机防封、灵活对象筛选和变量插入能力，让企业实现更稳定、更精准的消息群发。";
+  "通过智能标签系统、跟进计划提醒与客户资产沉淀能力，帮助企业建立 360 度客户画像，持续提升复购与运营效率。";
 const checkIconSrc = "/images/product/check-icon.svg";
 const closeIconSrc = "/images/product/close-icon.svg";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
   {
-    title: "极速批量发送",
-    imageSrc: "/images/product/message-desc-1.png",
-    imageAlt: "Traneasy 极速批量发送",
+    title: "智能标签系统",
+    imageSrc: "/images/product/customer-desc-1.png",
+    imageAlt: "Traneasy 智能标签系统",
     reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -211,19 +212,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "手动逐条发送效率极低，一天最多处理几百条消息，难以支撑活动推广和客户集中触达。",
+          "客户太多了，标签和备注全靠人工维护，信息散落在聊天、表格和成员脑海里，筛选客户时非常低效。",
       },
       {
         title: "解决方案",
         description:
-          "支持一键创建批量发送任务，文本、图片、视频和链接内容统一下发，快速覆盖海量客户。",
+          "支持按来源、阶段、地区、购买意向、跟进状态等维度为客户建立标签体系，一次沉淀，后续筛选、分层和复盘都更高效。",
       },
     ],
   },
   {
-    title: "智能随机防封",
-    imageSrc: "/images/product/message-desc-2.png",
-    imageAlt: "Traneasy 智能随机防封",
+    title: "跟进客户计划与提醒",
+    imageSrc: "/images/product/customer-desc-2.png",
+    imageAlt: "Traneasy 跟进客户计划与提醒",
     reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -231,52 +232,12 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "群发频率和节奏过于一致，容易触发平台风控，导致限流、失败甚至账号异常。",
+          "客户跟进节奏经常依赖个人记忆，销售一忙就忘，客户当前处于什么阶段、该何时联系也缺少统一提醒。",
       },
       {
         title: "解决方案",
         description:
-          "系统自动控制发送节奏与执行顺序，通过随机间隔和分批触达降低批量操作风险。",
-      },
-    ],
-  },
-  {
-    title: "多模式选择群发对象",
-    imageSrc: "/images/product/message-desc-3.png",
-    imageAlt: "Traneasy 多模式选择群发对象",
-    reverse: false,
-    buttonLabel: "立即下载",
-    buttonTo: downloadLink,
-    points: [
-      {
-        title: "常见问题",
-        description:
-          "目标客户散落在标签、群组、聊天列表和通讯录中，缺乏统一筛选方式，群发对象难以精准锁定。",
-      },
-      {
-        title: "解决方案",
-        description:
-          "支持按标签、群组、联系人范围和导入名单灵活选择发送对象，让大规模触达仍然保持精准。",
-      },
-    ],
-  },
-  {
-    title: "个性化变量插入",
-    imageSrc: "/images/product/message-desc-4.png",
-    imageAlt: "Traneasy 个性化变量插入",
-    reverse: true,
-    buttonLabel: "立即下载",
-    buttonTo: downloadLink,
-    points: [
-      {
-        title: "常见问题",
-        description:
-          "统一模板内容缺少称呼和业务上下文，客户容易感知为群发广告，回复率与信任感都偏低。",
-      },
-      {
-        title: "解决方案",
-        description:
-          "在消息中插入姓名、国家、产品等变量字段，同一批任务也能生成更自然的个性化内容。",
+          "可以为客户创建跟进计划和提醒节点，并结合标签、负责人和历史记录统一管理，帮助团队按节奏推进客户转化。",
       },
     ],
   },
@@ -284,82 +245,87 @@ const featureSections = [
 
 const comparisonRows = [
   {
-    label: "发送效率",
-    legacy: "人工复制粘贴、逐条确认，发送速度慢，任务越大越容易漏发。",
-    traneasy: "批量创建群发任务，统一执行和管理，大幅提升触达效率。",
+    label: "信息管理",
+    legacy: "客户信息散落在表格、聊天记录和成员备注中，查找和同步都很费时。",
+    traneasy: "统一沉淀客户档案、标签和跟进记录，信息查找更快更完整。",
   },
   {
-    label: "风险控制",
-    legacy: "发送节奏固定，容易触发风控，账号稳定性难以保障。",
-    traneasy: "智能随机间隔和分批策略，降低异常操作风险，发送更稳定。",
+    label: "客户分层",
+    legacy: "客户多却缺少统一分类标准，高价值客户和普通线索混在一起。",
+    traneasy: "支持多维标签分层，帮助团队快速识别重点客户并制定差异化策略。",
   },
   {
-    label: "筛选对象",
-    legacy: "客户名单分散在不同位置，只能人工挑选，覆盖不全且效率低。",
-    traneasy: "支持标签、群组、聊天列表等多模式筛选，精准圈定群发对象。",
+    label: "生命周期",
+    legacy: "客户从首次咨询到成交、复购的阶段变化难追踪，容易漏掉关键节点。",
+    traneasy: "清晰记录客户全生命周期轨迹，持续跟踪每个阶段的业务动作。",
   },
   {
-    label: "个性化能力",
-    legacy: "内容千篇一律，无法结合客户信息做差异化表达。",
-    traneasy: "支持变量插入，让同一批消息根据客户信息自动生成个性化内容。",
+    label: "沟通节奏",
+    legacy: "客户跟进大多依靠个人记忆，忙起来就容易忘记联系。",
+    traneasy: "跟进计划与提醒机制协同工作，让关键客户始终处于可推进状态。",
   },
   {
-    label: "结果复盘",
-    legacy: "缺少统一任务视图，发送记录零散，后续跟进与优化困难。",
-    traneasy: "任务执行过程清晰可查，便于团队复盘发送效果并持续优化策略。",
+    label: "资产沉淀",
+    legacy: "客户资料分散且难复用，成员变动时历史信息容易断层。",
+    traneasy: "客户资料持续沉淀为企业资产，交接更顺畅，长期复购更有依据。",
   },
 ] as const;
 
 const sceneItems = [
   {
-    title: "新品活动推广",
+    title: "大客户专属维护",
     description:
-      "在新品上架、节日活动和限时促销场景下，快速向大批目标客户同步营销信息，放大活动曝光。",
-    iconSrc: "/images/product/message-icon-1.svg",
+      "针对 TOP 10% 的高净值客户建立专属标签、跟进计划和服务视图，帮助团队用更精细的策略提升长期价值。",
+    iconSrc: "/images/product/customer-icon-1.svg",
   },
   {
-    title: "沉默客户唤醒",
+    title: "节日营销与复购",
     description:
-      "针对长期未回复或未下单客户统一发起激活触达，结合优惠与个性化文案提升再次互动概率。",
-    iconSrc: "/images/product/message-icon-2.svg",
+      "基于 CRM 历史标签和跟进记录筛选目标客户，在节日节点、活动节点执行更精准的二次营销。",
+    iconSrc: "/images/product/customer-icon-2.svg",
   },
   {
-    title: "多语言市场拓展",
+    title: "销售漏斗分析",
     description:
-      "面向不同国家和区域客户执行批量消息触达，配合变量与多语言内容快速打开新市场。",
-    iconSrc: "/images/product/message-icon-3.svg",
+      "通过客户阶段、来源和负责人等维度，持续观察客户从咨询到成交、复购的推进效率，优化整体转化节奏。",
+    iconSrc: "/images/product/customer-icon-3.svg",
   },
 ] as const;
 
 const faqs = [
   {
-    question: "群发会被封号吗？",
+    question: "客户信息会丢失吗？",
     answer:
-      "合理设置发送节奏并结合平台规范使用时，风险是可控的。Traneasy 提供随机间隔与分批触达机制，帮助企业在大规模发送时保持更稳健的执行策略。",
+      "所有客户数据都会统一沉淀在系统内，并结合权限规则进行管理。只要业务流程在系统中完成，历史记录、标签和跟进信息都可以持续保留。",
   },
   {
-    question: "支持发送图片和视频吗？",
+    question: "标签数量有限制吗？",
     answer:
-      "支持。除了文本消息，还可以根据业务场景发送图片、视频、链接等内容，让营销信息更完整、更有表现力。",
+      "无硬性的一刀切限制，你可以根据业务需要自由创建标签体系，并按团队实际运营方式持续扩展和优化。",
   },
   {
-    question: "可以定时发送吗？",
+    question: "客户数据能导出吗？",
     answer:
-      "可以。您可以结合业务安排设置群发计划，在目标客户更活跃的时间段执行任务，提升消息到达后的互动效果。",
+      "支持导出为 Excel 或其他适合业务复盘的格式，方便进行下游分析、汇报或与外部流程衔接。",
+  },
+  {
+    question: "CRM 数据可以和外部系统对接吗？",
+    answer:
+      "支持。Traneasy 支持基于接口或数据导出的方式与企业现有系统协同，便于把客户数据同步到 ERP、BI 或其他业务系统。",
   },
   {
     question: "其他问题",
     answer:
-      "如果您还想了解更细的发送策略、变量配置、对象筛选规则或多账号协作方式，可以继续联系团队获取更完整的落地方案。",
+      "如果你还想了解标签策略、客户分层方法、导出能力或 CRM 与现有业务系统的衔接方式，可以继续联系团队获取更完整方案。",
   },
 ] as const;
 
 const ctaPoints = [
-  "支持 WhatsApp、Facebook、Line 等主流社媒场景批量触达",
-  "图文、视频、链接等内容统一编排，营销表达更完整",
-  "支持智能随机发送节奏，降低高频批量操作带来的风险",
-  "群发对象可按标签、群组、名单灵活筛选，触达更精准",
-  "群发消息支持变量插入，规模化发送依旧保留个性化体验",
+  "支持跨平台客户信息聚合，告别多 APP 切换查看",
+  "统一客户标签与生命周期管理，精准识别客户潜力等级",
+  "客户全生命周期信息沉淀，降低团队交接成本和断层风险",
+  "客户流失预警、复购计划与进度提醒让运营更可控",
+  "客户资料可沉淀为企业资产，持续累积长期客户价值",
 ] as const;
 
 const openFaqIndex = ref<number | null>(0);

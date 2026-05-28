@@ -10,25 +10,25 @@
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
         >
-          精准消息群发
+          实时翻译
         </h1>
         <p
           class="mx-auto mt-4 max-w-5xl text-[24px] font-semibold leading-[1.5] text-[#000213] sm:text-[36px]"
         >
-          用自动化工具实现千人千面的批量触达
+          让沟通像母语一样自然流畅。
         </p>
         <p
           class="mx-auto mt-6 max-w-5xl text-[14px] leading-7 text-[#5F6472] sm:text-[16px]"
         >
-          为您提供企业级的精准消息群发解决方案。支持图文、视频、链接等多种格式，结合自动化发送与变量插入能力，
-          让每一次批量触达依旧保持个性化表达，稳定覆盖海量目标客户。
+          核心的实时翻译引擎，直接嵌入聊天页面，无需切换、无需复制粘贴。实现真正的所见即所得，
+          让语言不再是阻碍成交与协作的门槛。
         </p>
       </div>
 
       <div class="mx-auto mt-14 max-w-6xl">
         <img
-          src="/images/product/message-image.png"
-          alt="Traneasy 精准消息群发"
+          src="/images/product/translate-image.png"
+          alt="Traneasy 实时翻译界面"
           width="2048"
           height="1074"
           class="h-auto w-full"
@@ -57,9 +57,9 @@
         <h2
           class="max-w-5xl text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
         >
-          传统方式 vs 精准消息群发
+          传统方式 vs 实时翻译
           <br />
-          告别低效手动群发与高风险操作，用自动化触达让每一条营销信息都更快、更准、更自然。
+          打破语言壁垒，保持对话节奏一致，让每一条消息沟通都像面对面交流一样顺畅。
         </h2>
 
         <div
@@ -70,7 +70,7 @@
           >
             <div>对比维度</div>
             <div>传统方式</div>
-            <div>Traneasy 精准消息群发</div>
+            <div>Traneasy 实时翻译</div>
           </div>
 
           <div
@@ -102,7 +102,7 @@
 
     <ProductSceneSection
       eyebrow="应用场景"
-      title="低成本获取高流量"
+      title="让每一次回复都专业且省力"
       button-label="立即下载"
       :button-to="downloadLink"
       :items="sceneItems"
@@ -116,7 +116,7 @@
           常见问题
         </h2>
         <p class="mt-3 text-[18px] leading-8 text-[#3A4050]">
-          高效触达全球客户，让每一条营销信息都精准落地。
+          毫秒级自动互译，让跨语沟通像母语一样流畅。
         </p>
 
         <div class="mt-10 space-y-4">
@@ -157,9 +157,9 @@
       >
         <div>
           <h2 class="text-[32px] font-semibold leading-[1.45] text-[#000213]">
-            立即开启精准消息群发
+            立即开启实时翻译
             <br />
-            让每一条营销信息，都精准触达目标客户
+            打破语言壁垒，像母语一样流畅沟通
           </h2>
 
           <NuxtLink
@@ -192,18 +192,18 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
 
-const pageTitle = "精准消息群发 - Traneasy 易翻译";
+const pageTitle = "实时翻译 - Traneasy 易翻译";
 const pageDescription =
-  "通过自动化批量发送、智能随机防封、灵活对象筛选和变量插入能力，让企业实现更稳定、更精准的消息群发。";
+  "通过双向自动互译、自动理由回复、多语种覆盖、原文对照和专业术语库能力，让跨语言聊天更自然、更高效。";
 const checkIconSrc = "/images/product/check-icon.svg";
 const closeIconSrc = "/images/product/close-icon.svg";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
   {
-    title: "极速批量发送",
-    imageSrc: "/images/product/message-desc-1.png",
-    imageAlt: "Traneasy 极速批量发送",
+    title: "双向自动互译",
+    imageSrc: "/images/product/translate-desc-1.png",
+    imageAlt: "Traneasy 双向自动互译",
     reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -211,19 +211,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "手动逐条发送效率极低，一天最多处理几百条消息，难以支撑活动推广和客户集中触达。",
+          "手动复制、粘贴、切换翻译工具，容易中断对话节奏，跨语种沟通效率始终提不上来。",
       },
       {
         title: "解决方案",
         description:
-          "支持一键创建批量发送任务，文本、图片、视频和链接内容统一下发，快速覆盖海量客户。",
+          "消息收发两端自动识别语言并即时翻译，在原聊天窗口内完成沟通，让交流更自然连贯。",
       },
     ],
   },
   {
-    title: "智能随机防封",
-    imageSrc: "/images/product/message-desc-2.png",
-    imageAlt: "Traneasy 智能随机防封",
+    title: "自动理由回复",
+    imageSrc: "/images/product/translate-desc-2.png",
+    imageAlt: "Traneasy 自动理由回复",
     reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -231,19 +231,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "群发频率和节奏过于一致，容易触发平台风控，导致限流、失败甚至账号异常。",
+          "面对复杂外语消息时，常常不知道如何快速组织专业回复，导致响应慢、表达也不够稳。",
       },
       {
         title: "解决方案",
         description:
-          "系统自动控制发送节奏与执行顺序，通过随机间隔和分批触达降低批量操作风险。",
+          "结合上下文自动生成可直接发送的译文和回复建议，帮助业务人员更快给出准确反馈。",
       },
     ],
   },
   {
-    title: "多模式选择群发对象",
-    imageSrc: "/images/product/message-desc-3.png",
-    imageAlt: "Traneasy 多模式选择群发对象",
+    title: "多语种全覆盖",
+    imageSrc: "/images/product/translate-desc-3.png",
+    imageAlt: "Traneasy 多语种全覆盖",
     reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -251,19 +251,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "目标客户散落在标签、群组、聊天列表和通讯录中，缺乏统一筛选方式，群发对象难以精准锁定。",
+          "客户来源国家越来越多，使用单一翻译工具很难同时兼顾多语言市场的响应质量。",
       },
       {
         title: "解决方案",
         description:
-          "支持按标签、群组、联系人范围和导入名单灵活选择发送对象，让大规模触达仍然保持精准。",
+          "支持多语种实时识别与翻译，覆盖主流跨境业务沟通场景，让一个团队也能服务全球客户。",
       },
     ],
   },
   {
-    title: "个性化变量插入",
-    imageSrc: "/images/product/message-desc-4.png",
-    imageAlt: "Traneasy 个性化变量插入",
+    title: "原文对照模式",
+    imageSrc: "/images/product/translate-desc-4.png",
+    imageAlt: "Traneasy 原文对照模式",
     reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -271,12 +271,32 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "统一模板内容缺少称呼和业务上下文，客户容易感知为群发广告，回复率与信任感都偏低。",
+          "只看译文容易丢失语气和上下文，出现误判时也很难快速回查原始表达。",
       },
       {
         title: "解决方案",
         description:
-          "在消息中插入姓名、国家、产品等变量字段，同一批任务也能生成更自然的个性化内容。",
+          "原文与译文同步展示，便于核对上下文细节，在提升效率的同时兼顾沟通准确度。",
+      },
+    ],
+  },
+  {
+    title: "专业术语库",
+    imageSrc: "/images/product/translate-desc-5.png",
+    imageAlt: "Traneasy 专业术语库",
+    reverse: false,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "行业术语、产品参数、品牌名称容易被翻译偏差，影响专业度，也增加后续解释成本。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "可沉淀企业专属术语库，让高频业务词汇在不同会话中保持统一表达，提升专业一致性。",
       },
     ],
   },
@@ -284,82 +304,82 @@ const featureSections = [
 
 const comparisonRows = [
   {
-    label: "发送效率",
-    legacy: "人工复制粘贴、逐条确认，发送速度慢，任务越大越容易漏发。",
-    traneasy: "批量创建群发任务，统一执行和管理，大幅提升触达效率。",
+    label: "响应速度",
+    legacy: "复制到第三方翻译工具后再回复，沟通链路长，客户等待时间久。",
+    traneasy: "消息窗口内实时翻译和回复，显著缩短跨语言沟通时间。",
   },
   {
-    label: "风险控制",
-    legacy: "发送节奏固定，容易触发风控，账号稳定性难以保障。",
-    traneasy: "智能随机间隔和分批策略，降低异常操作风险，发送更稳定。",
+    label: "表达准确性",
+    legacy: "上下文容易丢失，行业术语常被误译，沟通细节难以把控。",
+    traneasy: "结合上下文和术语库处理译文，表达更贴近业务语境。",
   },
   {
-    label: "筛选对象",
-    legacy: "客户名单分散在不同位置，只能人工挑选，覆盖不全且效率低。",
-    traneasy: "支持标签、群组、聊天列表等多模式筛选，精准圈定群发对象。",
+    label: "语言覆盖",
+    legacy: "多语言切换繁琐，不同市场沟通质量参差不齐。",
+    traneasy: "支持多语种覆盖，让同一团队更轻松服务全球客户。",
   },
   {
-    label: "个性化能力",
-    legacy: "内容千篇一律，无法结合客户信息做差异化表达。",
-    traneasy: "支持变量插入，让同一批消息根据客户信息自动生成个性化内容。",
+    label: "对照校验",
+    legacy: "翻译后难以回查原文，出现歧义时排错效率低。",
+    traneasy: "支持原文和译文对照查看，方便快速确认关键细节。",
   },
   {
-    label: "结果复盘",
-    legacy: "缺少统一任务视图，发送记录零散，后续跟进与优化困难。",
-    traneasy: "任务执行过程清晰可查，便于团队复盘发送效果并持续优化策略。",
+    label: "业务沉淀",
+    legacy: "优秀表达无法复用，不同成员回复风格和专业术语不统一。",
+    traneasy: "沉淀专业术语和回复习惯，持续提高团队整体沟通质量。",
   },
 ] as const;
 
 const sceneItems = [
   {
-    title: "新品活动推广",
+    title: "客户报价与跟单",
     description:
-      "在新品上架、节日活动和限时促销场景下，快速向大批目标客户同步营销信息，放大活动曝光。",
-    iconSrc: "/images/product/message-icon-1.svg",
+      "在报价、交期确认和售后沟通中实时翻译来往消息，减少误解并缩短跨语言成交周期。",
+    iconSrc: "/images/product/translate-icon-1.svg",
   },
   {
-    title: "沉默客户唤醒",
+    title: "多语言社媒接待",
     description:
-      "针对长期未回复或未下单客户统一发起激活触达，结合优惠与个性化文案提升再次互动概率。",
-    iconSrc: "/images/product/message-icon-2.svg",
+      "面对来自 WhatsApp、Facebook、Instagram 等渠道的不同语言客户，也能稳定高效地即时回复。",
+    iconSrc: "/images/product/translate-icon-2.svg",
   },
   {
-    title: "多语言市场拓展",
+    title: "跨品牌团队协作",
     description:
-      "面向不同国家和区域客户执行批量消息触达，配合变量与多语言内容快速打开新市场。",
-    iconSrc: "/images/product/message-icon-3.svg",
+      "将原文、译文和专业术语统一到同一套工作流里，帮助团队在全球市场中保持一致表达。",
+    iconSrc: "/images/product/translate-icon-3.svg",
   },
 ] as const;
 
 const faqs = [
   {
-    question: "群发会被封号吗？",
+    question: "翻译准确度能达到多少？",
     answer:
-      "合理设置发送节奏并结合平台规范使用时，风险是可控的。Traneasy 提供随机间隔与分批触达机制，帮助企业在大规模发送时保持更稳健的执行策略。",
+      "基于成熟的翻译引擎，并结合上下文和术语规则进行优化，在常见跨境业务场景下可以满足高频沟通需求。对于关键表达，还可以通过原文对照进一步确认。",
   },
   {
-    question: "支持发送图片和视频吗？",
+    question: "机器会泄露聊天内容吗？",
     answer:
-      "支持。除了文本消息，还可以根据业务场景发送图片、视频、链接等内容，让营销信息更完整、更有表现力。",
+      "系统围绕翻译和业务沟通效率设计，遵循企业数据使用规范，不会将聊天内容用于无关用途。实际权限与数据范围仍以企业配置和平台规则为准。",
   },
   {
-    question: "可以定时发送吗？",
+    question: "支持哪些语言？",
     answer:
-      "可以。您可以结合业务安排设置群发计划，在目标客户更活跃的时间段执行任务，提升消息到达后的互动效果。",
+      "支持主流国际市场常用语种，并可覆盖多数跨境客户沟通场景。对于多区域业务团队，也可以根据实际需求配置高频使用语言。",
   },
   {
     question: "其他问题",
     answer:
-      "如果您还想了解更细的发送策略、变量配置、对象筛选规则或多账号协作方式，可以继续联系团队获取更完整的落地方案。",
+      "如果你还想了解更多关于翻译延迟、术语库配置、原文对照模式或不同平台适配方式，可以继续联系团队获取更完整的使用方案。",
   },
 ] as const;
 
 const ctaPoints = [
-  "支持 WhatsApp、Facebook、Line 等主流社媒场景批量触达",
-  "图文、视频、链接等内容统一编排，营销表达更完整",
-  "支持智能随机发送节奏，降低高频批量操作带来的风险",
-  "群发对象可按标签、群组、名单灵活筛选，触达更精准",
-  "群发消息支持变量插入，规模化发送依旧保留个性化体验",
+  "核心消息窗口内即时翻译，无需频繁切换工具和页面",
+  "支持双向自动互译，收发消息都能保持自然对话节奏",
+  "支持原文与译文同步对照，降低跨语言沟通误判风险",
+  "术语库与回复建议协同工作，提升专业表达的一致性",
+  "覆盖多语种客户沟通场景，让团队跨市场拓展更高效",
 ] as const;
 
 const openFaqIndex = ref<number | null>(0);

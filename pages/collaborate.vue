@@ -10,25 +10,24 @@
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
         >
-          精准消息群发
+          跨境团队协作管理
         </h1>
         <p
           class="mx-auto mt-4 max-w-5xl text-[24px] font-semibold leading-[1.5] text-[#000213] sm:text-[36px]"
         >
-          用自动化工具实现千人千面的批量触达
+          从单打独斗到军团作战，打造高执行力的跨境铁军
         </p>
         <p
           class="mx-auto mt-6 max-w-5xl text-[14px] leading-7 text-[#5F6472] sm:text-[16px]"
         >
-          为您提供企业级的精准消息群发解决方案。支持图文、视频、链接等多种格式，结合自动化发送与变量插入能力，
-          让每一次批量触达依旧保持个性化表达，稳定覆盖海量目标客户。
+          为企业打造了完善的团队协作架构，通过主子账号体系，实现权限分离与数据共享，让您的团队管理变得井井有条。
         </p>
       </div>
 
       <div class="mx-auto mt-14 max-w-6xl">
         <img
-          src="/images/product/message-image.png"
-          alt="Traneasy 精准消息群发"
+          src="/images/product/collaborate-image.png"
+          alt="Traneasy 跨境团队协作管理界面"
           width="2048"
           height="1074"
           class="h-auto w-full"
@@ -57,9 +56,9 @@
         <h2
           class="max-w-5xl text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
         >
-          传统方式 vs 精准消息群发
+          传统方式 vs 团队协作
           <br />
-          告别低效手动群发与高风险操作，用自动化触达让每一条营销信息都更快、更准、更自然。
+          打破信息孤岛，实现团队无缝配合，让多人管理同一账号如同操作单机般流畅。
         </h2>
 
         <div
@@ -70,7 +69,7 @@
           >
             <div>对比维度</div>
             <div>传统方式</div>
-            <div>Traneasy 精准消息群发</div>
+            <div>Traneasy 团队协作</div>
           </div>
 
           <div
@@ -102,7 +101,7 @@
 
     <ProductSceneSection
       eyebrow="应用场景"
-      title="低成本获取高流量"
+      title="企业级的高效运营"
       button-label="立即下载"
       :button-to="downloadLink"
       :items="sceneItems"
@@ -116,7 +115,7 @@
           常见问题
         </h2>
         <p class="mt-3 text-[18px] leading-8 text-[#3A4050]">
-          高效触达全球客户，让每一条营销信息都精准落地。
+          多角色协同无界，让跨境团队管理像单机一样高效！
         </p>
 
         <div class="mt-10 space-y-4">
@@ -157,9 +156,9 @@
       >
         <div>
           <h2 class="text-[32px] font-semibold leading-[1.45] text-[#000213]">
-            立即开启精准消息群发
+            立即开启团队协作
             <br />
-            让每一条营销信息，都精准触达目标客户
+            打破沟通孤岛，实现跨境团队高效协同
           </h2>
 
           <NuxtLink
@@ -192,18 +191,18 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
 
-const pageTitle = "精准消息群发 - Traneasy 易翻译";
+const pageTitle = "跨境团队协作管理 - Traneasy 易翻译";
 const pageDescription =
-  "通过自动化批量发送、智能随机防封、灵活对象筛选和变量插入能力，让企业实现更稳定、更精准的消息群发。";
+  "通过主子账号体系、独立权限控制、共享快捷回复与客户资产沉淀能力，让跨境团队实现更稳定、更高效的协同管理。";
 const checkIconSrc = "/images/product/check-icon.svg";
 const closeIconSrc = "/images/product/close-icon.svg";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
   {
-    title: "极速批量发送",
-    imageSrc: "/images/product/message-desc-1.png",
-    imageAlt: "Traneasy 极速批量发送",
+    title: "主子账号体系",
+    imageSrc: "/images/product/collaborate-desc-1.png",
+    imageAlt: "Traneasy 主子账号体系",
     reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -211,19 +210,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "手动逐条发送效率极低，一天最多处理几百条消息，难以支撑活动推广和客户集中触达。",
+          "业务团队共用单一账号时，权限混杂、操作难追踪，主管也很难统一管理成员与资源。",
       },
       {
         title: "解决方案",
         description:
-          "支持一键创建批量发送任务，文本、图片、视频和链接内容统一下发，快速覆盖海量客户。",
+          "建立清晰的主子账号结构，主管可统一创建和管理成员账号，在保证协同效率的同时保持组织架构清晰可控。",
       },
     ],
   },
   {
-    title: "智能随机防封",
-    imageSrc: "/images/product/message-desc-2.png",
-    imageAlt: "Traneasy 智能随机防封",
+    title: "主账户管理子账户权限",
+    imageSrc: "/images/product/collaborate-desc-2.png",
+    imageAlt: "Traneasy 主账户管理子账户权限",
     reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -231,19 +230,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "群发频率和节奏过于一致，容易触发平台风控，导致限流、失败甚至账号异常。",
+          "成员职能不同，却只能看到同样的数据和能力，既不安全，也容易导致误操作或流程越权。",
       },
       {
         title: "解决方案",
         description:
-          "系统自动控制发送节奏与执行顺序，通过随机间隔和分批触达降低批量操作风险。",
+          "主账户可按岗位灵活配置子账户权限，精细控制可见范围与可执行动作，让协作更高效，也更符合管理要求。",
       },
     ],
   },
   {
-    title: "多模式选择群发对象",
-    imageSrc: "/images/product/message-desc-3.png",
-    imageAlt: "Traneasy 多模式选择群发对象",
+    title: "共享快捷回复",
+    imageSrc: "/images/product/collaborate-desc-3.png",
+    imageAlt: "Traneasy 共享快捷回复",
     reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -251,19 +250,19 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "目标客户散落在标签、群组、聊天列表和通讯录中，缺乏统一筛选方式，群发对象难以精准锁定。",
+          "团队成员各自维护回复模板，口径不统一、更新不同步，客户体验和转化效率都容易受到影响。",
       },
       {
         title: "解决方案",
         description:
-          "支持按标签、群组、联系人范围和导入名单灵活选择发送对象，让大规模触达仍然保持精准。",
+          "将高频话术、产品答复和售后模板统一沉淀为共享快捷回复，所有成员可按权限调用，确保对外表达稳定一致。",
       },
     ],
   },
   {
-    title: "个性化变量插入",
-    imageSrc: "/images/product/message-desc-4.png",
-    imageAlt: "Traneasy 个性化变量插入",
+    title: "客户资产沉淀",
+    imageSrc: "/images/product/collaborate-desc-4.png",
+    imageAlt: "Traneasy 客户资产沉淀",
     reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
@@ -271,12 +270,12 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "统一模板内容缺少称呼和业务上下文，客户容易感知为群发广告，回复率与信任感都偏低。",
+          "客户资料、跟进记录和历史消息分散在个人账号里，一旦成员变动，企业很难完整接管客户关系。",
       },
       {
         title: "解决方案",
         description:
-          "在消息中插入姓名、国家、产品等变量字段，同一批任务也能生成更自然的个性化内容。",
+          "将客户信息、会话记录和协作痕迹统一沉淀到团队体系中，让客户真正成为企业资产，而不是个人资源。",
       },
     ],
   },
@@ -284,82 +283,78 @@ const featureSections = [
 
 const comparisonRows = [
   {
-    label: "发送效率",
-    legacy: "人工复制粘贴、逐条确认，发送速度慢，任务越大越容易漏发。",
-    traneasy: "批量创建群发任务，统一执行和管理，大幅提升触达效率。",
+    label: "协作效率",
+    legacy: "多人管理同一业务时频繁切号和同步信息，沟通成本高，执行链路也长。",
+    traneasy: "多人可在统一体系下协作处理业务，信息同步更直接，配合更顺畅。",
   },
   {
-    label: "风险控制",
-    legacy: "发送节奏固定，容易触发风控，账号稳定性难以保障。",
-    traneasy: "智能随机间隔和分批策略，降低异常操作风险，发送更稳定。",
+    label: "账户权限",
+    legacy: "不同成员权限边界模糊，容易看到不该看的内容，也容易误操作。",
+    traneasy: "支持精细化权限分配，按角色控制可见范围与操作能力，管理更安全。",
   },
   {
-    label: "筛选对象",
-    legacy: "客户名单分散在不同位置，只能人工挑选，覆盖不全且效率低。",
-    traneasy: "支持标签、群组、聊天列表等多模式筛选，精准圈定群发对象。",
+    label: "回复标准",
+    legacy: "团队成员各自回复客户，话术与质量不一致，难以形成统一服务体验。",
+    traneasy: "共享快捷回复统一团队口径，让高频咨询回复更专业、更稳定。",
   },
   {
-    label: "个性化能力",
-    legacy: "内容千篇一律，无法结合客户信息做差异化表达。",
-    traneasy: "支持变量插入，让同一批消息根据客户信息自动生成个性化内容。",
+    label: "客户资产",
+    legacy: "客户资料和跟进记录散落在个人账号中，成员离职或交接时容易流失。",
+    traneasy: "客户信息统一沉淀在企业体系内，交接更平滑，资产沉淀更完整。",
   },
   {
-    label: "结果复盘",
-    legacy: "缺少统一任务视图，发送记录零散，后续跟进与优化困难。",
-    traneasy: "任务执行过程清晰可查，便于团队复盘发送效果并持续优化策略。",
+    label: "团队管理",
+    legacy:
+      "主管难以了解成员配置、权限状态和协作流程，管理动作需要大量人工介入。",
+    traneasy: "主账号统一配置成员、权限和协作规则，让团队管理更高效、更可视。",
   },
 ] as const;
 
 const sceneItems = [
   {
-    title: "新品活动推广",
+    title: "矩阵工单线上手",
     description:
-      "在新品上架、节日活动和限时促销场景下，快速向大批目标客户同步营销信息，放大活动曝光。",
-    iconSrc: "/images/product/message-icon-1.svg",
+      "新员工加入团队后，主管可快速分配账号与权限，配合共享模板和统一流程，帮助成员更快进入稳定作业状态。",
+    iconSrc: "/images/product/collaborate-icon-1.svg",
   },
   {
-    title: "沉默客户唤醒",
+    title: "管理层实时管号",
     description:
-      "针对长期未回复或未下单客户统一发起激活触达，结合优惠与个性化文案提升再次互动概率。",
-    iconSrc: "/images/product/message-icon-2.svg",
+      "主管能够统一查看团队账号和权限配置，并根据岗位职责调整协作范围，让管理动作不再依赖私下同步。",
+    iconSrc: "/images/product/collaborate-icon-2.svg",
   },
   {
-    title: "多语言市场拓展",
+    title: "数据资产化",
     description:
-      "面向不同国家和区域客户执行批量消息触达，配合变量与多语言内容快速打开新市场。",
-    iconSrc: "/images/product/message-icon-3.svg",
+      "客户资料、历史消息和协作记录持续沉淀为企业资产，便于后续复盘、交接与长期运营管理。",
+    iconSrc: "/images/product/collaborate-icon-3.svg",
   },
 ] as const;
 
 const faqs = [
   {
-    question: "群发会被封号吗？",
+    question: "子账号可以登录多个设备吗？",
     answer:
-      "合理设置发送节奏并结合平台规范使用时，风险是可控的。Traneasy 提供随机间隔与分批触达机制，帮助企业在大规模发送时保持更稳健的执行策略。",
+      "支持。您可以为一个子账号分配独立成员使用，或根据团队分工共享权限。在满足企业管理规范的前提下，具体登录策略可结合实际业务流程配置。",
   },
   {
-    question: "支持发送图片和视频吗？",
+    question: "员工能看到其他同事的客户内容吗？",
     answer:
-      "支持。除了文本消息，还可以根据业务场景发送图片、视频、链接等内容，让营销信息更完整、更有表现力。",
-  },
-  {
-    question: "可以定时发送吗？",
-    answer:
-      "可以。您可以结合业务安排设置群发计划，在目标客户更活跃的时间段执行任务，提升消息到达后的互动效果。",
+      "默认取决于权限配置。主账户可以按岗位分配客户可见范围、功能权限和数据查看范围，让成员只接触自己需要处理的客户与信息。",
   },
   {
     question: "其他问题",
     answer:
-      "如果您还想了解更细的发送策略、变量配置、对象筛选规则或多账号协作方式，可以继续联系团队获取更完整的落地方案。",
+      "如果你还想了解更细的角色配置、共享模板策略、交接流程或客户资产管理方式，可以继续联系团队获取更完整的团队协作方案。",
   },
 ] as const;
 
 const ctaPoints = [
-  "支持 WhatsApp、Facebook、Line 等主流社媒场景批量触达",
-  "图文、视频、链接等内容统一编排，营销表达更完整",
-  "支持智能随机发送节奏，降低高频批量操作带来的风险",
-  "群发对象可按标签、群组、名单灵活筛选，触达更精准",
-  "群发消息支持变量插入，规模化发送依旧保留个性化体验",
+  "支持多账号同时协作，也能确保权限和员工账号清晰分离",
+  "高频聊天与业务资产沉淀同步，避免成员更替造成资料流失",
+  "团队协作与话术复用统一，提升跨境团队工作效率",
+  "客户资产真正归属企业，避免员工离职导致客户资源中断",
+  "权限分级管理、主子账号协同工位可视化，保障运营安全",
 ] as const;
 
 const openFaqIndex = ref<number | null>(0);

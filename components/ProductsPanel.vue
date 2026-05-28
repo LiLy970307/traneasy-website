@@ -48,31 +48,31 @@ const productItems = [
     title: '精准消息群发',
     description: '用自动化工具实现千人千面的批量触达',
     iconSrc: '/images/product/dropdown-3.svg',
-    href: '/features'
+    href: '/massMessage'
   },
   {
     title: '实时翻译',
     description: '让沟通像母语一样自然流畅。',
     iconSrc: '/images/product/dropdown-4.svg',
-    href: '/features#realtime'
+    href: '/translate'
   },
   {
     title: '工单系统/分流链接',
     description: '自动化线索管理，让每个商机都有迹可循',
     iconSrc: '/images/product/dropdown-5.svg',
-    href: '/features'
+    href: '/order'
   },
   {
     title: '跨境团队协作管理',
     description: '从单打独斗到平团队作战，打造高执行力的跨境铁军',
     iconSrc: '/images/product/dropdown-6.svg',
-    href: '/features'
+    href: '/collaborate'
   },
   {
     title: '客户关系管理',
     description: '用精细化的 CRM 系统挖掘客户的终身价值',
     iconSrc: '/images/product/dropdown-7.svg',
-    href: '/features'
+    href: '/customer'
   },
 ]
 </script>

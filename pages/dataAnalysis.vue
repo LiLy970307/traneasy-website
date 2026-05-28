@@ -353,20 +353,4 @@ useHead({
     },
   ],
 });
-
-// 用fetch请求调用http://10.146.69.22:8412/api/openai-proxy/admin/applications接口
-// const applications = ref([]);
-
-// onMounted(async () => {
-//   const response = await fetch(
-//     "http://localhost:8080/admin/applications",
-//     {
-//       method: "GET",
-//     },
-//   );
-//   console.log(response);
-
-//   const data = await response.json();
-//   applications.value = data.data;
-// });
 </script>
