@@ -1,30 +1,46 @@
 <template>
   <section class="bg-[#070B1A] px-6 py-20 text-white sm:px-8 lg:px-12">
-    <div class="mx-auto max-w-6xl">
-      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
+      <div
+        class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+      >
         <div>
-          <p class="text-[14px] font-medium tracking-[0.18em] text-white/55">
+          <p v-if="eyebrow" class="text-[28px] text-[#F2F2FF]">
             {{ eyebrow }}
           </p>
-          <h2 class="mt-3 text-[30px] font-semibold leading-[1.45] text-white sm:text-[34px]">
+          <h2 class="mt-3 text-[28px] text-[#F2F2FF]">
             {{ title }}
           </h2>
+          <p
+            v-if="description"
+            class="mt-3 max-w-3xl text-[15px] leading-8 text-white/65 sm:text-[16px]"
+          >
+            {{ description }}
+          </p>
         </div>
 
-        <NuxtLink
-          v-if="buttonLabel && buttonTo"
-          :to="buttonTo"
+        <a
+          v-if="buttonLabel && buttonTo && buttonTo.startsWith('#')"
+          :href="buttonTo"
           class="inline-flex items-center justify-center rounded-[10px] border border-white/70 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white hover:text-[#070B1A]"
+        >
+          {{ buttonLabel }}
+        </a>
+
+        <NuxtLink
+          v-else-if="buttonLabel && buttonTo"
+          :to="buttonTo"
+          class="inline-flex items-center justify-center rounded-[10px] bg-white px-5 py-2.5 text-sm font-medium text-[#000213] transition-all duration-300 hover:bg-[#000213] hover:text-white hover:-translate-y-0.5"
         >
           {{ buttonLabel }}
         </NuxtLink>
       </div>
 
-      <div class="mt-14 grid gap-8 md:grid-cols-3 md:gap-10">
+      <div :class="gridClass">
         <div
           v-for="scene in items"
           :key="scene.title"
-          class="relative border-l border-white/12 pl-6 first:border-l-0 first:pl-0 md:first:pl-0"
+          class="relative pl-6 first:pl-0 md:first:pl-0"
         >
           <img :src="scene.iconSrc" :alt="scene.title" class="h-10 w-10" />
           <h3 class="mt-6 text-[18px] font-semibold text-white">
@@ -41,16 +57,30 @@
 
 <script setup lang="ts">
 interface ProductSceneItem {
-  title: string
-  description: string
-  iconSrc: string
+  title: string;
+  description: string;
+  iconSrc: string;
 }
 
-defineProps<{
-  eyebrow: string
-  title: string
-  buttonLabel?: string
-  buttonTo?: string
-  items: readonly ProductSceneItem[]
-}>()
+const props = defineProps<{
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  buttonLabel?: string;
+  buttonTo?: string;
+  items: readonly ProductSceneItem[];
+  columns?: 2 | 3 | 4;
+}>();
+
+const gridClass = computed(() => {
+  if (props.columns === 4) {
+    return "mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-4 xl:gap-10";
+  }
+
+  if (props.columns === 2) {
+    return "mt-14 grid gap-8 md:grid-cols-2 md:gap-10";
+  }
+
+  return "mt-14 grid gap-8 md:grid-cols-3 md:gap-10";
+});
 </script>

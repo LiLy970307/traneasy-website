@@ -6,7 +6,7 @@
     />
 
     <section
-      class="mx-auto max-w-7xl relative px-6 pb-20 pt-20 sm:px-8 lg:px-12 lg:pb-24 lg:pt-24"
+      class="mx-auto max-w-container relative px-6 pb-20 pt-20 sm:px-8 lg:px-12 lg:pb-24 lg:pt-24"
     >
       <div class="mx-auto max-w-4xl text-center">
         <h1
@@ -56,13 +56,21 @@
             {{ item.description }}
           </p>
 
-          <button
-            type="button"
+          <NuxtLink
+            v-if="item.href"
+            :to="localePath(item.href)"
             class="mt-6 inline-flex items-center gap-1 text-[14px] font-semibold text-[#205DFF]"
           >
             查看详情
             <span aria-hidden="true">↗</span>
-          </button>
+          </NuxtLink>
+
+          <span
+            v-else
+            class="mt-6 inline-flex items-center gap-1 text-[14px] font-semibold text-[#AEB7C8]"
+          >
+            即将开放
+          </span>
         </article>
       </div>
     </section>
@@ -70,44 +78,51 @@
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath();
 const { t } = useI18n();
 
 const integrations = [
   {
     name: "WhatsApp",
-    iconSrc: "/images/integration/Whatsapp.png",
+    iconSrc: "/images/integration/whatsapp/logo.svg",
     tags: ["全球主流通讯", "拉美", "印度"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/whatsapp",
   },
   {
     name: "Telegram",
-    iconSrc: "/images/integration/Telegram.png",
+    iconSrc: "/images/integration/telegram/logo.svg",
     tags: ["全球主流通讯", "欧洲", "东欧"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/telegram",
   },
   {
     name: "Facebook",
-    iconSrc: "/images/integration/Facebook.png",
+    iconSrc: "/images/integration/facebook/logo.svg",
     tags: ["全球", "东南亚"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/facebook",
   },
   {
-    name: "Instgram",
-    iconSrc: "/images/integration/Insgram.png",
+    name: "Instagram",
+    iconSrc: "/images/integration/instagram/logo.svg",
     tags: ["欧美", "全球年轻群体活跃"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/instagram",
   },
   {
     name: "Line",
-    iconSrc: "/images/integration/Line.png",
+    iconSrc: "/images/integration/line/logo.svg",
     tags: ["日韩", "泰国", "中国台湾"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/line",
   },
   {
     name: "TikTok",
-    iconSrc: "/images/integration/TikTok.png",
+    iconSrc: "/images/integration/tiktok/logo.svg",
     tags: ["全球", "欧美", "Z世代"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    href: "/integration/tiktok",
   },
 ] as const;
 

@@ -2,7 +2,7 @@
   <section class="py-16 sm:py-20 lg:py-24">
     <div
       :class="[
-        'mx-auto grid max-w-7xl items-center gap-12 px-6 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:gap-16 lg:px-12',
+        'mx-auto grid max-w-container items-center gap-12 px-6 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:gap-16 lg:px-12',
         containerClass,
       ]"
     >
@@ -22,7 +22,7 @@
             <div>
               <div class="flex items-center gap-3">
                 <img
-                  :src="checkIconSrc"
+                  :src="point.iconSrc || checkIconSrc"
                   alt="checkmark"
                   class="w-[16px] flex-shrink-0"
                 />
@@ -40,15 +40,32 @@
           </li>
         </ul>
 
-        <NuxtLink
-          v-if="buttonLabel && buttonTo"
-          :to="buttonTo"
+        <a
+          v-if="buttonLabel && buttonTo && buttonTo.startsWith('#')"
+          :href="buttonTo"
           :class="[
-            'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
+            buttonVariant === 'text'
+              ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
+              : 'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
             buttonClass,
           ]"
         >
           {{ buttonLabel }}
+          <span v-if="buttonVariant === 'text'" aria-hidden="true">→</span>
+        </a>
+
+        <NuxtLink
+          v-else-if="buttonLabel && buttonTo"
+          :to="buttonTo"
+          :class="[
+            buttonVariant === 'text'
+              ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
+              : 'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
+            buttonClass,
+          ]"
+        >
+          {{ buttonLabel }}
+          <span v-if="buttonVariant === 'text'" aria-hidden="true">→</span>
         </NuxtLink>
       </div>
 
@@ -81,11 +98,13 @@
 interface FeaturePoint {
   title: string;
   description: string;
+  iconSrc?: string;
 }
 
-const checkIconSrc = '/images/product/check-icon.svg'
+const checkIconSrc = "/images/product/check-icon.svg";
 
-defineProps<{
+withDefaults(
+  defineProps<{
   title: string;
   description?: string;
   points: readonly FeaturePoint[];
@@ -98,5 +117,10 @@ defineProps<{
   buttonClass?: string;
   imageCardClass?: string;
   imageClass?: string;
-}>();
+  buttonVariant?: "outline" | "text";
+  }>(),
+  {
+    buttonVariant: "outline",
+  },
+);
 </script>

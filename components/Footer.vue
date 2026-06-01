@@ -1,8 +1,8 @@
 <template>
   <footer class="bg-[#040716] text-white pt-20">
-    <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+    <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
       <div
-        class="grid gap-y-14 gap-x-10 lg:grid-cols-[1.15fr_0.95fr_0.95fr_1.1fr]"
+        class="grid gap-y-14 gap-x-10 grid-cols-2 lg:grid-cols-[1.15fr_0.95fr_0.95fr_1.1fr]"
       >
         <div>
           <h4 class="mb-8 text-[15px] font-semibold text-white">产品</h4>

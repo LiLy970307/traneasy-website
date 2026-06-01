@@ -1,0 +1,16 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon_whyx">
+<path id="Vector" d="M19.9985 4.1665L14.9043 14.5645L3.33301 16.2424L11.7154 24.4374L9.71167 35.8332L19.9985 30.3492L30.2875 35.8332L28.2985 24.4374L36.6663 16.2424L25.1591 14.5645L19.9985 4.1665Z" fill="url(#paint0_linear_408_4000)"/>
+<path id="Vector_2" d="M19.9985 4.1665L14.9043 14.5645L3.33301 16.2424L11.7154 24.4374L9.71167 35.8332L19.9985 30.3492L30.2875 35.8332L28.2985 24.4374L36.6663 16.2424L25.1591 14.5645L19.9985 4.1665Z" stroke="url(#paint1_linear_408_4000)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_408_4000" x1="19.9997" y1="4.1665" x2="19.9997" y2="35.8332" gradientUnits="userSpaceOnUse">
+<stop stop-color="white" stop-opacity="0"/>
+<stop offset="1" stop-color="white" stop-opacity="0.12"/>
+</linearGradient>
+<linearGradient id="paint1_linear_408_4000" x1="20" y1="4" x2="20" y2="63.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F2F2FF" stop-opacity="0.4"/>
+<stop offset="1" stop-color="#F2F2FF"/>
+</linearGradient>
+</defs>
+</svg>

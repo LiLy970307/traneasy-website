@@ -73,7 +73,7 @@
           </NuxtLink>
 
           <NuxtLink
-            :to="localePath('/integrations')"
+            :to="localePath('/integration')"
             class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
           >
             {{ $t("nav.integrations") }}

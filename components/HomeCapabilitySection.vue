@@ -3,7 +3,7 @@
     class="relative overflow-hidden bg-[#000213] py-20 text-white sm:py-24"
   >
     <div
-      class="relative mx-auto grid max-w-7xl items-center gap-14 px-6 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12"
+      class="relative mx-auto grid max-w-container items-center gap-14 px-6 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12"
     >
       <div class="max-w-xl">
         <ul class="mt-10 divide-y divide-white/10 border-y border-white/10">
