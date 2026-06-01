@@ -39,7 +39,6 @@
       >
         <img
           :src="imageSrc"
-          alt="Traneasy 在电脑端的多账号沟通工作台"
           width="1368"
           height="1024"
           loading="lazy"

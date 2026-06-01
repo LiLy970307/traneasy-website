@@ -1,192 +1,24 @@
 <template>
-  <main class="relative overflow-hidden bg-white pt-[68px]">
-    <div
-      class="absolute inset-x-0 top-0 h-[720px] bg-[url('/images/product/bg-top.png')] bg-cover bg-center"
-      aria-hidden="true"
-    />
-
-    <section class="relative px-6 pb-8 pt-20 sm:px-8 lg:px-12 lg:pt-24">
-      <div class="mx-auto max-w-6xl text-center">
-        <h1
-          class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
-        >
-          精准消息群发
-        </h1>
-        <p
-          class="mx-auto mt-4 max-w-5xl text-[24px] font-semibold leading-[1.5] text-[#000213] sm:text-[36px]"
-        >
-          用自动化工具实现千人千面的批量触达
-        </p>
-        <p
-          class="mx-auto mt-6 max-w-5xl text-[14px] leading-7 text-[#5F6472] sm:text-[16px]"
-        >
-          为您提供企业级的精准消息群发解决方案。支持图文、视频、链接等多种格式，结合自动化发送与变量插入能力，
-          让每一次批量触达依旧保持个性化表达，稳定覆盖海量目标客户。
-        </p>
-      </div>
-
-      <div class="mx-auto mt-14 max-w-6xl">
-        <img
-          src="/images/product/message-image.png"
-          alt="Traneasy 精准消息群发"
-          width="2048"
-          height="1074"
-          class="h-auto w-full"
-        />
-      </div>
-    </section>
-
-    <section class="relative pb-8 pt-6">
-      <MarketingFeatureSplit
-        v-for="section in featureSections"
-        :key="section.title"
-        :title="section.title"
-        :points="section.points"
-        :image-src="section.imageSrc"
-        :image-alt="section.imageAlt"
-        :reverse="section.reverse"
-        :button-label="section.buttonLabel"
-        :button-to="section.buttonTo"
-        image-card-class="border-none bg-transparent p-0 shadow-none"
-        image-class="rounded-[20px]"
-      />
-    </section>
-
-    <section class="px-6 py-20 sm:px-8 lg:px-12">
-      <div class="mx-auto max-w-6xl">
-        <h2
-          class="max-w-5xl text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
-        >
-          传统方式 vs 精准消息群发
-          <br />
-          告别低效手动群发与高风险操作，用自动化触达让每一条营销信息都更快、更准、更自然。
-        </h2>
-
-        <div
-          class="mt-10 overflow-hidden rounded-[20px] border border-[#E9ECF3] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
-        >
-          <div
-            class="grid grid-cols-[1.15fr_1fr_1fr] bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
-          >
-            <div>对比维度</div>
-            <div>传统方式</div>
-            <div>Traneasy 精准消息群发</div>
-          </div>
-
-          <div
-            v-for="row in comparisonRows"
-            :key="row.label"
-            class="grid grid-cols-[1.15fr_1fr_1fr] items-start gap-4 border-t border-[#EEF1F6] px-6 py-5 text-[14px] leading-7 sm:px-8 sm:text-[15px]"
-          >
-            <div class="font-medium text-[#000213]">{{ row.label }}</div>
-            <div class="flex items-start gap-3 text-[#7B8191]">
-              <img
-                :src="closeIconSrc"
-                alt="传统方式"
-                class="mt-1 h-4 w-4 flex-shrink-0"
-              />
-              <span>{{ row.legacy }}</span>
-            </div>
-            <div class="flex items-start gap-3 text-[#000213]">
-              <img
-                :src="checkIconSrc"
-                alt="Traneasy"
-                class="mt-1 h-4 w-4 flex-shrink-0"
-              />
-              <span>{{ row.traneasy }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <ProductSceneSection
-      eyebrow="应用场景"
-      title="低成本获取高流量"
-      button-label="立即下载"
-      :button-to="downloadLink"
-      :items="sceneItems"
-    />
-
-    <section class="px-6 py-20 sm:px-8 lg:px-12">
-      <div class="mx-auto max-w-5xl">
-        <h2
-          class="text-[28px] font-semibold leading-[1.5] text-[#000213] sm:text-[32px]"
-        >
-          常见问题
-        </h2>
-        <p class="mt-3 text-[18px] leading-8 text-[#3A4050]">
-          高效触达全球客户，让每一条营销信息都精准落地。
-        </p>
-
-        <div class="mt-10 space-y-4">
-          <div
-            v-for="(faq, index) in faqs"
-            :key="faq.question"
-            class="overflow-hidden rounded-[16px] border border-[#E7EBF2] bg-[#F9FBFE]"
-          >
-            <button
-              type="button"
-              class="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
-              @click="openFaqIndex = openFaqIndex === index ? null : index"
-            >
-              <span
-                class="text-[16px] font-semibold leading-7 text-[#000213] sm:text-[17px]"
-              >
-                {{ faq.question }}
-              </span>
-              <span class="text-[24px] leading-none text-[#7B8191]">
-                {{ openFaqIndex === index ? "−" : "+" }}
-              </span>
-            </button>
-
-            <div
-              v-if="openFaqIndex === index"
-              class="border-t border-[#E7EBF2] px-6 py-5 text-[15px] leading-8 text-[#5F6472]"
-            >
-              {{ faq.answer }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="px-6 pb-20 pt-4 sm:px-8 lg:px-12">
-      <div
-        class="mx-auto grid max-w-6xl gap-12 rounded-[32px] bg-white px-8 py-12 shadow-[0_24px_80px_rgba(15,23,42,0.08)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:px-12 lg:py-14"
-      >
-        <div>
-          <h2 class="text-[32px] font-semibold leading-[1.45] text-[#000213]">
-            立即开启精准消息群发
-            <br />
-            让每一条营销信息，都精准触达目标客户
-          </h2>
-
-          <NuxtLink
-            :to="downloadLink"
-            class="mt-8 inline-flex items-center justify-center rounded-[10px] bg-[#205DFF] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1749cc]"
-          >
-            软件下载
-          </NuxtLink>
-        </div>
-
-        <ul class="space-y-5">
-          <li
-            v-for="item in ctaPoints"
-            :key="item"
-            class="flex items-start gap-3 text-[15px] leading-7 text-[#3A4050]"
-          >
-            <img
-              :src="checkIconSrc"
-              alt="check"
-              class="mt-1 h-4 w-4 flex-shrink-0"
-            />
-            <span>{{ item }}</span>
-          </li>
-        </ul>
-      </div>
-    </section>
-  </main>
+  <ProductDetail
+    title="精准消息群发"
+    subtitle="用自动化工具实现千人千面的批量触达"
+    description="为您提供企业级的精准消息群发解决方案。支持图文、视频、链接等多种格式，结合自动化发送与变量插入能力， 让每一次批量触达依旧保持个性化表达，稳定覆盖海量目标客户。"
+    hero-image-src="/images/product/message-image.png"
+    hero-image-alt="Traneasy 精准消息群发"
+    :feature-sections="featureSections"
+    comparison-title="传统方式 vs 精准消息群发"
+    comparison-description="告别低效手动群发与高风险操作，用自动化触达让每一条营销信息都更快、更准、更自然。"
+    comparison-product-name="Traneasy 精准消息群发"
+    :comparison-rows="comparisonRows"
+    scene-title="低成本获取高流量"
+    :scene-items="sceneItems"
+    faq-description="高效触达全球客户，让每一条营销信息都精准落地。"
+    :faqs="faqs"
+    cta-title="立即开启精准消息群发"
+    cta-description="让每一条营销信息，都精准触达目标客户"
+    :cta-points="ctaPoints"
+    :download-link="downloadLink"
+  />
 </template>
 
 <script setup lang="ts">
@@ -195,8 +27,6 @@ const localePath = useLocalePath();
 const pageTitle = "精准消息群发 - Traneasy 易翻译";
 const pageDescription =
   "通过自动化批量发送、智能随机防封、灵活对象筛选和变量插入能力，让企业实现更稳定、更精准的消息群发。";
-const checkIconSrc = "/images/product/check-icon.svg";
-const closeIconSrc = "/images/product/close-icon.svg";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
@@ -361,8 +191,6 @@ const ctaPoints = [
   "群发对象可按标签、群组、名单灵活筛选，触达更精准",
   "群发消息支持变量插入，规模化发送依旧保留个性化体验",
 ] as const;
-
-const openFaqIndex = ref<number | null>(0);
 
 useHead({
   title: pageTitle,

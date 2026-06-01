@@ -82,53 +82,12 @@
       />
     </section>
 
-    <section class="px-6 py-20 sm:px-8 lg:px-12">
-      <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
-        <h2
-          class="max-w-5xl text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
-        >
-          {{ comparisonTitle }}
-          <br />
-          {{ comparisonDescription }}
-        </h2>
-
-        <div
-          class="mt-10 overflow-hidden rounded-[20px] border border-[#E9ECF3] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
-        >
-          <div
-            class="grid grid-cols-[1.15fr_1fr_1fr] bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
-          >
-            <div>对比维度</div>
-            <div>传统方式</div>
-            <div>{{ comparisonProductName }}</div>
-          </div>
-
-          <div
-            v-for="row in comparisonRows"
-            :key="row.label"
-            class="grid grid-cols-[1.15fr_1fr_1fr] items-start gap-4 border-t border-[#EEF1F6] px-6 py-5 text-[14px] leading-7 sm:px-8 sm:text-[15px]"
-          >
-            <div class="font-medium text-[#000213]">{{ row.label }}</div>
-            <div class="flex items-start gap-3 text-[#7B8191]">
-              <img
-                :src="closeIconSrc"
-                alt="传统方式"
-                class="mt-1 h-4 w-4 flex-shrink-0"
-              />
-              <span>{{ row.legacy }}</span>
-            </div>
-            <div class="flex items-start gap-3 text-[#000213]">
-              <img
-                :src="checkIconSrc"
-                alt="Traneasy"
-                class="mt-1 h-4 w-4 flex-shrink-0"
-              />
-              <span>{{ row.traneasy }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ComparisonTableSection
+      :title="comparisonTitle"
+      :description="comparisonDescription"
+      :product-name="comparisonProductName"
+      :rows="comparisonRows"
+    />
 
     <ProductSceneSection
       :title="sceneTitle"
@@ -188,48 +147,10 @@
       </div>
     </section>
 
-    <section class="px-6 pb-20 sm:px-8 lg:px-12">
-      <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
-        <h2
-          class="text-[28px] font-semibold leading-[1.5] text-[#000213] sm:text-[32px]"
-        >
-          常见问题
-        </h2>
-        <p class="mt-3 text-[18px] leading-8 text-[#3A4050]">
-          {{ faqDescription }}
-        </p>
-
-        <div class="mt-10 space-y-4">
-          <div
-            v-for="(faq, index) in faqs"
-            :key="faq.question"
-            class="overflow-hidden rounded-[16px] border border-[#E7EBF2] bg-[#F9FBFE]"
-          >
-            <button
-              type="button"
-              class="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
-              @click="openFaqIndex = openFaqIndex === index ? null : index"
-            >
-              <span
-                class="text-[16px] font-semibold leading-7 text-[#000213] sm:text-[17px]"
-              >
-                {{ faq.question }}
-              </span>
-              <span class="text-[24px] leading-none text-[#7B8191]">
-                {{ openFaqIndex === index ? "−" : "+" }}
-              </span>
-            </button>
-
-            <div
-              v-if="openFaqIndex === index"
-              class="border-t border-[#E7EBF2] px-6 py-5 text-[15px] leading-8 text-[#5F6472]"
-            >
-              {{ faq.answer }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <FaqSection
+      :description="faqDescription"
+      :faqs="faqs"
+    />
   </main>
 </template>
 
@@ -303,10 +224,6 @@ const props = withDefaults(
     downloadAnchor: "#download",
   },
 );
-
-const checkIconSrc = "/images/product/check-icon.svg";
-const closeIconSrc = "/images/product/close-icon.svg";
-const openFaqIndex = ref<number | null>(0);
 
 useHead({
   title: props.seoTitle,

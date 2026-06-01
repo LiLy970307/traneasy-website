@@ -79,14 +79,9 @@
           <img
             :src="imageSrc"
             :alt="imageAlt"
-            width="960"
-            height="720"
             loading="lazy"
             decoding="async"
-            :class="[
-              'h-auto w-full rounded-[1.5rem] object-cover',
-              imageClass,
-            ]"
+            :class="['h-auto w-full rounded-[1.5rem] object-cover', imageClass]"
           />
         </div>
       </div>
@@ -105,19 +100,19 @@ const checkIconSrc = "/images/product/check-icon.svg";
 
 withDefaults(
   defineProps<{
-  title: string;
-  description?: string;
-  points: readonly FeaturePoint[];
-  imageSrc: string;
-  imageAlt: string;
-  reverse?: boolean;
-  buttonLabel?: string;
-  buttonTo?: string;
-  containerClass?: string;
-  buttonClass?: string;
-  imageCardClass?: string;
-  imageClass?: string;
-  buttonVariant?: "outline" | "text";
+    title: string;
+    description?: string;
+    points: readonly FeaturePoint[];
+    imageSrc: string;
+    imageAlt: string;
+    reverse?: boolean;
+    buttonLabel?: string;
+    buttonTo?: string;
+    containerClass?: string;
+    buttonClass?: string;
+    imageCardClass?: string;
+    imageClass?: string;
+    buttonVariant?: "outline" | "text";
   }>(),
   {
     buttonVariant: "outline",
