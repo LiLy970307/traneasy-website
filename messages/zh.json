@@ -61,7 +61,8 @@
     "featuredTitle": "立即体验 TranEasy",
     "featuredDesc": "完全免费，支持 100+ 语言，专为 Windows PC 打造",
     "home": "首页",
-    "login": "登录"
+    "login": "登录",
+    "statement": "官方声明"
   },
   "hero": {
     "badge": "AI 驱动实时翻译",

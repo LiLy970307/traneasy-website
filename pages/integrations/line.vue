@@ -26,8 +26,6 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const closeIconSrc = "/images/product/close-icon.svg";
-const checkIconSrc = "/images/product/check-icon.svg";
 const downloadAnchor = `${localePath("/")}#download`;
 
 const highlights = [
@@ -67,13 +65,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "面对日语、韩语等东亚市场用户时，客服往往需要反复切换翻译工具，沟通礼貌表达和语气也难把握。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "Traneasy 针对 LINE 常见语种场景做了优化，消息在原会话中即可互译，让客服响应更自然、表达更贴近本地习惯。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -90,13 +86,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "LINE 官方号消息量大时，人工切换后台、查看粉丝状态、回复与记录都容易遗漏，客服效率受限。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "统一承接官方号对话与客户状态管理，在同一工作台完成翻译、回复和备注，让服务流程更连贯。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -113,13 +107,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "企业在日本、韩国与东南亚市场通常需要维护多个 LINE 账号，工作流分散，客服协作和数据沉淀成本都很高。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "多账号统一收发、标签筛选和会话管理，让团队在同一后台高效协作，更适合持续经营区域市场。",
-        iconSrc: checkIconSrc,
       },
     ],
   },

@@ -13,7 +13,7 @@
         class="mt-10 overflow-hidden rounded-[20px] border border-[#E9ECF3] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
       >
         <div
-          class="grid grid-cols-[1.15fr_1fr_1fr] bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
+          class="grid grid-cols-[0.6fr_1.2fr_1.2fr] gap-4 bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
         >
           <div>{{ dimensionLabel }}</div>
           <div>{{ legacyLabel }}</div>
@@ -23,23 +23,15 @@
         <div
           v-for="row in rows"
           :key="row.label"
-          class="grid grid-cols-[1.15fr_1fr_1fr] items-start gap-4 border-t border-[#EEF1F6] px-6 py-5 text-[14px] leading-7 sm:px-8 sm:text-[15px]"
+          class="grid grid-cols-[0.6fr_1.2fr_1.2fr] items-center gap-4 border-t border-[#EEF1F6] px-6 py-5 text-[14px] leading-7 sm:px-8 sm:text-[15px]"
         >
           <div class="font-medium text-[#000213]">{{ row.label }}</div>
           <div class="flex items-start gap-3 text-[#7B8191]">
-            <img
-              :src="closeIconSrc"
-              :alt="legacyLabel"
-              class="mt-1 h-4 w-4 flex-shrink-0"
-            />
+            <img :src="closeIconSrc" class="w-6" />
             <span>{{ row.legacy }}</span>
           </div>
-          <div class="flex items-start gap-3 text-[#000213]">
-            <img
-              :src="checkIconSrc"
-              alt="Traneasy"
-              class="mt-1 h-4 w-4 flex-shrink-0"
-            />
+          <div class="flex items-center gap-3 text-[#000213]">
+            <img :src="checkIconSrc" alt="Traneasy" class="w-4" />
             <span>{{ row.traneasy }}</span>
           </div>
         </div>
@@ -71,5 +63,5 @@ withDefaults(
 );
 
 const checkIconSrc = "/images/product/check-icon.svg";
-const closeIconSrc = "/images/product/close-icon.svg";
+const closeIconSrc = "/images/product/close-grey-icon.svg";
 </script>

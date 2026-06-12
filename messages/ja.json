@@ -61,7 +61,8 @@
     "featuredTitle": "今すぐ試す",
     "featuredDesc": "完全無料。100以上の言語。Windows PC専用。",
     "home": "ホーム",
-    "login": "ログイン"
+    "login": "ログイン",
+    "statement": "公式声明"
   },
   "hero": {
     "badge": "AI搭載リアルタイム翻訳",
@@ -80,7 +81,7 @@
     "pageSubtitle": "TranEasyリアルタイム翻訳ソフトの全機能を発見——音声翻訳、同時通訳、フローティング翻訳、テキスト選択翻訳で、グローバルコミュニケーションを強化",
     "compareTitle": "リアルタイム翻訳ソフトウェアの比較",
     "compareSubtitle": "Google Translateの代替品、DeepLからのアップグレード",
-    "subtitle": "Windows PC専用のリアルタイム翻訳ツール、すべてのクロスランゲージコミュニケーションシナリオをカバー",
+    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "googleTranslate": "Google Translate",
     "deepL": "DeepL",
     "techSpecsTitle": "技術仕様",
@@ -89,7 +90,6 @@
     "apiSupport": "APIサポート",
     "languages": "言語サポート",
     "title": "Six Core Capabilities",
-    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "items": {
       "realtime": {
         "title": "リアルタイム音声翻訳",

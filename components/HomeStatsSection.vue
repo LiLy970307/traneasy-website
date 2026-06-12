@@ -10,7 +10,7 @@
           >
             外贸沟通与管理，用 Traneasy 就够了
           </h2>
-          <p class="mt-4 text-lg leading-8 text-slate-600">
+          <p class="mt-4 text-lg text-[#000000] leading-8">
             AI 实时翻译 + 多账号智能管理 效率与业绩双增长的出海必备工具
           </p>
         </div>
@@ -65,8 +65,7 @@ const stats: readonly StatItem[] = [
   {
     label: "客户转化率",
     value: "+ 45%",
-    description:
-      "精准识别来源并自动打标，秒级响应销售线索，显著提升成交机会。",
+    description: "精准识别来源并自动打标，秒级响应销售线索，显著提升成交机会。",
   },
   {
     label: "管理成本",
@@ -77,8 +76,7 @@ const stats: readonly StatItem[] = [
   {
     label: "沟通响应时长",
     value: "- 90%",
-    description:
-      "毫秒级实时互译，告别复制粘贴，极速回复防止客户流失。",
+    description: "毫秒级实时互译，告别复制粘贴，极速回复防止客户流失。",
   },
 ];
 </script>

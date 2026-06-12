@@ -61,7 +61,8 @@
     "featuredTitle": "Dùng Thử TranEasy Ngay",
     "featuredDesc": "Hoàn toàn miễn phí. 100+ ngôn ngữ. Cho Windows PC.",
     "home": "Trang Chủ",
-    "login": "Đăng nhập"
+    "login": "Đăng nhập",
+    "statement": "Tuyên Bố"
   },
   "hero": {
     "badge": "Dịch thuật thời gian thực bởi AI",
@@ -80,7 +81,7 @@
     "pageSubtitle": "Khám phá mọi tính năng của TranEasy — dịch giọng nói, phiên dịch đồng thời, dịch nổi, dịch chọn văn bản, nâng tầm giao tiếp toàn cầu",
     "compareTitle": "So sánh phần mềm dịch thời gian thực",
     "compareSubtitle": "Là sự thay thế Google Translate và nâng cấp từ DeepL, xem tại sao TranEasy là ứng dụng dịch thuật tốt nhất",
-    "subtitle": "Công cụ dịch thuật thời gian thực cho Windows PC, bao phủ mọi tình huống giao tiếp đa ngôn ngữ",
+    "subtitle": "Được xây dựng cho Windows PC, bao gồm mọi tình huống đa ngôn ngữ bạn gặp phải",
     "googleTranslate": "Google Translate",
     "deepL": "DeepL",
     "techSpecsTitle": "Thông Số Kỹ Thuật",
@@ -89,7 +90,6 @@
     "apiSupport": "Hỗ Trợ API",
     "languages": "Hỗ Trợ Ngôn Ngữ",
     "title": "Sáu Khả Năng Cốt Lõi",
-    "subtitle": "Được xây dựng cho Windows PC, bao gồm mọi tình huống đa ngôn ngữ bạn gặp phải",
     "items": {
       "realtime": {
         "title": "Dịch Thuật Giọng Nói Thời Gian Thực",

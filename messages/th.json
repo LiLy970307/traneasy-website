@@ -61,7 +61,8 @@
     "featuredTitle": "ลอง TranEasy วันนี้",
     "featuredDesc": "ฟรีทั้งหมด 100+ ภาษา สำหรับ Windows PC",
     "home": "หน้าหลัก",
-    "login": "เข้าสู่ระบบ"
+    "login": "เข้าสู่ระบบ",
+    "statement": "คำประกาศ"
   },
   "hero": {
     "badge": "แปลภาษาแบบเรียลไทม์ด้วย AI",
@@ -80,7 +81,7 @@
     "pageSubtitle": "ค้นพบความสามารถทั้งหมดของ TranEasy — การแปลเสียง, ล่ามพร้อมกัน, การแปลลอยตัว, การแปลเลือกข้อความ เสริมพลังการสื่อสารทั่วโลก",
     "compareTitle": "เปรียบเทียบซอฟต์แวร์แปลภาษาแบบเรียลไทม์",
     "compareSubtitle": "ในฐานะทางเลือกแทน Google Translate และการอัปเกรดจาก DeepL ดูว่าทำไม TranEasy จึงเป็นแอปแปลภาษาที่ดีที่สุด",
-    "subtitle": "เครื่องมือแปลแบบเรียลไทม์สำหรับ Windows PC ครอบคลุมทุกสถานการณ์สื่อสารข้ามภาษา",
+    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "googleTranslate": "Google Translate",
     "deepL": "DeepL",
     "techSpecsTitle": "ข้อมูลจำเพาะทางเทคนิค",
@@ -89,7 +90,6 @@
     "apiSupport": "การสนับสนุน API",
     "languages": "การสนับสนุนภาษา",
     "title": "Six Core Capabilities",
-    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "items": {
       "realtime": {
         "title": "การแปลเสียงแบบเรียลไทม์",

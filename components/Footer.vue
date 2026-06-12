@@ -8,13 +8,18 @@
           <h4 class="mb-8 text-[15px] font-semibold text-white">产品</h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
             <li v-for="item in productItems" :key="item.label">
-              <component
-                :is="item.href ? 'NuxtLink' : 'span'"
-                v-bind="item.href ? { to: localePath(item.href) } : {}"
-                class="transition-colors hover:text-white"
-              >
-                {{ item.label }}
-              </component>
+              <template v-if="item.href">
+                <NuxtLink
+                  :to="localePath(item.href)"
+                  class="transition-colors hover:text-white"
+                  >{{ item.label }}</NuxtLink
+                >
+              </template>
+              <template v-else>
+                <span class="transition-colors hover:text-white">{{
+                  item.label
+                }}</span>
+              </template>
             </li>
           </ul>
         </div>
@@ -23,13 +28,18 @@
           <h4 class="mb-8 text-[15px] font-semibold text-white">集成</h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
             <li v-for="item in integrationItems" :key="item.label">
-              <component
-                :is="item.href ? 'NuxtLink' : 'span'"
-                v-bind="item.href ? { to: localePath(item.href) } : {}"
-                class="transition-colors hover:text-white"
-              >
-                {{ item.label }}
-              </component>
+              <template v-if="item.href">
+                <NuxtLink
+                  :to="localePath(item.href)"
+                  class="transition-colors hover:text-white"
+                  >{{ item.label }}</NuxtLink
+                >
+              </template>
+              <template v-else>
+                <span class="transition-colors hover:text-white">{{
+                  item.label
+                }}</span>
+              </template>
             </li>
           </ul>
         </div>
@@ -38,13 +48,18 @@
           <h4 class="mb-8 text-[15px] font-semibold text-white">关于</h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
             <li v-for="item in aboutItems" :key="item.label">
-              <component
-                :is="item.href ? 'NuxtLink' : 'span'"
-                v-bind="item.href ? { to: localePath(item.href) } : {}"
-                class="transition-colors hover:text-white"
-              >
-                {{ item.label }}
-              </component>
+              <template v-if="item.href">
+                <NuxtLink
+                  :to="localePath(item.href)"
+                  class="transition-colors hover:text-white"
+                  >{{ item.label }}</NuxtLink
+                >
+              </template>
+              <template v-else>
+                <span class="transition-colors hover:text-white">{{
+                  item.label
+                }}</span>
+              </template>
             </li>
           </ul>
         </div>
@@ -87,7 +102,7 @@
       </div>
     </div>
 
-    <div class="mt-16 border-t border-[#0d53c7]">
+    <div class="mt-16 bg-[#000424]">
       <div
         class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-[15px] text-white/80 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12"
       >
@@ -116,22 +131,22 @@ interface FooterLinkItem {
 }
 
 const productItems: readonly FooterLinkItem[] = [
-  { label: "全渠道沟通" },
-  { label: "数据分析" },
-  { label: "精准消息群发" },
-  { label: "实时翻译" },
-  { label: "工单系统/分流链接" },
-  { label: "团队协作" },
-  { label: "客户关系管理" },
+  { label: "全渠道沟通", href: "/product/communication" },
+  { label: "数据分析", href: "/product/data-analysis" },
+  { label: "精准消息群发", href: "/product/mass-message" },
+  { label: "实时翻译", href: "/product/translation" },
+  { label: "工单系统/分流链接", href: "/product/work-order" },
+  { label: "团队协作", href: "/product/collaboration" },
+  { label: "客户关系管理", href: "/product/crm" },
 ];
 
 const integrationItems: readonly FooterLinkItem[] = [
-  { label: "WhatsApp" },
-  { label: "Telegram" },
-  { label: "Facebook" },
-  { label: "instgram" },
-  { label: "Line" },
-  { label: "tiktok" },
+  { label: "WhatsApp", href: "/integration/whatsapp" },
+  { label: "Telegram", href: "/integration/telegram" },
+  { label: "Facebook", href: "/integration/facebook" },
+  { label: "Instagram", href: "/integration/instagram" },
+  { label: "Line", href: "/integration/line" },
+  { label: "TikTok", href: "/integration/tiktok" },
 ];
 
 const aboutItems: readonly FooterLinkItem[] = [

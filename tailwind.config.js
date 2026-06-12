@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        w1130: "1130px",
+      },
       fontFamily: {
         inter: ["Inter", "system-ui", "-apple-system", "sans-serif"],
       },

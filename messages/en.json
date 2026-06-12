@@ -61,7 +61,8 @@
     "featuredTitle": "Try TranEasy Today",
     "featuredDesc": "Completely free. 100+ languages. Built for Windows PC.",
     "home": "Home",
-    "login": "Login"
+    "login": "Login",
+    "statement": "Legal Notice"
   },
   "hero": {
     "badge": "AI-Powered Real-time Translation",

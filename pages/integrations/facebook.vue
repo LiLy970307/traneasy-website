@@ -3,8 +3,8 @@
     seo-title="Facebook 集成 - Traneasy 易翻译"
     seo-description="一键翻译 Facebook 帖子互动、私信与粉丝页消息，帮助企业高效管理海外社媒私域与广告线索。"
     logo-src="/images/integration/facebook/logo.svg"
-    title="一键翻译 Facebook，粉丝互动与广告转化的利器"
-    description="自动翻译私信与评论，实时抓取广告线索，打通 Facebook 主页、Messenger 与广告消息沉淀。"
+    title="一键翻译Facebook，粉丝互动与广告转化的利器"
+    description="自动翻译私信与评论，实时抓取广告线索，打通 Facebook 主页、Messenger 与广告评论区。"
     hero-image-src="/images/integration/facebook/detail-bg.png"
     hero-image-alt="Traneasy Facebook 集成界面"
     :highlights="highlights"
@@ -26,29 +26,27 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const closeIconSrc = "/images/product/close-icon.svg";
-const checkIconSrc = "/images/product/check-icon.svg";
 const downloadAnchor = `${localePath("/")}#download`;
 
 const highlights = [
   {
-    title: "帖子评论互动",
-    description: "统一翻译评论与私信，互动更顺畅",
+    title: "私信/评论互译",
+    description: "自动翻译帖子评论和私信，互动更及时",
     iconSrc: "/images/integration/facebook/feature-1.svg",
   },
   {
-    title: "广告线索对话",
-    description: "快速承接广告咨询，线索跟进更及时",
+    title: "广告线索抓取",
+    description: "自动识别广告咨询，防止商机遗漏",
     iconSrc: "/images/integration/facebook/feature-2.svg",
   },
   {
-    title: "粉丝页运营管理",
-    description: "主页、Messenger 与评论统一管理",
+    title: "粉丝画像管理",
+    description: "记录粉丝地区与兴趣，精准营销",
     iconSrc: "/images/integration/facebook/feature-3.svg",
   },
   {
-    title: "多主页协同",
-    description: "一套工作台管理多个页面与账号",
+    title: "多主页切换",
+    description: "统一管理多个公共主页，效率翻倍",
     iconSrc: "/images/integration/facebook/feature-4.svg",
   },
 ] as const;
@@ -66,19 +64,17 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "客户来自不同国家，帖子评论和私信语种混杂，运营团队需要频繁切换翻译工具，回复效率和体验都被拉低。",
-        iconSrc: closeIconSrc,
+          "发了一条爆款贴，几千条评论全是外语，回复不过来，热度白白流失。",
       },
       {
         title: "解决方案",
         description:
-          "评论、帖子互动和 Messenger 私信都能在原会话中实时翻译，减少跳转，让海外粉丝互动更顺畅。",
-        iconSrc: checkIconSrc,
+          "Traneasy 自动翻译帖子下的所有评论和私信。您可以用中文回复，系统自动转为对应语言发送，快速响应粉丝，维持贴文热度。",
       },
     ],
   },
   {
-    title: "个人专属话术定制",
+    title: "个人专属语种定制",
     imageSrc: "/images/integration/facebook/desc-2.png",
     imageAlt: "Facebook 个人专属话术定制",
     reverse: true,
@@ -89,14 +85,12 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "多人协作回复 Facebook 咨询时，常因话术不统一、回复风格不稳定而影响品牌形象和转化效率。",
-        iconSrc: closeIconSrc,
+          "在与五湖四海的用户聊天时，使用不同的语言交流，来回复制粘贴，切换语种，搞得头晕目眩。",
       },
       {
         title: "解决方案",
         description:
-          "按账号或成员配置专属翻译与回复偏好，保持对外沟通口径一致，让客服协作更可控。",
-        iconSrc: checkIconSrc,
+          "软件内配置但账户多人员语言差异化设置，支持为不同的联系人分别定制专属语种。",
       },
     ],
   },
@@ -112,14 +106,12 @@ const featureSections = [
       {
         title: "常见问题",
         description:
-          "粉丝页留言、广告咨询和私信入口分散，客户来源与阶段难归档，后续跟进缺乏统一视图。",
-        iconSrc: closeIconSrc,
+          "随着客户量的增加，很难一一对应客户来自哪里，工作性质，是不是潜在客户。",
       },
       {
         title: "解决方案",
         description:
-          "结合标签、备注与线索管理能力，对客户进行分层和沉淀，让投放、客服与销售都能基于同一数据协作。",
-        iconSrc: checkIconSrc,
+          "内置精细化客户分成备注系统，可一一对应每个客户，点击粉丝备注即可查看客户信息。",
       },
     ],
   },
@@ -127,51 +119,51 @@ const featureSections = [
 
 const comparisonRows = [
   {
-    label: "多账号处理",
-    legacy: "主页、私信、主页评论来回切换。",
-    traneasy: "页面消息、评论与私信统一沟通。",
+    label: "多语言评论",
+    legacy: "无法理解，无法回复",
+    traneasy: "实时翻译，流畅互动",
   },
   {
-    label: "多语管理",
-    legacy: "外部翻译配合回复，跟进滞后。",
-    traneasy: "一键翻译并回复，效率更高。",
+    label: "多账号管理",
+    legacy: "多浏览器切换，繁琐",
+    traneasy: "一个软件管理所有",
   },
   {
-    label: "互动承接",
-    legacy: "流量来源零散，线索识别困难。",
-    traneasy: "整合评论、帖文与私信咨询。",
+    label: "私信回复",
+    legacy: "需登录网页版，语言切换麻烦",
+    traneasy: "聚合收件箱，自动翻译",
   },
   {
     label: "客户管理",
-    legacy: "依赖主页后台 Page 管理。",
-    traneasy: "统一 CRM 管理。",
+    legacy: "分散在不同 Page",
+    traneasy: "统一 CRM 管理",
   },
   {
-    label: "沟通品质",
-    legacy: "多平台记录割裂。",
-    traneasy: "自动沉淀广告数据。",
+    label: "渠道追踪",
+    legacy: "手动记录",
+    traneasy: "自动识别广告来源",
   },
 ] as const;
 
 const sceneItems = [
   {
     title: "Facebook 投手",
-    description: "管理广告消息、粉丝评论与私信，提升线索承接速度和转化效率。",
+    description: "管理广告询盘，提升转化",
     iconSrc: "/images/integration/facebook/scene-1.svg",
   },
   {
-    title: "社群管理",
-    description: "高效回复粉丝留言与咨询，把互动沉淀为可持续运营资产。",
+    title: "社群管理员",
+    description: "高效回复帖子下的多语言评论",
     iconSrc: "/images/integration/facebook/scene-2.svg",
   },
   {
     title: "外贸客服",
-    description: "进一步承接 Page 邮件及私聊，用更短响应时间服务海外客户。",
+    description: "统一处理所有 Page 的私信",
     iconSrc: "/images/integration/facebook/scene-3.svg",
   },
   {
     title: "团队管理者",
-    description: "分派对话、追踪员工互动数据，让跨团队协作更清晰。",
+    description: "分配任务，统计员工绩效",
     iconSrc: "/images/integration/facebook/scene-4.svg",
   },
 ] as const;
@@ -179,19 +171,19 @@ const sceneItems = [
 const setupSteps = [
   {
     title: "第一步",
-    description: "下载并安装 Traneasy 客户端。",
+    description: "下载并安装Traneasy（PC 版）",
   },
   {
     title: "第二步",
-    description: "按照引导绑定 Facebook 账号。",
+    description: "授权登录Facebook账号",
   },
   {
     title: "第三步",
-    description: "开启广告和评论接入权限。",
+    description: "开启“实时翻译”",
   },
   {
     title: "第四步",
-    description: "在 Traneasy 内开启翻译与协作功能。",
+    description: "在Traneasy内回复所有私信与评论",
   },
 ] as const;
 
@@ -199,16 +191,15 @@ const faqs = [
   {
     question: "需要申请什么权限？",
     answer:
-      "使用 Page Manager 或 Messenger 管理权限即可。以实际业务场景和页面设置为准。",
+      "需要 Page Manager 或 Messenger 管理员权限，以确保能读取和发送消息。",
   },
   {
-    question: "群消息能即时回复速度吗？",
-    answer:
-      "支持。结合消息聚合与翻译能力，回复速度与体验都会比手工切换 Facebook 后台更一致。",
+    question: "翻译会影响回复速度吗？",
+    answer: "不会。翻译在毫秒级完成，回复速度与原生 Facebook 后台一致。",
   },
   {
-    question: "支持回复帖子和广告吗？",
-    answer: "支持。帖子互动、评论回复、私聊、广告线索消息都支持统一处理。",
+    question: "支持回复图片和表情吗？",
+    answer: "支持。您可以发送图片、表情包、链接，系统仅翻译文本部分。",
   },
   {
     question: "其他问题",

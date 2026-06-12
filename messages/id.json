@@ -61,7 +61,8 @@
     "featuredTitle": "Coba TranEasy Sekarang",
     "featuredDesc": "Gratis sepenuhnya. 100+ bahasa. Untuk Windows PC.",
     "home": "Beranda",
-    "login": "Masuk"
+    "login": "Masuk",
+    "statement": "Pernyataan"
   },
   "hero": {
     "badge": "Terjemahan Real-time Bertenaga AI",
@@ -80,7 +81,7 @@
     "pageSubtitle": "Jelajahi semua fitur TranEasy — terjemahan suara, interpretasi simultan, terjemahan melayang, terjemahan pilihan teks untuk komunikasi global",
     "compareTitle": "Perbandingan Perangkat Lunak Terjemahan Real-time",
     "compareSubtitle": "Sebagai alternatif Google Translate dan upgrade dari DeepL, lihat mengapa TranEasy adalah aplikasi terjemahan terbaik",
-    "subtitle": "Alat terjemahan real-time untuk Windows PC, mencakup setiap skenario komunikasi lintas bahasa",
+    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "googleTranslate": "Google Translate",
     "deepL": "DeepL",
     "techSpecsTitle": "Spesifikasi Teknis",
@@ -89,7 +90,6 @@
     "apiSupport": "Dukungan API",
     "languages": "Dukungan Bahasa",
     "title": "Six Core Capabilities",
-    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "items": {
       "realtime": {
         "title": "Terjemahan Suara Real-time",

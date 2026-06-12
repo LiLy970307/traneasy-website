@@ -62,18 +62,17 @@ const imageSrc = "/images/index/computer.png";
 const benefits: readonly CapabilityBenefit[] = [
   {
     title: "AI 无感翻译",
-    description:
-      "输入中文秒发外文，200+ 语种实时互译，把跨语言协作变成自然动作。",
+    description: "输入中文秒发外文，200+语种实时互译",
     iconSrc: "/images/index/black-1.png",
   },
   {
     title: "指纹级防关联",
-    description: "模拟环境 + 全球 IP，帮助账号批量矩阵管理更稳定，降低风险。",
+    description: "独立环境 + 全球IP，彻底告别封号风险",
     iconSrc: "/images/index/black-3.png",
   },
   {
     title: "高效获客",
-    description: "一键群发 + 细颗粒分析，让客户来源清晰可回收。",
+    description: "一键群发 + 短链追踪，让客户来源清晰可见",
     iconSrc: "/images/index/black-2.png",
   },
 ];

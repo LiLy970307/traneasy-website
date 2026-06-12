@@ -10,12 +10,12 @@
     >
       <div class="mx-auto max-w-4xl text-center">
         <h1
-          class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
+          class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[56px]"
         >
           全渠道社交矩阵，一键触达全球客户
         </h1>
         <p
-          class="mx-auto mt-5 max-w-3xl text-[18px] leading-8 text-[#3A4050] sm:text-[20px]"
+          class="mx-auto mt-5 max-w-4xl font-normal text-[18px] leading-8 text-[#000213] sm:text-[26px]"
         >
           无缝对接全球主流社交平台，统一管理客户沟通，高效转化每一笔商机
         </p>
@@ -52,7 +52,9 @@
             </div>
           </div>
 
-          <p class="mt-6 min-h-[72px] text-[14px] leading-7 text-[#5F6472]">
+          <p
+            class="mt-6 min-h-[72px] font-normal text-[16px] leading-7 text-[#000213]"
+          >
             {{ item.description }}
           </p>
 
@@ -87,42 +89,42 @@ const integrations = [
     iconSrc: "/images/integration/whatsapp/logo.svg",
     tags: ["全球主流通讯", "拉美", "印度"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/whatsapp",
+    href: "/integrations/whatsapp",
   },
   {
     name: "Telegram",
     iconSrc: "/images/integration/telegram/logo.svg",
     tags: ["全球主流通讯", "欧洲", "东欧"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/telegram",
+    href: "/integrations/telegram",
   },
   {
     name: "Facebook",
     iconSrc: "/images/integration/facebook/logo.svg",
     tags: ["全球", "东南亚"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/facebook",
+    href: "/integrations/facebook",
   },
   {
     name: "Instagram",
     iconSrc: "/images/integration/instagram/logo.svg",
     tags: ["欧美", "全球年轻群体活跃"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/instagram",
+    href: "/integrations/instagram",
   },
   {
     name: "Line",
     iconSrc: "/images/integration/line/logo.svg",
     tags: ["日韩", "泰国", "中国台湾"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/line",
+    href: "/integrations/line",
   },
   {
     name: "TikTok",
     iconSrc: "/images/integration/tiktok/logo.svg",
     tags: ["全球", "欧美", "Z世代"],
     description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
-    href: "/integration/tiktok",
+    href: "/integrations/tiktok",
   },
 ] as const;
 

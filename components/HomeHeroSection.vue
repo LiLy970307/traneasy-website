@@ -17,23 +17,19 @@
     />
 
     <div
-      class="relative mx-auto max-w-7xl px-6 pt-20 sm:px-8 lg:px-12 lg:pt-28"
+      class="relative mx-auto max-w-7xl px-6 pt-8"
     >
-      <div class="mx-auto max-w-4xl text-center">
+      <div class="mx-auto text-center">
         <h1
           class="mt-8 text-center text-[44px] font-semibold not-italic leading-[1.2] text-[#000213]"
         >
           Traneasy 易翻译
         </h1>
 
-        <h1
-          class="mt-8 text-balance text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl lg:leading-[1.08]"
-        >
+        <h1 class="mt-8  text-[#000213] font-bold text-[56px] sm:text-5xl  lg:text-6xl lg:leading-[1.08]">
           跨越语言鸿沟，链接全球商机
         </h1>
-        <p
-          class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl"
-        >
+        <p class="mx-auto mt-10 text-[26px] leading-8 text-[#000213] sm:text-xl">
           专为出海企业打造，集实时翻译、客户管理、矩阵运营于一体，一站式解决出海沟通与获客难题。
         </p>
 
@@ -60,7 +56,7 @@
       </div>
     </div>
 
-    <div class="relative w-full px-6 pb-16 sm:px-8 lg:px-12 lg:pb-20">
+    <div class="relative w-full px-6 pb-6 sm:px-8 lg:px-12 lg:pb-8">
       <ul
         class="mt-10 flex w-full flex-wrap justify-center gap-3 lg:justify-between"
         aria-label="支持的平台"

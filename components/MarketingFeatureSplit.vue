@@ -15,16 +15,20 @@
 
         <ul class="mt-8 space-y-6">
           <li
-            v-for="point in points"
+            v-for="(point, index) in points"
             :key="point.title"
             class="flex items-start gap-4"
           >
             <div>
               <div class="flex items-center gap-3">
                 <img
-                  :src="point.iconSrc || checkIconSrc"
+                  :src="
+                    points.length === 2 && index === 0
+                      ? closeIcon
+                      : checkIconSrc
+                  "
                   alt="checkmark"
-                  class="w-[16px] flex-shrink-0"
+                  class="w-5 flex-shrink-0"
                 />
                 <h3 class="text-lg font-semibold text-slate-900">
                   {{ point.title }}
@@ -40,33 +44,35 @@
           </li>
         </ul>
 
-        <a
-          v-if="buttonLabel && buttonTo && buttonTo.startsWith('#')"
-          :href="buttonTo"
-          :class="[
-            buttonVariant === 'text'
-              ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
-              : 'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
-            buttonClass,
-          ]"
-        >
-          {{ buttonLabel }}
-          <span v-if="buttonVariant === 'text'" aria-hidden="true">→</span>
-        </a>
+        <div class="pl-6">
+          <a
+            v-if="buttonLabel && buttonTo && buttonTo.startsWith('#')"
+            :href="buttonTo"
+            :class="[
+              buttonVariant === 'text'
+                ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
+                : 'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
+              buttonClass,
+            ]"
+          >
+            {{ buttonLabel }}
+            <span aria-hidden="true">→</span>
+          </a>
 
-        <NuxtLink
-          v-else-if="buttonLabel && buttonTo"
-          :to="buttonTo"
-          :class="[
-            buttonVariant === 'text'
-              ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
-              : 'mt-8 inline-flex items-center justify-center rounded-[10px] border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
-            buttonClass,
-          ]"
-        >
-          {{ buttonLabel }}
-          <span v-if="buttonVariant === 'text'" aria-hidden="true">→</span>
-        </NuxtLink>
+          <NuxtLink
+            v-else-if="buttonLabel && buttonTo"
+            :to="buttonTo"
+            :class="[
+              buttonVariant === 'text'
+                ? 'mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#205DFF] transition-colors hover:text-[#1749cc]'
+                : 'mt-8 inline-flex items-center justify-center rounded border border-[#000213] px-5 py-2.5 text-sm font-medium leading-none text-[#000213] transition-colors hover:bg-[#000213] hover:text-white',
+              buttonClass,
+            ]"
+          >
+            {{ buttonLabel }}
+            <span aria-hidden="true" class="ml-1">→</span>
+          </NuxtLink>
+        </div>
       </div>
 
       <div :class="reverse ? 'lg:order-1' : ''">
@@ -96,6 +102,7 @@ interface FeaturePoint {
   iconSrc?: string;
 }
 
+const closeIcon = "/images/product/close-icon.svg";
 const checkIconSrc = "/images/product/check-icon.svg";
 
 withDefaults(

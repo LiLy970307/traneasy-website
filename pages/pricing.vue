@@ -1,28 +1,25 @@
 <template>
   <main class="relative overflow-hidden bg-white pt-[68px]">
     <div
-      class="absolute inset-x-0 top-0 h-[420px] bg-cover bg-center bg-no-repeat"
+      class="absolute inset-x-0 top-0 h-[355px] bg-cover bg-center bg-no-repeat"
       style="background-image: url(&quot;/images/pricing/top-bg.png&quot;)"
       aria-hidden="true"
-    />
-    <!-- <div
-      class="absolute inset-x-0 top-0 h-[420px] bg-[linear-gradient(180deg,rgba(246,249,255,0.75)_0%,rgba(255,255,255,0.98)_78%,#ffffff_100%)]"
-      aria-hidden="true"
-    /> -->
-
+    ></div>
     <section
-      class="relative mx-auto max-w-7xl px-6 pb-14 pt-20 sm:px-8 lg:px-12 lg:pt-24"
+      class="relative h-[286px] mx-auto max-w-container flex flex-col justify-between pt-[60px] sm:px-8 lg:px-12"
     >
       <div
         class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between"
       >
-        <div>
-          <h1 class="text-[40px] font-semibold leading-[1.35] text-[#111827]">
+        <div class="w-full">
+          <h1
+            class="text-[32px] w1130:text-[40px] font-semibold leading-[1.35] text-[#000213]"
+          >
             灵活配置，精准匹配——打造适合您的全周期翻译解决方案
           </h1>
           <div class="mt-6 flex items-center justify-between">
             <h2
-              class="text-[28px] font-semibold leading-tight text-[#111827] sm:text-[34px]"
+              class="text-[32px] w1130:text-[40px] font-semibold leading-tight text-[#000213] sm:text-[34px]"
             >
               套餐选择
             </h2>
@@ -37,7 +34,7 @@
         </div>
       </div>
 
-      <div class="mt-10 flex items-center gap-8 border-b border-[#E7ECF4]">
+      <div class="flex items-center gap-8 border-b border-[#E7ECF4]">
         <button
           v-for="tab in pricingTabs"
           :key="tab.target"
@@ -62,7 +59,7 @@
     <section
       id="char-packages"
       ref="charPackagesRef"
-      class="relative mx-auto max-w-7xl px-6 pb-12 sm:px-8 lg:px-12"
+      class="relative mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12"
     >
       <h3 class="text-[14px] font-medium text-[#374151]">字符套餐</h3>
       <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
@@ -231,52 +228,13 @@
         </article>
       </div>
     </section>
-
-    <section class="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-12">
-      <div class="max-w-[1180px]">
-        <h2 class="text-[34px] font-semibold leading-tight text-[#111827]">
-          常见问题
-        </h2>
-        <p class="mt-2 text-[18px] font-medium leading-8 text-[#111827]">
-          有疑问？看这里，让您的每一分投入都清晰透明！
-        </p>
-
-        <div class="mt-8 space-y-4">
-          <article
-            v-for="(item, index) in faqs"
-            :key="item.question"
-            class="overflow-hidden rounded-[4px] border border-[#ECEFF5] bg-white"
-          >
-            <button
-              type="button"
-              class="flex w-full items-center justify-between gap-6 px-6 py-5 text-left"
-              @click="toggleFaq(index)"
-            >
-              <span class="text-[16px] font-semibold leading-7 text-[#111827]">
-                {{ item.question }}
-              </span>
-              <span class="text-[18px] leading-none text-[#A0A6B4]">
-                {{ openFaqIndexes.includes(index) ? "×" : "+" }}
-              </span>
-            </button>
-
-            <div
-              v-if="openFaqIndexes.includes(index)"
-              class="bg-[#F8FAFD] px-6 pb-5 pt-1 text-[14px] leading-7 text-[#6B7280]"
-            >
-              <ul v-if="item.points" class="list-disc space-y-1.5 pl-5">
-                <li v-for="point in item.points" :key="point">
-                  {{ point }}
-                </li>
-              </ul>
-              <p v-else>
-                {{ item.answer }}
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+    <FaqSection
+      title="常见问题"
+      description="有疑问？看这里，让您的每一分投入都清晰透明！"
+      :faqs="faqs"
+      section-class="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-12"
+      container-class="max-w-[1180px]"
+    />
   </main>
 </template>
 
@@ -293,12 +251,6 @@ interface PricingPlan {
   badgeClass?: string;
 }
 
-interface PricingFaq {
-  question: string;
-  answer?: string;
-  points?: readonly string[];
-}
-
 const pageTitle = "套餐价格 - Traneasy 易翻译";
 const pageDescription =
   "查看 TranEasy 易翻译字符套餐与包月套餐，按业务阶段灵活选择更适合团队的翻译与客服协作方案。";
@@ -311,7 +263,6 @@ const pricingTabs = [
 const charPackagesRef = ref<HTMLElement | null>(null);
 const monthlyPackagesRef = ref<HTMLElement | null>(null);
 const activeTab = ref<(typeof pricingTabs)[number]["target"]>("char-packages");
-const openFaqIndexes = ref<number[]>([0, 3]);
 
 const characterPlans: readonly PricingPlan[] = [
   {
@@ -386,30 +337,26 @@ const monthlyPlans: readonly PricingPlan[] = [
   },
 ] as const;
 
-const faqs: readonly PricingFaq[] = [
+const faqs: readonly { question: string; answer: string }[] = [
   {
-    question: "150万字符“具体指什么？如果用完了怎么办？",
-    points: [
-      "150万字符是指您当期套餐内可实际使用的翻译字符总量，对绝大多数中小团队来说，这通常足够使用6-12个月。",
-      "超出配额后，您仍可继续使用，但系统不会继续赠送字符配额，您可以按需购买新的套餐，持续获得业务字符量。",
-    ],
+    question: "150万字符具体指什么？如果用完了怎么办？",
+    answer:
+      "150万字符是指您当期套餐内可实际使用的翻译字符总量，对绝大多数中小团队来说，这通常足够使用6-12个月。如果字符数用完，您的账号不会被冻结，系统会提示您以极低的单价单独购买字符包，或者升级到更高阶的套餐，确保您的业务不中断。",
   },
   {
-    question: "为什么“专业版”和“AI版”价格更高？值得升级吗？",
+    question: "为什么专业版和AI版价格更高？值得升级吗？",
     answer:
       "更高版本提供更强的翻译能力、术语库匹配和智能化辅助，适合对准确率、效率和复杂业务场景有更高要求的团队。",
   },
   {
-    question: "什么是“子账号”？我为什么要选支持子账号的套餐？",
+    question: "什么是子账号？我为什么要选支持子账号的套餐？",
     answer:
       "子账号适合多人协作和权限分配场景，主管可以统一管理成员、数据与客户归属，避免团队协作时账号混用。",
   },
   {
     question: "包月版（不限量）和字符版有什么区别？",
-    points: [
-      "字符版：按量计费，适合日常业务较稳定、波峰波谷分明的团队。",
-      "包月版（不限量）：适合短期内翻译量激增或常态高频使用的团队，因为在人工对话密集的场景下，按月无限量会比按字符包更稳定。",
-    ],
+    answer:
+      "字符版（推荐）：性价比高，适合日常业务沟通，数据永久有效。包月版（不限量）：适合短期内有爆发式营销需求的用户（如：需要在3天内群发10万条开发信）。因为包月版有时间限制（30天），过期作废，请根据您的实际业务节奏选择。",
   },
 ] as const;
 
@@ -428,17 +375,6 @@ const scrollToSection = (target: (typeof pricingTabs)[number]["target"]) => {
 
   const top = element.getBoundingClientRect().top + window.scrollY - 118;
   window.scrollTo({ top, behavior: "smooth" });
-};
-
-const toggleFaq = (index: number) => {
-  if (openFaqIndexes.value.includes(index)) {
-    openFaqIndexes.value = openFaqIndexes.value.filter(
-      (item) => item !== index,
-    );
-    return;
-  }
-
-  openFaqIndexes.value = [...openFaqIndexes.value, index];
 };
 
 onMounted(() => {

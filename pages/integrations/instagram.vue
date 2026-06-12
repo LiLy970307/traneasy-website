@@ -26,8 +26,6 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const closeIconSrc = "/images/product/close-icon.svg";
-const checkIconSrc = "/images/product/check-icon.svg";
 const downloadAnchor = `${localePath("/")}#download`;
 
 const highlights = [
@@ -67,13 +65,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "海外私信和帖子评论语种复杂，品牌客服要在 DM、评论区和翻译工具之间来回切换，回复容易延迟。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "私信与评论内容可在原界面中实时翻译，品牌方能更快理解用户意图，保持沟通节奏和品牌一致性。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -90,13 +86,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "营销活动、售后通知和新品触达常常需要大量 DM 沟通，人工逐条发送效率低，且难以兼顾不同国家用户。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "通过消息下发与多语言内容管理能力，快速触达目标粉丝群体，让活动推进和销售转化更高效。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -113,13 +107,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "不同市场用户偏好差异大，但统一话术很难同时照顾语气、场景与品牌风格，容易影响互动效果。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "可按账号、成员或语种设置独立偏好，让多语言回复更加贴近品牌调性，也便于团队分工协作。",
-        iconSrc: checkIconSrc,
       },
     ],
   },

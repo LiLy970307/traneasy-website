@@ -26,8 +26,6 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const closeIconSrc = "/images/product/close-icon.svg";
-const checkIconSrc = "/images/product/check-icon.svg";
 const downloadAnchor = `${localePath("/")}#download`;
 
 const highlights = [
@@ -67,13 +65,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "评论区和私信里的海外买家咨询增长很快，人工切换翻译和后台回复工具，常常错过最佳跟进时机。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "Traneasy 自动识别评论和私信内容并完成翻译，让客服能在同一界面快速理解并回复，提升询单转化。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -90,13 +86,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "海外短视频内容面向多语市场投放时，很难兼顾不同买家的表达习惯和私信场景的回复偏好。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "按不同国家和账号配置发送语言、下单提醒与翻译偏好，让客服话术更贴近目标用户，也更利于转化。",
-        iconSrc: checkIconSrc,
       },
     ],
   },
@@ -113,13 +107,11 @@ const featureSections = [
         title: "常见问题",
         description:
           "多账号运营和跨团队协作时，账号环境混用、行为过于集中，都可能带来平台风控压力。",
-        iconSrc: closeIconSrc,
       },
       {
         title: "解决方案",
         description:
           "配合独立环境配置、消息节奏控制和分角色操作流程，帮助团队更稳健地开展 TikTok 业务。",
-        iconSrc: checkIconSrc,
       },
     ],
   },

@@ -2,7 +2,7 @@
   <ProductDetail
     title="工单系统/分流链接"
     subtitle="自动化线索管理，让每个商机都有迹可循"
-    description="提供智能工单与分流链接解决方案。通过生成带参数的专属链接，自动识别客户来源，并生成工单进行分配， 实现线索管理的自动化。"
+    description="提供智能工单与分流链接解决方案，通过生成带参数的专属链接，自动识别客户来源，并生成工单进行分配，实现线索管理的自动化。"
     hero-image-src="/images/product/order-image.png"
     hero-image-alt="Traneasy 工单系统与分流链接界面"
     :feature-sections="featureSections"
@@ -12,7 +12,7 @@
     :comparison-rows="comparisonRows"
     scene-title="广告投放的闭环管理"
     :scene-items="sceneItems"
-    faq-description="智能分流精准分配，让每一个客户咨询都高效响应。"
+    faq-description="智能分流精准分配，让每一个客户咨询都高效响应！"
     :faqs="faqs"
     cta-title="立即开启工单系统/分流链接"
     cta-description="告别客户分配混乱，实现高效协同服务"
@@ -26,194 +26,194 @@ const localePath = useLocalePath();
 
 const pageTitle = "工单系统/分流链接 - Traneasy 易翻译";
 const pageDescription =
-	"通过分流链接追踪、自动打标分组、智能接待分配、客户工单生成和业绩归属管理，让线索流转更清晰、更高效。";
+  "通过分流链接追踪、自动打标分组、智能接待分配、客户工单生成和业绩归属管理，让线索流转更清晰、更高效。";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
-	{
-		title: "短链接智能追踪",
-		imageSrc: "/images/product/order-desc-1.png",
-		imageAlt: "Traneasy 短链接智能追踪",
-		reverse: false,
-		buttonLabel: "立即下载",
-		buttonTo: downloadLink,
-		points: [
-			{
-				title: "常见问题",
-				description:
-					"广告投放、渠道合作和社媒引流入口分散，客户点进来后往往难以判断具体来源，后续跟进和复盘都缺少依据。",
-			},
-			{
-				title: "解决方案",
-				description:
-					"为不同渠道生成专属分流短链接，客户访问后自动识别来源并写入系统，让每一条线索都带着清晰来源进入后续流程。",
-			},
-		],
-	},
-	{
-		title: "自动打标与分组",
-		imageSrc: "/images/product/order-desc-2.png",
-		imageAlt: "Traneasy 自动打标与分组",
-		reverse: true,
-		buttonLabel: "立即下载",
-		buttonTo: downloadLink,
-		points: [
-			{
-				title: "常见问题",
-				description:
-					"客户进入系统后仍需人工判断渠道、地区或业务属性再做分类，不仅耗时，还容易出现标记遗漏和分配错误。",
-			},
-			{
-				title: "解决方案",
-				description:
-					"根据链接参数、来源渠道和预设规则自动完成标签写入与客户分组，帮助团队第一时间掌握线索类型并进入对应流程。",
-			},
-		],
-	},
-	{
-		title: "智能分配接待",
-		imageSrc: "/images/product/order-desc-3.png",
-		imageAlt: "Traneasy 智能分配接待",
-		reverse: false,
-		buttonLabel: "立即下载",
-		buttonTo: downloadLink,
-		points: [
-			{
-				title: "常见问题",
-				description:
-					"咨询高峰期依赖人工抢单或手动转交，容易出现客户等待过久、多人重复跟进，或者优质线索无人及时承接。",
-			},
-			{
-				title: "解决方案",
-					description:
-					"结合客服在线状态、业务分组和分配规则自动将客户分派给对应人员，让咨询在进入会话的第一时间就被精准接待。",
-			},
-		],
-	},
-	{
-		title: "客户工单生成",
-		imageSrc: "/images/product/order-desc-4.png",
-		imageAlt: "Traneasy 客户工单生成",
-		reverse: true,
-		buttonLabel: "立即下载",
-		buttonTo: downloadLink,
-		points: [
-			{
-				title: "常见问题",
-				description:
-					"客户对话记录、来源信息和跟进动作散落在不同位置，团队交接时难以快速还原背景，服务连续性也容易断档。",
-			},
-			{
-				title: "解决方案",
-				description:
-					"新客户进入后自动生成关联工单，将来源、标签、负责人和跟进状态集中管理，方便多人协作和后续追踪。",
-			},
-		],
-	},
-	{
-		title: "业绩归属清晰",
-		imageSrc: "/images/product/order-desc-5.png",
-		imageAlt: "Traneasy 业绩归属清晰",
-		reverse: false,
-		buttonLabel: "立即下载",
-		buttonTo: downloadLink,
-		points: [
-			{
-				title: "常见问题",
-				description:
-					"当多个渠道同时投放、多名客服协同时，客户最终成交归属常常不清晰，影响团队激励、渠道评估和管理判断。",
-			},
-			{
-				title: "解决方案",
-				description:
-					"系统保留完整的来源链路与接待流转记录，帮助企业更准确判断客户归属、评估投放效果，并沉淀清晰的协同规则。",
-			},
-		],
-	},
+  {
+    title: "短链接智能追踪",
+    imageSrc: "/images/product/order-desc-1.png",
+    imageAlt: "Traneasy 短链接智能追踪",
+    reverse: false,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "客户来源五花八门，不知道哪个广告带来了客户，无法计算投产比。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "为不同的广告组、视频生成专属的 Traneasy 短链接。客户点击时，系统自动记录来源信息。",
+      },
+    ],
+  },
+  {
+    title: "自动打标与分组",
+    imageSrc: "/images/product/order-desc-2.png",
+    imageAlt: "Traneasy 自动打标与分组",
+    reverse: true,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "客户进来了，还要人工问“您是从哪里看到的？”，浪费时间且客户反感。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "客户发起咨询的瞬间，系统根据链接参数自动为其 打上标签（如：Facebook-广告组A），无需人工干预。",
+      },
+    ],
+  },
+  {
+    title: "区域ip进入管控",
+    imageSrc: "/images/product/order-desc-3.png",
+    imageAlt: "Traneasy 智能分配接待",
+    reverse: false,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "账户联系人来自不同国家，需要将同一个国家的联系人归档到同一个账户里。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "短链接可设置拦截策略，拦截不同地区的客户，将不同地区的联系人进行筛选，符合区域的联系人才能进入相应的账户。",
+      },
+    ],
+  },
+  {
+    title: "工单状态管理",
+    imageSrc: "/images/product/order-desc-4.png",
+    imageAlt: "Traneasy 客户工单生成",
+    reverse: true,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "以往问题处理无记录、无节点、无反馈，用户无法知晓处理进度，管理人员难以掌握任务推进情况，信息严重不对称。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "支持工单自主立项提交，实时展示工单全维度状态，同步更新处置流程进度，实现全链路可视化管控。",
+      },
+    ],
+  },
+  {
+    title: "会话数据监测",
+    imageSrc: "/images/product/order-desc-5.png",
+    imageAlt: "Traneasy 业绩归属清晰",
+    reverse: false,
+    buttonLabel: "立即下载",
+    buttonTo: downloadLink,
+    points: [
+      {
+        title: "常见问题",
+        description:
+          "考勤员工，没有实质性的参考数据依据，员工不能得到透明/公平公正的奖惩。",
+      },
+      {
+        title: "解决方案",
+        description:
+          "软件后台可查看90天内通过链接/平台/工单的新增人数、新增会话数量以及转化率，方便考核员工。",
+      },
+    ],
+  },
 ] as const;
 
 const comparisonRows = [
-	{
-		label: "来源追踪",
-		legacy: "客户从多个渠道进入后只能靠人工询问和备注判断来源，信息容易缺失。",
-		traneasy: "通过专属分流链接自动记录来源渠道，让每条线索都带有清晰入口信息。",
-	},
-	{
-		label: "客户分配",
-		legacy: "分配依赖人工转交或群内通知，响应慢且容易重复接待或漏接。",
-		traneasy: "按规则自动分配给对应客服或团队，客户进入后即可被快速承接。",
-	},
-	{
-		label: "标签管理",
-		legacy: "客户标签需要人工补录，执行标准不统一，后续筛选与复盘价值有限。",
-		traneasy: "根据来源和业务规则自动打标分组，让客户画像从进入系统起就更完整。",
-	},
-	{
-		label: "工单协同",
-		legacy: "聊天记录与跟进状态分散，跨人协作时需要反复同步背景信息。",
-		traneasy: "自动生成客户工单并沉淀处理状态，让协同、交接和追踪都更顺畅。",
-	},
-	{
-		label: "业绩归属",
-		legacy: "渠道贡献和客服接待路径不透明，成交归属容易产生争议。",
-		traneasy: "来源、分配与跟进链路完整留痕，帮助企业更清晰地核算业绩与评估投放效果。",
-	},
+  {
+    label: "流量分配",
+    legacy: "客户随机咨询，由于分配不均导致忙闲不均",
+    traneasy: "链接预设规则，自动将客户分配给指定客服或部门",
+  },
+  {
+    label: "客户引导",
+    legacy: "客户需反复描述问题，体验差",
+    traneasy: "链接自带参数，自动识别客户来源与需求意图",
+  },
+  {
+    label: "问题分类",
+    legacy: "咨询、售后、投诉混在一起，管理混乱",
+    traneasy: "自动打标签分类（如：售前咨询、售后投诉），便于统计",
+  },
+  {
+    label: "响应速度",
+    legacy: "需要人工询问“请问您遇到什么问题？”",
+    traneasy: "系统自动识别，客服直接针对性回复，缩短响应时间",
+  },
+  {
+    label: "数据闭环",
+    legacy: "无法追踪哪个广告带来了咨询",
+    traneasy: "链接参数回传，精准追踪广告转化效果",
+  },
 ] as const;
 
 const sceneItems = [
-	{
-		title: "Facebook/Google 投放",
-		description:
-			"为不同广告计划生成专属分流链接，自动记录客户来源，帮助运营快速判断各渠道投放质量与转化表现。",
-		iconSrc: "/images/product/order-icon-1.svg",
-	},
-	{
-		title: "TikTok/Instagram 引流",
-		description:
-			"针对短视频、社媒主页和达人合作入口统一管理线索来源，进入咨询后自动分流到对应团队，提高首响与接待效率。",
-		iconSrc: "/images/product/order-icon-2.svg",
-	},
-	{
-		title: "独立站客户分配",
-		description:
-			"客户从独立站表单、落地页或咨询入口进入时，可结合渠道与业务规则自动建单分配，让后续跟进一开始就有明确负责人。",
-		iconSrc: "/images/product/order-icon-3.svg",
-	},
+  {
+    title: "Facebook/Google 投放",
+    description:
+      "投放广告时使用 Traneasy 分流链接。后台直接查看哪个广告组带来了多少有效询盘，精准计算 ROI。",
+    iconSrc: "/images/product/order-icon-1.svg",
+  },
+  {
+    title: "TikTok/Instagram 引流",
+    description:
+      "在视频简介置顶分流链接。客户点击后自动跳转 WhatsApp 并打标，您能立刻知道他是看了哪个视频来的。",
+    iconSrc: "/images/product/order-icon-2.svg",
+  },
+  {
+    title: "防止撞单内耗",
+    description:
+      "团队多人协作时，工单系统确保一个客户只由一个销售跟进，避免两个销售同时去撩同一个客户导致客户反感。",
+    iconSrc: "/images/product/order-icon-3.svg",
+  },
 ] as const;
 
 const faqs = [
-	{
-		question: "分流链接怎么生成？",
-		answer:
-			"系统支持按渠道、广告组、落地页或业务场景生成不同的专属分流链接，并自动附带识别参数。客户通过对应入口进入后，来源信息会被自动写入后续流程。",
-	},
-	{
-		question: "客户来源信息会显示在客户昵称吗？",
-		answer:
-			"可以根据企业当前的管理方式选择展示策略。常见做法是将来源信息同步到标签、分组或客户资料字段中，方便客服在接待时快速识别客户背景。",
-	},
-	{
-		question: "其他问题",
-		answer:
-			"如果你还想了解分配规则、工单字段配置、渠道识别方式或不同投放平台的接入方法，可以继续联系团队获取更完整的实施方案。",
-	},
+  {
+    question: "分流链接怎么生成？",
+    answer:
+      "在 Traneasy 后台的“工单管理”中，选择目标账号，输入原始链接，设置参数和标签，一键即可生成专属短链接。",
+  },
+  {
+    question: "客户来源信息会显示给客户看吗？",
+    answer:
+      "不会。所有参数都在后台运行，客户看到的只是一个普通的咨询链接，体验丝滑无痕。",
+  },
+  {
+    question: "其他问题",
+    answer:
+      "如果你还想了解分配规则、工单字段配置、渠道识别方式或不同投放平台的接入方法，可以继续联系团队获取更完整的实施方案。",
+  },
 ] as const;
 
 const ctaPoints = [
-	"渠道专属分流短链接生成，自动追踪每一条客户来源",
-	"支持按渠道、业务类型、团队角色配置接待分配规则",
-	"客户进入后自动建单，来源、状态与负责人统一沉淀",
-	"多渠道投放和多人协作场景下，线索流转依旧清晰可控",
-	"来源与跟进链路完整留痕，便于复盘投放效果和业绩归属",
+  "渠道专属分流短链接生成，自动追踪每一条客户来源",
+  "支持按渠道、业务类型、团队角色配置接待分配规则",
+  "客户进入后自动建单，来源、状态与负责人统一沉淀",
+  "多渠道投放和多人协作场景下，线索流转依旧清晰可控",
+  "来源与跟进链路完整留痕，便于复盘投放效果和业绩归属",
 ] as const;
 
 useHead({
-	title: pageTitle,
-	meta: [
-		{
-			name: "description",
-			content: pageDescription,
-		},
-	],
+  title: pageTitle,
+  meta: [
+    {
+      name: "description",
+      content: pageDescription,
+    },
+  ],
 });
 </script>

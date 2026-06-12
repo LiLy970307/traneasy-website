@@ -34,19 +34,17 @@ const featureSections = [
     title: "多平台统一收件箱",
     imageSrc: "/images/product/app-desc-2.png",
     imageAlt: "Traneasy 多平台统一收件箱",
-    reverse: true,
+    reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
     points: [
       {
-        title: "聚合收件箱",
-        description:
-          "将 WhatsApp、Telegram、Facebook、Line 等消息统一归集到同一个会话视图，避免重复切换客户端。",
+        title: "常见问题",
+        description: "每天在 6-8 个 APP 之间来回切换，容易漏回客户消息。",
       },
       {
-        title: "系统分类",
-        description:
-          "按平台、未读、特别关注和群组等维度自动分类，重要消息更容易被及时处理。",
+        title: "解决方案",
+        description: "所有平台的客户消息集中到一个收件箱，按时间线排列。",
       },
     ],
   },
@@ -54,19 +52,18 @@ const featureSections = [
     title: "跨平台实时翻译",
     imageSrc: "/images/product/app-desc-3.png",
     imageAlt: "Traneasy 跨平台实时翻译",
-    reverse: false,
+    reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
     points: [
       {
-        title: "双向翻译",
+        title: "常见问题",
         description:
-          "输入母语即可自动翻译为对方语言发送，接收外语消息后也会同步展示原文与译文。",
+          "日本客户发日语、巴西客户发葡语、中东客户发阿语……看不懂，回复要复制粘贴到翻译软件。",
       },
       {
         title: "系统方案",
-        description:
-          "适配客服、销售、跟单等高频场景，不切换窗口也能完成跨语言沟通闭环。",
+        description: "自动双向翻译，你发中文，系统自动转成客户的语言发出。",
       },
     ],
   },
@@ -74,19 +71,17 @@ const featureSections = [
     title: "统一客户标签与备注",
     imageSrc: "/images/product/app-desc-4.png",
     imageAlt: "Traneasy 客户标签与备注",
-    reverse: true,
+    reverse: false,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
     points: [
       {
-        title: "客户沉淀",
-        description:
-          "为每位客户统一设置备注、电话、标签、待办事项和更新时间，关系资产集中管理。",
+        title: "常见问题",
+        description: "客户多了记不住谁是谁，员工离职了客户信息也跟着丢了。",
       },
       {
         title: "系统方案",
-        description:
-          "在一个界面完成信息录入、标签关联和后续跟进，方便团队共享和持续运营。",
+        description: "统一的标签和备注系统，跨平台、跨团队成员同步。",
       },
     ],
   },
@@ -94,19 +89,18 @@ const featureSections = [
     title: "多账号聚合管理",
     imageSrc: "/images/product/app-desc-1.png",
     imageAlt: "Traneasy 多账号聚合管理",
-    reverse: false,
+    reverse: true,
     buttonLabel: "立即下载",
     buttonTo: downloadLink,
     points: [
       {
-        title: "批量登陆",
+        title: "常见问题",
         description:
-          "同平台账号可批量接入、统一管理，支持分组展示和置顶，提高团队协同效率。",
+          "多个账号来回登录登出，验证码收了一遍又一遍，还容易被风控封号。",
       },
       {
         title: "系统方案",
-        description:
-          "一个操作后台即可查看多个账号状态、消息和资料，降低账号矩阵运营成本。",
+        description: "一台电脑同时登录所有账号，每个账号独立环境防关联。",
       },
     ],
   },
@@ -114,29 +108,29 @@ const featureSections = [
 
 const comparisonRows = [
   {
-    label: "沟通入口",
-    legacy: "每个平台单独打开客户端，消息分散难汇总。",
-    traneasy: "一个收件箱整合所有平台消息，统一查看与回复。",
-  },
-  {
     label: "平台切换",
-    legacy: "来回切换窗口中断节奏，容易遗漏重点客户。",
-    traneasy: "消息、翻译、备注都在同一工作台完成。",
+    legacy: "在 6-8 个 APP 间来回切换",
+    traneasy: "一个界面管理所有平台",
   },
   {
-    label: "翻译体验",
-    legacy: "复制消息到翻译软件，操作繁琐且时效性差。",
-    traneasy: "会话内实时翻译，发送和接收双向联动。",
+    label: "客户识别",
+    legacy: "同一客户在不同平台被当成陌生人",
+    traneasy: "自动关联，完整对话历史",
+  },
+  {
+    label: "语言障碍",
+    legacy: "需要翻译软件辅助，逐条翻译",
+    traneasy: "自动双向翻译，无需手动操作",
   },
   {
     label: "客户管理",
-    legacy: "客户信息分散，缺少标签和备注沉淀。",
-    traneasy: "统一标签、备注、待办与联系信息。",
+    legacy: "各平台独立，标签不互通",
+    traneasy: "统一标签+备注，跨平台同步",
   },
   {
     label: "多账号管理",
-    legacy: "多个账号切换频繁，团队协作成本高。",
-    traneasy: "一个后台同时管理多个账号，队伍协作更顺畅。",
+    legacy: "多设备/多浏览器，频繁登出登入",
+    traneasy: "一台电脑同时多开，独立环境",
   },
 ] as const;
 
@@ -144,19 +138,19 @@ const sceneItems = [
   {
     title: "跨平台统一营销",
     description:
-      "在 WhatsApp、Facebook、TikTok 等多个渠道统一承接线索，把客户咨询沉淀到同一套会话体系中。",
+      "无需在 WhatsApp、Facebook、TikTok 等 6 个聊天窗口间频繁切换。登录 Traneasy 一个后台即可集中处理所有渠道咨询。",
     iconSrc: "/images/product/scene-1.svg",
   },
   {
     title: "全球化无障沟通",
     description:
-      "面对多语种客户、海外经销商、品牌代理和本地团队时，保持消息同步与即时翻译，沟通不再断层。",
+      "面对小语种询盘，无需复制粘贴。系统内置实时双向自动翻译，客户发外语你见中文，你回中文客户见母语，极大降低沟通门槛。",
     iconSrc: "/images/product/scene-2.svg",
   },
   {
-    title: "私域运营效率升级",
+    title: "私域流量集中沉淀",
     description:
-      "标签、备注、分组和快捷动作全部沉淀在平台里，让客户运营从零散响应升级为流程化管理。",
+      "将分散在各社媒平台的公域流量统一转化为私域好友。通过统一的客户标签体系，记录渠道来源与跟进状态。",
     iconSrc: "/images/product/scene-3.svg",
   },
 ] as const;
@@ -165,17 +159,17 @@ const faqs = [
   {
     question: "Traneasy 目前支持聚合哪些主流的海外社交软件？",
     answer:
-      "目前可统一接入 WhatsApp、Telegram、Facebook、Instagram、Line、TikTok 等主流社交平台。后续还会持续扩展更多渠道，方便企业在一个工作台内完成全球沟通。",
+      "目前我们深度集成了全球最主流的 6 大通讯与社交平台，包括 WhatsApp、Telegram、Facebook、Instagram、Line 以及 TikTok，全面覆盖欧美、东南亚及日韩等核心跨境市场。",
   },
   {
     question: "使用 Traneasy 进行多账号登录，是否会导致账号被封禁？",
     answer:
-      "系统支持账号聚合管理与环境隔离配置，能够降低多账号运营中的风险。实际效果也与账号使用习惯、平台风控策略和网络环境有关，建议结合规范运营共同使用。",
+      "请放心使用。Traneasy 采用独立的浏览器指纹环境技术和合规的 API 接口接入，为每个登录的账号提供独立的防关联环境，模拟真实用户操作，最大程度保障您的账号安全，防封效果远优于传统多开工具。",
   },
   {
     question: "实时翻译的准确率如何？支持小语种正常沟通吗？",
     answer:
-      "Traneasy 的翻译能力适合外贸沟通、客户服务和营销回复等主流场景，支持多语言双向互译。对于小语种和专业术语，也可以通过上下文辅助和人工校正提升最终沟通质量。",
+      "我们接入了全球顶尖的 AI 翻译引擎，支持全球 100+ 种语言的实时互译，不仅涵盖英、法、德等主流语种，对泰语、越南语、阿拉伯语等小语种也有极高的翻译准确度，完全满足日常商务沟通需求。",
   },
   {
     question: "其他问题",
@@ -185,10 +179,10 @@ const faqs = [
 ] as const;
 
 const ctaPoints = [
-  "支持全球主流社交平台接入",
-  "统一消息视图，天然适合团队协作",
-  "翻译+客户管理+矩阵账号三位一体",
-  "多账号聚合分析，一台电脑管理多个窗口",
+  "支持全球主流社交平台",
+  "自动双向翻译，无需懂外语",
+  "统一客户标签，跨平台沉淀客户资产",
+  "多账号安全多开，一台电脑管所有",
 ] as const;
 
 useHead({

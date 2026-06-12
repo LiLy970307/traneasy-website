@@ -8,9 +8,7 @@
 
     <section class="relative px-6 pb-8 pt-20 sm:px-8 lg:px-12 lg:pt-24">
       <div class="mx-auto max-w-6xl text-center">
-        <h1
-          class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
-        >
+        <h1 class="text-[48px] font-semibold leading-[1.25] text-[#000213]">
           {{ title }}
         </h1>
         <p
@@ -66,10 +64,10 @@
 
     <section class="px-6 pb-20 pt-4 sm:px-8 lg:px-12">
       <div
-        class="mx-auto grid max-w-[1200px] gap-12 rounded-[32px] py-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
+        class="mx-auto max-w-container grid gap-12 rounded-[32px] py-12 px-6 sm:px-8 lg:px-12 lg:grid-cols-[2fr_1.5fr]"
       >
         <div>
-          <h2 class="text-[32px] font-semibold leading-[1.45] text-[#000213]">
+          <h2 class="text-[28px] font-medium leading-[1.45] text-[#000213]">
             {{ ctaTitle }}
             <br />
             {{ ctaDescription }}
@@ -77,7 +75,7 @@
 
           <NuxtLink
             :to="downloadLink"
-            class="mt-8 inline-flex items-center justify-center rounded-[10px] bg-[#205DFF] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1749cc]"
+            class="mt-10 inline-flex items-center justify-center rounded bg-[#084AFF] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1749cc]"
           >
             {{ ctaButtonLabel }}
           </NuxtLink>
@@ -87,7 +85,7 @@
           <li
             v-for="item in ctaPoints"
             :key="item"
-            class="flex items-start gap-3 text-[15px] leading-7 text-[#3A4050]"
+            class="flex items-start gap-3 text-[16px] leading-7 text-[#000213]"
           >
             <img
               :src="checkIconSrc"

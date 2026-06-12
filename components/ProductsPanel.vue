@@ -6,6 +6,7 @@
           v-for="item in productItems"
           :key="item.title"
           :to="item.href ? localePath(item.href) : undefined"
+          @click="handleItemClick(item.href)"
           :class="[
             'group flex min-h-[84px] items-start gap-4 rounded-2xl px-2 py-1 transition-colors',
             item.href ? 'cursor-pointer hover:bg-slate-50' : 'cursor-default',
@@ -38,6 +39,10 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+
+const emit = defineEmits<{
+  itemClick: [];
+}>();
 
 const productItems = [
   {
@@ -83,4 +88,9 @@ const productItems = [
     href: "/product/crm",
   },
 ];
+
+const handleItemClick = (href?: string) => {
+  if (!href) return;
+  emit("itemClick");
+};
 </script>

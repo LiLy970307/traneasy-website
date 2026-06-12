@@ -61,7 +61,8 @@
     "featuredTitle": "지금 TranEasy 사용해보기",
     "featuredDesc": "완전 무료. 100개 이상의 언어. Windows PC용.",
     "home": "홈",
-    "login": "로그인"
+    "login": "로그인",
+    "statement": "공식 성명"
   },
   "hero": {
     "badge": "AI 기반 실시간 번역",
@@ -80,7 +81,7 @@
     "pageSubtitle": "TranEasy 실시간 번역 소프트웨어의 모든 기능 — 음성 번역, 동시통역, 플로팅 번역, 텍스트 선택 번역으로 글로벌 커뮤니케이션 강화",
     "compareTitle": "실시간 번역 소프트웨어 비교",
     "compareSubtitle": "Google Translate의 대체품, DeepL에서의 업그레이드",
-    "subtitle": "Windows PC용 실시간 번역 도구, 모든 다국어 커뮤니케이션 시나리오를 커버",
+    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "googleTranslate": "Google Translate",
     "deepL": "DeepL",
     "techSpecsTitle": "기술 사양",
@@ -89,7 +90,6 @@
     "apiSupport": "API 지원",
     "languages": "언어 지원",
     "title": "Six Core Capabilities",
-    "subtitle": "Built for Windows PC, covering every cross-language scenario you face",
     "items": {
       "realtime": {
         "title": "실시간 음성 번역",

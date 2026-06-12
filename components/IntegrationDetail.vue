@@ -15,12 +15,12 @@
             class="mx-auto w-[96px] rounded-[14px]"
           />
           <h1
-            class="mx-auto mt-8 text-[42px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
+            class="mx-auto mt-8 text-[42px] font-semibold leading-[1.25] text-[#000213] xl:text-[56px] lg:text-[48px]"
           >
             {{ title }}
           </h1>
           <p
-            class="mx-auto mt-5text-[14px] leading-8 text-[#000213] sm:text-[24px] mt-4"
+            class="mx-auto mt-4 text-[18px] font-normal leading-8 text-[#000213] xl:text-[22px] lg:text-[24px]"
           >
             {{ description }}
           </p>
@@ -147,10 +147,7 @@
       </div>
     </section>
 
-    <FaqSection
-      :description="faqDescription"
-      :faqs="faqs"
-    />
+    <FaqSection :description="faqDescription" :faqs="faqs" />
   </main>
 </template>
 

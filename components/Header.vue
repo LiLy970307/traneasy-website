@@ -13,7 +13,7 @@
         'opacity-0',
       ]"
     />
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <div class="px-4 sm:px-8 lg:px-12">
       <div class="relative z-10 flex items-center justify-between h-[68px]">
         <!-- Logo -->
         <NuxtLink
@@ -28,7 +28,9 @@
         </NuxtLink>
 
         <!-- Desktop nav -->
-        <nav class="hidden lg:flex items-center gap-2 flex-nowrap">
+        <nav
+          class="hidden lg:flex items-center justify-center gap-2 flex-nowrap flex-1"
+        >
           <NuxtLink
             :to="localePath('/')"
             class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
@@ -37,7 +39,14 @@
           </NuxtLink>
 
           <!-- Products dropdown — pure CSS hover -->
-          <div class="nav-dropdown product-dropdown relative flex-shrink-0">
+          <div
+            ref="productDropdownEl"
+            :class="[
+              'nav-dropdown product-dropdown relative flex-shrink-0',
+              { 'is-dropdown-closing': isProductDropdownClosing },
+            ]"
+            @mouseenter="clearProductDropdownClosing"
+          >
             <button
               type="button"
               class="nav-dropdown-trigger nav-item flex items-center gap-1 text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 cursor-pointer select-none bg-transparent border-none outline-none whitespace-nowrap"
@@ -60,20 +69,13 @@
             <!-- Hover-safe wrapper: starts at button bottom, contains gap + panel -->
             <div class="nav-dropdown-area product-dropdown-area">
               <div class="nav-dropdown-panel product-dropdown-panel">
-                <ProductsPanel />
+                <ProductsPanel @item-click="closeProductDropdown" />
               </div>
             </div>
           </div>
 
           <NuxtLink
-            :to="localePath('/use-cases')"
-            class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
-          >
-            {{ $t("nav.solutions") }}
-          </NuxtLink>
-
-          <NuxtLink
-            :to="localePath('/integration')"
+            :to="localePath('/integrations')"
             class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
           >
             {{ $t("nav.integrations") }}
@@ -93,8 +95,14 @@
             {{ $t("nav.resources") }}
           </NuxtLink>
 
-          <div class="w-px h-5 bg-slate-200 mx-2 flex-shrink-0" />
-
+          <NuxtLink
+            :to="localePath('/statement')"
+            class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
+          >
+            声明
+          </NuxtLink>
+        </nav>
+        <div class="hidden lg:flex items-center gap-2 flex-shrink-0 ml-4">
           <!-- Language switcher — pure CSS hover -->
           <div class="lang-dropdown relative flex-shrink-0">
             <button
@@ -163,7 +171,7 @@
           >
             {{ $t("nav.downloadBtn") }}
           </NuxtLink>
-        </nav>
+        </div>
 
         <!-- Mobile toggle -->
         <div class="flex lg:hidden items-center gap-2">
@@ -213,7 +221,7 @@
           </details>
 
           <!-- Mobile menu — all content inside <details> so it works without JS -->
-          <details class="mobile-menu-details">
+          <details ref="mobileMenuDetailsEl" class="mobile-menu-details">
             <summary
               class="p-2 rounded-full text-slate-500 hover:bg-blue-50 cursor-pointer list-none [&::-webkit-details-marker]:hidden"
             >
@@ -272,47 +280,23 @@
                   <NuxtLink
                     v-for="item in productItems"
                     :key="item.href"
-                    :to="localePath('/' + item.href)"
+                    :to="localePath(item.href)"
+                    @click="closeMobileMenu"
                     class="flex items-center gap-2 px-3 py-2 rounded-full text-slate-600 hover:bg-blue-50 text-sm"
                   >
-                    <span>{{ item.icon }}</span
-                    ><span>{{ $t("nav." + item.titleKey) }}</span>
+                    <img :src="item.iconSrc" class="w-5 h-5 object-contain" />
+                    <span>{{ item.title }}</span>
                   </NuxtLink>
                 </div>
               </details>
 
               <!-- Mobile Solutions -->
-              <details class="mobile-accordion">
-                <summary
-                  class="flex items-center justify-between px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium w-full cursor-pointer list-none [&::-webkit-details-marker]:hidden"
-                >
-                  {{ $t("nav.solutions") }}
-                  <svg
-                    class="w-4 h-4 transition-transform accordion-arrow"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div class="ml-3 flex flex-col gap-1 pb-1">
-                  <NuxtLink
-                    v-for="item in solutionItems"
-                    :key="item.href + item.titleKey"
-                    :to="localePath('/' + item.href)"
-                    class="flex items-center gap-2 px-3 py-2 rounded-full text-slate-600 hover:bg-blue-50 text-sm"
-                  >
-                    <span>{{ item.icon }}</span
-                    ><span>{{ $t("nav." + item.titleKey) }}</span>
-                  </NuxtLink>
-                </div>
-              </details>
+              <NuxtLink
+                :to="localePath('/solutions')"
+                class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium block"
+              >
+                {{ $t("nav.solutions") }}
+              </NuxtLink>
 
               <NuxtLink
                 :to="localePath('/integrations')"
@@ -327,38 +311,19 @@
                 {{ $t("nav.pricing") }}
               </NuxtLink>
 
-              <!-- Mobile Resources -->
-              <details class="mobile-accordion">
-                <summary
-                  class="flex items-center justify-between px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium w-full cursor-pointer list-none [&::-webkit-details-marker]:hidden"
-                >
-                  {{ $t("nav.resources") }}
-                  <svg
-                    class="w-4 h-4 transition-transform accordion-arrow"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </summary>
-                <div class="ml-3 flex flex-col gap-1 pb-1">
-                  <NuxtLink
-                    v-for="item in resourceItems"
-                    :key="item.href"
-                    :to="localePath('/' + item.href)"
-                    class="flex items-center gap-2 px-3 py-2 rounded-full text-slate-600 hover:bg-blue-50 text-sm"
-                  >
-                    <span>{{ item.icon }}</span
-                    ><span>{{ $t("nav." + item.titleKey) }}</span>
-                  </NuxtLink>
-                </div>
-              </details>
+              <NuxtLink
+                :to="localePath('/resources')"
+                class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm block"
+              >
+                {{ $t("nav.resources") }}
+              </NuxtLink>
+
+              <NuxtLink
+                :to="localePath('/statement')"
+                class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium block nav-item"
+              >
+                {{ $t("nav.statement") }}
+              </NuxtLink>
 
               <NuxtLink
                 :to="localePath('/login')"
@@ -392,6 +357,9 @@ const shouldUseScrollHeader = ref(true);
 // );
 const headerEl = ref<HTMLElement | null>(null);
 const headerBgEl = ref<HTMLElement | null>(null);
+const productDropdownEl = ref<HTMLElement | null>(null);
+const mobileMenuDetailsEl = ref<HTMLDetailsElement | null>(null);
+const isProductDropdownClosing = ref(false);
 let headerSolidTimer: ReturnType<typeof window.setTimeout> | null = null;
 let headerScrollFrame: number | null = null;
 let lastHeaderScrollY = -1;
@@ -415,12 +383,48 @@ const currentLang = computed(
 );
 
 const productItems = [
-  { icon: "🎙️", titleKey: "prod1Title", href: "features#realtime" },
-  { icon: "🖥️", titleKey: "prod2Title", href: "dataAnalysis" },
-  { icon: "🎥", titleKey: "prod3Title", href: "features#meeting" },
-  { icon: "🤖", titleKey: "prod4Title", href: "features#ai" },
-  { icon: "📡", titleKey: "prod5Title", href: "features#offline" },
-  { icon: "💬", titleKey: "prod6Title", href: "features#subtitle" },
+  {
+    title: "全渠道沟通",
+    description: "聚合全球主流社交平台，告别多平台切换的混乱",
+    iconSrc: "/images/product/dropdown-1.svg",
+    href: "/product/communication",
+  },
+  {
+    title: "数据分析",
+    description: "用数据复盘业务，用图表驱动决策，告别凭感觉做外贸",
+    iconSrc: "/images/product/dropdown-2.svg",
+    href: "/product/data-analysis",
+  },
+  {
+    title: "精准消息群发",
+    description: "用自动化工具实现千人千面的批量触达",
+    iconSrc: "/images/product/dropdown-3.svg",
+    href: "/product/mass-message",
+  },
+  {
+    title: "实时翻译",
+    description: "让沟通像母语一样自然流畅。",
+    iconSrc: "/images/product/dropdown-4.svg",
+    href: "/product/translation",
+  },
+  {
+    title: "工单系统/分流链接",
+    description: "自动化线索管理，让每个商机都有迹可循",
+    iconSrc: "/images/product/dropdown-5.svg",
+    href: "/product/work-order",
+  },
+  {
+    title: "跨境团队协作管理",
+    description: "从单打独斗到平团队作战，打造高执行力的跨境铁军",
+    iconSrc: "/images/product/dropdown-6.svg",
+    href: "/product/collaboration",
+  },
+  {
+    title: "客户关系管理",
+    description: "用精细化的 CRM 系统挖掘客户的终身价值",
+    iconSrc: "/images/product/dropdown-7.svg",
+    href: "/product/crm",
+  },
 ];
 
 const solutionItems = [
@@ -428,8 +432,6 @@ const solutionItems = [
   { icon: "🎥", titleKey: "sol2Title", href: "use-cases/meetings" },
   { icon: "📚", titleKey: "sol3Title", href: "use-cases/education" },
   { icon: "💬", titleKey: "sol4Title", href: "use-cases/customer-support" },
-  { icon: "🌏", titleKey: "sol5Title", href: "use-cases" },
-  { icon: "✈️", titleKey: "sol6Title", href: "use-cases" },
 ];
 
 const resourceItems = [
@@ -438,12 +440,32 @@ const resourceItems = [
   { icon: "⚖️", titleKey: "resCompare", href: "compare" },
   { icon: "ℹ️", titleKey: "resAbout", href: "about" },
 ];
-
 const clearHeaderSolidTimer = () => {
   if (headerSolidTimer !== null) {
     window.clearTimeout(headerSolidTimer);
     headerSolidTimer = null;
   }
+};
+
+const clearProductDropdownClosing = () => {
+  isProductDropdownClosing.value = false;
+};
+
+const closeProductDropdown = () => {
+  isProductDropdownClosing.value = true;
+
+  const focused = productDropdownEl.value?.querySelector(
+    ":focus",
+  ) as HTMLElement | null;
+  focused?.blur();
+
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+};
+
+const closeMobileMenu = () => {
+  mobileMenuDetailsEl.value?.removeAttribute("open");
 };
 
 const syncHeaderScrollState = () => {
@@ -577,6 +599,7 @@ onBeforeUnmount(() => {
     headerScrollFrame = null;
   }
   clearHeaderSolidTimer();
+  clearProductDropdownClosing();
 });
 </script>
 
@@ -640,10 +663,25 @@ onBeforeUnmount(() => {
   transform: translateY(0);
 }
 
+.product-dropdown.is-dropdown-closing .product-dropdown-area,
+.product-dropdown.is-dropdown-closing:hover .product-dropdown-area,
+.product-dropdown.is-dropdown-closing:focus-within .product-dropdown-area {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
 /* Rotate arrow */
 .nav-dropdown:hover .nav-dropdown-arrow,
 .nav-dropdown:focus-within .nav-dropdown-arrow {
   transform: rotate(180deg);
+}
+
+.product-dropdown.is-dropdown-closing .nav-dropdown-arrow,
+.product-dropdown.is-dropdown-closing:hover .nav-dropdown-arrow,
+.product-dropdown.is-dropdown-closing:focus-within .nav-dropdown-arrow {
+  transform: rotate(0deg);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -699,5 +737,12 @@ onBeforeUnmount(() => {
 
 .mobile-lang-details[open] .mobile-lang-arrow {
   transform: rotate(180deg);
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV SELECTED STATE — active route highlighting
+   ═══════════════════════════════════════════════════ */
+:deep(.nav-item.router-link-active) {
+  color: #084aff !important;
 }
 </style>
