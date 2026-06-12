@@ -3,5 +3,6 @@
     <Header />
     <slot />
     <Footer />
+    <FloatingContact />
   </div>
 </template>

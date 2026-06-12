@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    public: {
+      clientUserApiBase: 'https://www.traneasy.com.cn/client-user',
+    },
+  },
+
   modules: [
     '@nuxtjs/i18n',
   ],
