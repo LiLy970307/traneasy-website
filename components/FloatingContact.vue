@@ -197,6 +197,8 @@ const { data, pending, error } = await useFetch<CustomerServiceResponse>(
       height: 400,
       width: 400,
     },
+    server: false,
+    lazy: true,
   },
 );
 

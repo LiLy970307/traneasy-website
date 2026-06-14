@@ -101,8 +101,20 @@
           >
             声明
           </NuxtLink>
+
+          <!-- <a
+            v-if="isLoggedIn"
+            href="https://www.traneasy.com.cn/zh/index#/UserCenterIndex"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
+          >
+            控制台
+          </a> -->
         </nav>
-        <div class="hidden lg:flex items-center gap-2 flex-shrink-0 ml-4">
+        <div
+          class="relative z-[80] hidden lg:flex items-center gap-2 flex-shrink-0 ml-4"
+        >
           <!-- Language switcher — pure CSS hover -->
           <div class="lang-dropdown relative flex-shrink-0">
             <button
@@ -160,11 +172,19 @@
           </div>
 
           <NuxtLink
+            v-if="!isLoggedIn"
             :to="localePath('/login')"
             class="ml-1 text-slate-600 hover:text-blue-600 border border-slate-200 hover:border-blue-300 text-sm font-medium px-4 py-2 rounded-full transition-colors whitespace-nowrap flex-shrink-0"
           >
             {{ $t("nav.login") }}
           </NuxtLink>
+          <span
+            v-else
+            class="ml-1 max-w-[140px] truncate rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 whitespace-nowrap flex-shrink-0"
+            :title="displayNickname"
+          >
+            {{ displayNickname }}
+          </span>
           <NuxtLink
             :to="localePath('/') + '#download'"
             class="ml-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors shadow-sm whitespace-nowrap flex-shrink-0 max-w-[180px] truncate text-center"
@@ -324,13 +344,31 @@
               >
                 {{ $t("nav.statement") }}
               </NuxtLink>
-
+              <!-- 
+              <a
+                v-if="isLoggedIn"
+                href="https://www.traneasy.com.cn/zh/index#/UserCenterIndex"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium block nav-item"
+                @click="closeMobileMenu"
+              >
+                控制台
+              </a> -->
               <NuxtLink
+                v-if="!isLoggedIn"
                 :to="localePath('/login')"
                 class="mt-2 border border-slate-200 text-slate-600 text-sm font-medium px-4 py-2.5 rounded-full text-center block"
               >
                 {{ $t("nav.login") }}
               </NuxtLink>
+              <div
+                v-else
+                class="mt-2 truncate rounded-full border border-blue-100 bg-blue-50 px-4 py-2.5 text-center text-sm font-semibold text-blue-600"
+                :title="displayNickname"
+              >
+                {{ displayNickname }}
+              </div>
               <NuxtLink
                 :to="localePath('/') + '#download'"
                 class="mt-1 bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full text-center block"
@@ -351,6 +389,47 @@ const { locale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const route = useRoute();
 
+interface HeaderUserInfo {
+  nickname?: string | null;
+  username?: string | null;
+  account?: string | null;
+}
+
+const userInfo = ref<HeaderUserInfo | null>(null);
+const isLoggedIn = computed(() => Boolean(userInfo.value));
+const displayNickname = computed(
+  () =>
+    userInfo.value?.nickname ||
+    userInfo.value?.username ||
+    userInfo.value?.account ||
+    "用户",
+);
+
+const loadUserInfo = () => {
+  if (!import.meta.client) {
+    return;
+  }
+
+  const rawUserInfo = sessionStorage.getItem("userInfo");
+
+  if (!rawUserInfo) {
+    userInfo.value = null;
+    return;
+  }
+
+  try {
+    userInfo.value = JSON.parse(rawUserInfo) as HeaderUserInfo;
+  } catch {
+    userInfo.value = null;
+  }
+};
+
+const handleStorageChange = (event: StorageEvent) => {
+  if (event.key === "userInfo") {
+    loadUserInfo();
+  }
+};
+
 const shouldUseScrollHeader = ref(true);
 // const shouldUseScrollHeader = computed(
 //   () => route.path === localePath("/") || route.path === localePath("/features")|| route.path === localePath("/integrations")|| route.path === localePath("/resources"),
@@ -363,6 +442,17 @@ const isProductDropdownClosing = ref(false);
 let headerSolidTimer: ReturnType<typeof window.setTimeout> | null = null;
 let headerScrollFrame: number | null = null;
 let lastHeaderScrollY = -1;
+const triggerCleanupFns: Array<() => void> = [];
+const dropdownCleanupFns: Array<() => void> = [];
+
+const handleDocumentClick = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  if (!target.closest(".nav-dropdown") && !target.closest(".lang-dropdown")) {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }
+};
 
 const languages = [
   { code: "zh", label: "简体中文", flag: "🇨🇳" },
@@ -539,18 +629,20 @@ const requestHeaderScrollSync = () => {
 };
 
 onMounted(() => {
+  loadUserInfo();
+  window.addEventListener("storage", handleStorageChange);
   lastHeaderScrollY = window.scrollY;
   syncHeaderScrollState();
   window.addEventListener("scroll", requestHeaderScrollSync, { passive: true });
 
   // ═══ Fix: macOS Safari/Chrome don't focus <button> on click ═══
   // This makes :focus-within CSS work when user clicks dropdown buttons
-  const allTriggers = document.querySelectorAll(
+  const allTriggers = headerEl.value?.querySelectorAll(
     ".nav-dropdown-trigger, .lang-dropdown-trigger",
   );
-  allTriggers.forEach((btn) => {
+  allTriggers?.forEach((btn) => {
     // On mousedown, force focus so :focus-within activates
-    btn.addEventListener("mousedown", (e) => {
+    const handleTriggerMouseDown = (e: Event) => {
       e.preventDefault(); // prevent default to control focus manually
       const el = btn as HTMLElement;
       // If already focused (dropdown is open), blur to close it
@@ -559,30 +651,33 @@ onMounted(() => {
       } else {
         el.focus();
       }
+    };
+
+    btn.addEventListener("mousedown", handleTriggerMouseDown);
+    triggerCleanupFns.push(() => {
+      btn.removeEventListener("mousedown", handleTriggerMouseDown);
     });
   });
 
   // Mouse leaves dropdown area → blur button so panel hides
-  document
-    .querySelectorAll(".nav-dropdown, .lang-dropdown")
+  headerEl.value
+    ?.querySelectorAll(".nav-dropdown, .lang-dropdown")
     .forEach((wrapper) => {
       if (wrapper.classList.contains("product-dropdown")) return;
 
-      wrapper.addEventListener("mouseleave", () => {
+      const handleDropdownMouseLeave = () => {
         const focused = wrapper.querySelector(":focus") as HTMLElement | null;
         if (focused) focused.blur();
+      };
+
+      wrapper.addEventListener("mouseleave", handleDropdownMouseLeave);
+      dropdownCleanupFns.push(() => {
+        wrapper.removeEventListener("mouseleave", handleDropdownMouseLeave);
       });
     });
 
   // Click outside any dropdown → blur active trigger to close
-  document.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest(".nav-dropdown") && !target.closest(".lang-dropdown")) {
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
-      }
-    }
-  });
+  document.addEventListener("click", handleDocumentClick);
 });
 
 watch(
@@ -594,12 +689,16 @@ watch(
 
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", requestHeaderScrollSync);
+  window.removeEventListener("storage", handleStorageChange);
   if (headerScrollFrame !== null) {
     window.cancelAnimationFrame(headerScrollFrame);
     headerScrollFrame = null;
   }
   clearHeaderSolidTimer();
   clearProductDropdownClosing();
+  document.removeEventListener("click", handleDocumentClick);
+  triggerCleanupFns.splice(0).forEach((cleanup) => cleanup());
+  dropdownCleanupFns.splice(0).forEach((cleanup) => cleanup());
 });
 </script>
 

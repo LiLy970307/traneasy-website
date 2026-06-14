@@ -80,6 +80,8 @@ const NOTICE_API = `${config.public.clientUserApiBase}/notice/list`;
 
 const { data, pending, error } = await useFetch<NoticeResponse>(NOTICE_API, {
   key: "statement-notice-list",
+  server: false,
+  lazy: true,
 });
 
 const currentNotice = computed(() => {

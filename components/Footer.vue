@@ -141,12 +141,12 @@ const productItems: readonly FooterLinkItem[] = [
 ];
 
 const integrationItems: readonly FooterLinkItem[] = [
-  { label: "WhatsApp", href: "/integration/whatsapp" },
-  { label: "Telegram", href: "/integration/telegram" },
-  { label: "Facebook", href: "/integration/facebook" },
-  { label: "Instagram", href: "/integration/instagram" },
-  { label: "Line", href: "/integration/line" },
-  { label: "TikTok", href: "/integration/tiktok" },
+  { label: "WhatsApp", href: "/integrations/whatsapp" },
+  { label: "Telegram", href: "/integrations/telegram" },
+  { label: "Facebook", href: "/integrations/facebook" },
+  { label: "Instagram", href: "/integrations/instagram" },
+  { label: "Line", href: "/integrations/line" },
+  { label: "TikTok", href: "/integrations/tiktok" },
 ];
 
 const aboutItems: readonly FooterLinkItem[] = [
