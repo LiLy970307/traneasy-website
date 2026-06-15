@@ -26,13 +26,13 @@
 const localePath = useLocalePath();
 const { t } = useI18n();
 
-const heroImageSrc = "/images/product/app-image.png";
+const heroImageSrc = "/images/product/communication-image.png";
 const downloadLink = `${localePath("/")}#download`;
 
 const featureSections = [
   {
     title: "多平台统一收件箱",
-    imageSrc: "/images/product/app-desc-2.png",
+    imageSrc: "/images/product/communication-desc-1.png",
     imageAlt: "Traneasy 多平台统一收件箱",
     reverse: false,
     buttonLabel: "立即下载",
@@ -50,7 +50,7 @@ const featureSections = [
   },
   {
     title: "跨平台实时翻译",
-    imageSrc: "/images/product/app-desc-3.png",
+    imageSrc: "/images/product/communication-desc-2.png",
     imageAlt: "Traneasy 跨平台实时翻译",
     reverse: true,
     buttonLabel: "立即下载",
@@ -69,7 +69,7 @@ const featureSections = [
   },
   {
     title: "统一客户标签与备注",
-    imageSrc: "/images/product/app-desc-4.png",
+    imageSrc: "/images/product/communication-desc-3.png",
     imageAlt: "Traneasy 客户标签与备注",
     reverse: false,
     buttonLabel: "立即下载",
@@ -87,7 +87,7 @@ const featureSections = [
   },
   {
     title: "多账号聚合管理",
-    imageSrc: "/images/product/app-desc-1.png",
+    imageSrc: "/images/product/communication-desc-4.png",
     imageAlt: "Traneasy 多账号聚合管理",
     reverse: true,
     buttonLabel: "立即下载",

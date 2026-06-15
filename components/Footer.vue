@@ -109,9 +109,7 @@
         <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-5">
           <span>蜀ICP备2024115121号</span>
           <span>Copyright © 2025-2026 UCloud</span>
-          <NuxtLink
-            :to="localePath('/privacy')"
-            class="transition-colors hover:text-white"
+          <NuxtLink class="transition-colors hover:text-white"
             >隐私政策</NuxtLink
           >
         </div>
@@ -151,9 +149,9 @@ const integrationItems: readonly FooterLinkItem[] = [
 
 const aboutItems: readonly FooterLinkItem[] = [
   { label: "合作伙伴关系" },
-  { label: "服务协议", href: "/terms" },
+  { label: "服务协议" },
   { label: "用户行为规范" },
-  { label: "隐私政策", href: "/privacy" },
+  { label: "隐私政策" },
   { label: "自动续订协议" },
   { label: "SDK隐私政策" },
   { label: "SDK合规配置指引" },

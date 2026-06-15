@@ -310,14 +310,6 @@
                 </div>
               </details>
 
-              <!-- Mobile Solutions -->
-              <NuxtLink
-                :to="localePath('/solutions')"
-                class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm font-medium block"
-              >
-                {{ $t("nav.solutions") }}
-              </NuxtLink>
-
               <NuxtLink
                 :to="localePath('/integrations')"
                 class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm block"
@@ -431,9 +423,6 @@ const handleStorageChange = (event: StorageEvent) => {
 };
 
 const shouldUseScrollHeader = ref(true);
-// const shouldUseScrollHeader = computed(
-//   () => route.path === localePath("/") || route.path === localePath("/features")|| route.path === localePath("/integrations")|| route.path === localePath("/resources"),
-// );
 const headerEl = ref<HTMLElement | null>(null);
 const headerBgEl = ref<HTMLElement | null>(null);
 const productDropdownEl = ref<HTMLElement | null>(null);
@@ -517,19 +506,6 @@ const productItems = [
   },
 ];
 
-const solutionItems = [
-  { icon: "🛍️", titleKey: "sol1Title", href: "use-cases/ecommerce" },
-  { icon: "🎥", titleKey: "sol2Title", href: "use-cases/meetings" },
-  { icon: "📚", titleKey: "sol3Title", href: "use-cases/education" },
-  { icon: "💬", titleKey: "sol4Title", href: "use-cases/customer-support" },
-];
-
-const resourceItems = [
-  { icon: "📝", titleKey: "resBlog", href: "blog" },
-  { icon: "❓", titleKey: "resFaq", href: "faq" },
-  { icon: "⚖️", titleKey: "resCompare", href: "compare" },
-  { icon: "ℹ️", titleKey: "resAbout", href: "about" },
-];
 const clearHeaderSolidTimer = () => {
   if (headerSolidTimer !== null) {
     window.clearTimeout(headerSolidTimer);
@@ -703,14 +679,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* ═══════════════════════════════════════════════════
-   NAV DROPDOWN — Pure CSS, hover-safe with no gap
-   The trick: .nav-dropdown-area is an invisible box
-   that starts at the button bottom and CONTAINS the
-   visible panel. Mouse never leaves the hover zone.
-   ═══════════════════════════════════════════════════ */
-
-/* Invisible hover bridge + container */
 .nav-dropdown .nav-dropdown-area {
   position: absolute;
   top: 100%;

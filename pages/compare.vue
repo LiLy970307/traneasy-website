@@ -1,6 +1,5 @@
 <template>
   <main class="pt-[68px]">
-    <Breadcrumb :items="[{ label: $t('compare.title') }]" />
     <section class="py-24">
       <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
         <div class="text-center mb-16">

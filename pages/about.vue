@@ -1,6 +1,5 @@
 <template>
   <main class="pt-[68px]">
-    <Breadcrumb :items="[{ label: $t('nav.about') }]" />
     <section class="py-24">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div class="text-center mb-16">

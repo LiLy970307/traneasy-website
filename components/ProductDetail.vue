@@ -64,7 +64,7 @@
 
     <section class="px-6 pb-20 pt-4 sm:px-8 lg:px-12">
       <div
-        class="mx-auto max-w-container grid gap-12 rounded-[32px] py-12 px-6 sm:px-8 lg:px-12 lg:grid-cols-[2fr_1.5fr]"
+        class="mx-auto max-w-container grid gap-12 rounded-[32px] py-12 px-6 sm:px-8 lg:px-12 lg:grid-cols-[2fr_1fr]"
       >
         <div>
           <h2 class="text-[28px] font-medium leading-[1.45] text-[#000213]">
