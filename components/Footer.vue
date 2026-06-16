@@ -151,7 +151,7 @@ const integrationItems: readonly FooterLinkItem[] = [
 ];
 
 const aboutItems: readonly FooterLinkItem[] = [
-  { label: "产品教程" },
+  { label: "产品教程", href: "/product-guide" },
   { label: "服务协议", href: "/service-agreement", external: true },
 ];
 

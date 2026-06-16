@@ -62,7 +62,7 @@
       class="relative mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12"
     >
       <h3 class="text-[14px] font-medium text-[#374151]">字符套餐</h3>
-      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="plan in characterPlans"
           :key="plan.name"
@@ -89,13 +89,18 @@
                   {{ plan.description }}
                 </p>
               </div>
-              <span class="text-[10px] font-medium text-[#8B90A0]">
-                {{ plan.discount }}
+              <span
+                v-if="plan.originalPrice > plan.price"
+                class="text-[10px] font-medium text-[#8B90A0]"
+              >
+                优惠{{
+                  Math.round((1 - plan.price / plan.originalPrice) * 100)
+                }}%
               </span>
             </div>
 
             <div class="mt-5 flex items-end gap-1">
-              <span class="text-[15px] font-semibold text-[#111827]">￥</span>
+              <span class="text-[20px] font-semibold text-[#111827]">￥</span>
               <span
                 class="text-[40px] font-semibold leading-none text-[#111827]"
               >
@@ -105,32 +110,37 @@
             <div
               class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
             >
-              <span>￥{{ plan.originalPrice }}</span>
-              <span>{{ plan.discount }}</span>
+              <span v-if="plan.originalPrice > plan.price">{{
+                plan.originalPrice > plan.price ? "￥" + plan.originalPrice : ""
+              }}</span>
             </div>
           </div>
 
           <div
-            class="mt-5 grid grid-cols-2 gap-y-3 border-t border-[#EDF1F7] px-5 py-5 text-[12px] text-[#5F6472]"
+            class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
+          >
+            <div class="whitespace-nowrap">
+              <span class="text-slate-500">字符数量：</span>
+              <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
+                {{ plan.availability }}
+              </span>
+              <span class="text-slate-500">字符</span>
+            </div>
+          </div>
+
+          <div
+            class="mt-5 flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
           >
             <div
               v-for="feature in plan.features"
               :key="plan.name + feature"
               class="flex items-center gap-2"
             >
-              <svg
-                class="h-3.5 w-3.5 flex-shrink-0 text-[#A7AFBF]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
+              <img
+                src="/public/images/correct-icon.svg"
+                width="20"
+                height="20"
+              />
               <span>{{ feature }}</span>
             </div>
           </div>
@@ -153,7 +163,7 @@
       class="relative mx-auto max-w-7xl px-6 pb-20 sm:px-8 lg:px-12"
     >
       <h3 class="text-[14px] font-medium text-[#374151]">包月套餐</h3>
-      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:max-w-[472px]">
+      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="plan in monthlyPlans"
           :key="plan.name"
@@ -171,48 +181,65 @@
                   {{ plan.description }}
                 </p>
               </div>
-              <span class="text-[10px] font-medium text-[#8B90A0]">
-                {{ plan.discount }}
+              <span
+                v-if="plan.originalPrice > plan.price"
+                class="text-[10px] font-medium text-[#8B90A0]"
+              >
+                优惠{{
+                  Math.round((1 - plan.price / plan.originalPrice) * 100)
+                }}%
               </span>
             </div>
 
             <div class="mt-5 flex items-end gap-1">
-              <span class="text-[15px] font-semibold text-[#111827]">￥</span>
+              <span class="text-[20px] font-semibold text-[#111827]">￥</span>
               <span
                 class="text-[40px] font-semibold leading-none text-[#111827]"
               >
                 {{ plan.price }}
               </span>
             </div>
+
             <div
               class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
             >
-              <span>￥{{ plan.originalPrice }}</span>
-              <span>{{ plan.discount }}</span>
+              <span v-if="plan.originalPrice > plan.price">{{
+                plan.originalPrice > plan.price ? "￥" + plan.originalPrice : ""
+              }}</span>
             </div>
           </div>
 
           <div
-            class="mt-5 grid grid-cols-2 gap-y-3 border-t border-[#EDF1F7] px-5 py-5 text-[12px] text-[#5F6472]"
+            class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
+          >
+            <div class="whitespace-nowrap">
+              <span class="text-slate-500">字符数量：</span>
+              <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
+                {{ plan.availability }}
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
           >
             <div
-              v-for="feature in plan.features"
+              v-for="(feature, index) in plan.features"
               :key="plan.name + feature"
               class="flex items-center gap-2"
             >
-              <svg
-                class="h-3.5 w-3.5 flex-shrink-0 text-[#A7AFBF]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
+              <img
+                v-if="index === 0"
+                src="/public/images/time-icon.svg"
+                width="20"
+                height="20"
+              />
+              <img
+                v-else
+                src="/public/images/incorrect-icon.svg"
+                width="20"
+                height="20"
+              />
               <span>{{ feature }}</span>
             </div>
           </div>
@@ -241,12 +268,13 @@
 <script setup lang="ts">
 interface PricingPlan {
   name: string;
+  enName?: string;
   description: string;
   price: number;
   originalPrice: number;
-  discount: string;
   cta: string;
-  features: readonly string[];
+  availability: string;
+  features: string[];
   badge?: string;
   badgeClass?: string;
 }
@@ -264,84 +292,107 @@ const charPackagesRef = ref<HTMLElement | null>(null);
 const monthlyPackagesRef = ref<HTMLElement | null>(null);
 const activeTab = ref<(typeof pricingTabs)[number]["target"]>("char-packages");
 
-const characterPlans: readonly PricingPlan[] = [
-  {
-    name: "免费版",
-    description: "支持体验功能，推荐刚开始进行语音翻译的团队",
-    price: 0,
-    originalPrice: 180,
-    discount: "优惠100%",
-    cta: "注册即送",
-    features: ["1000字符", "支持可替换", "支持子账号", "支持平台号"],
-  },
-  {
-    name: "标准版",
-    description: "支持进阶功能，推荐有稳定语音翻译需求的团队",
-    price: 180,
-    originalPrice: 230,
-    discount: "优惠30%",
-    cta: "立即购买",
-    features: ["150万字符", "支持可替换", "支持子账号", "支持平台号"],
-  },
-  {
-    name: "高级版",
-    description: "支持扩展，推荐有稳定语音翻译需求的团队",
-    price: 320,
-    originalPrice: 400,
-    discount: "优惠20%",
-    cta: "立即购买",
+const config = useRuntimeConfig();
+const SALE_API = `${config.public.clientUserApiBase}/memberGroup/saleList`;
+
+interface SaleItem {
+  id: number;
+  name: string;
+  enName: string;
+  showPrice: number;
+  salePrice: number;
+  usdPrice: number;
+  num: number;
+  availability: string;
+  translationBillingMode: string;
+  sort: number;
+  authTranslationChannelList: string;
+}
+
+interface SaleListResponse {
+  success: boolean;
+  code: number;
+  msg: string;
+  data: SaleItem[];
+}
+
+const planDescriptions: Record<string, string> = {
+  标准版: "支持腾讯、有道两种翻译通道任意切换",
+  高级版: "支持谷歌、微软两种翻译通道任意切换",
+  专业版: "支持Deepl精准翻译",
+  AI翻译: "支持ChatGpt智能翻译",
+};
+
+const planBadges: Record<string, { badge: string; badgeClass: string }> = {
+  高级版: {
     badge: "热销推荐",
     badgeClass: "border-[#FFB8A0] bg-[#FFF1EB] text-[#FF6B2C]",
-    features: ["150万字符", "支持可替换", "支持子账号", "支持平台号"],
   },
-  {
-    name: "专业版",
-    description: "支持 Deepcom 的翻译语料库",
-    price: 850,
-    originalPrice: 1066,
-    discount: "优惠20%",
-    cta: "立即购买",
+  专业版: {
     badge: "企业优选",
     badgeClass: "border-[#FFD7A8] bg-[#FFF8E8] text-[#FF8D1A]",
-    features: ["150万字符", "支持AI翻译", "支持可替换", "支持子账号"],
   },
-  {
-    name: "AI翻译",
-    description: "支持 ChatGPT 的智能翻译",
-    price: 480,
-    originalPrice: 600,
-    discount: "优惠20%",
-    cta: "立即购买",
-    features: ["150万字符", "支持AI翻译", "支持可替换", "支持子账号"],
-  },
-] as const;
+};
 
-const monthlyPlans: readonly PricingPlan[] = [
-  {
-    name: "包月(1个月)",
-    description: "灵活付费，适合短期项目或活动旺季使用",
-    price: 580,
-    originalPrice: 680,
-    discount: "优惠27%",
-    cta: "立即购买",
-    features: ["字符不限量", "支持双语入口", "支持加人", "不支持子账号"],
-  },
-  {
-    name: "高级包月(1个月)",
-    description: "支持更稳定、高频的跨语种翻译协作使用",
-    price: 680,
-    originalPrice: 850,
-    discount: "优惠20%",
-    cta: "立即购买",
-    features: ["字符不限量", "支持双语入口", "支持加人", "不支持子账号"],
-  },
-] as const;
+const { data: saleData } = await useFetch<SaleListResponse>(SALE_API, {
+  server: false,
+  lazy: true,
+});
 
-const faqs: readonly { question: string; answer: string }[] = [
+const allPlans = computed(() => {
+  return (saleData.value?.data ?? []).sort((a, b) => a.sort - b.sort);
+});
+
+const characterPlans = computed(() => {
+  return allPlans.value
+    .filter((item) => item.translationBillingMode === "char")
+    .map((item) => mapToPlan(item));
+});
+
+const monthlyPlans = computed(() => {
+  return allPlans.value
+    .filter((item) => item.translationBillingMode === "time")
+    .map((item) => mapToPlan(item));
+});
+
+function mapToPlan(item: SaleItem): PricingPlan {
+  const price = item.salePrice / 100;
+  const badgeInfo = planBadges[item.name];
+  const description = planDescriptions[item.name] || "支持翻译功能";
+
+  const numText =
+    item.translationBillingMode === "char"
+      ? item.num >= 10000
+        ? `${item.num / 10000}万`
+        : `${item.num}`
+      : "时间限制30天";
+
+  return {
+    name: item.name,
+    enName: item.enName,
+    description,
+    price,
+    originalPrice: item.showPrice / 100,
+    cta: "立即购买",
+    availability: item.translationBillingMode === "char" ? numText : "不限量",
+    features:
+      item.translationBillingMode === "char"
+        ? ["无时间限制", "支持子账号"]
+        : [numText, "不支持子账号"],
+    badge: badgeInfo?.badge,
+    badgeClass: badgeInfo?.badgeClass,
+  };
+}
+
+const faqs = [
   {
     question: "150万字符具体指什么？如果用完了怎么办？",
-    answer:
-      "150万字符是指您当期套餐内可实际使用的翻译字符总量，对绝大多数中小团队来说，这通常足够使用6-12个月。如果字符数用完，您的账号不会被冻结，系统会提示您以极低的单价单独购买字符包，或者升级到更高阶的套餐，确保您的业务不中断。",
+    answer: `
+      <ul class="list-disc pl-5 space-y-1">
+      <li>150万字符是指翻译引擎处理的文本总量（包含发送和接收的双向翻译）。对于绝大多数中小微外贸企业，这通常足够使用6-12个月。</li>
+      <li>超出处理： 如果字符数用完，您的账号不会被冻结，系统会提示您以极低的单价单独购买字符包，或者升级到更高阶的套餐，确保您的业务不中断。</li>
+      </ul>
+    `,
   },
   {
     question: "为什么专业版和AI版价格更高？值得升级吗？",
@@ -355,10 +406,14 @@ const faqs: readonly { question: string; answer: string }[] = [
   },
   {
     question: "包月版（不限量）和字符版有什么区别？",
-    answer:
-      "字符版（推荐）：性价比高，适合日常业务沟通，数据永久有效。包月版（不限量）：适合短期内有爆发式营销需求的用户（如：需要在3天内群发10万条开发信）。因为包月版有时间限制（30天），过期作废，请根据您的实际业务节奏选择。",
+    answer: `
+      <ul class="list-disc pl-5 space-y-1">
+      <li>字符版（推荐）： 性价比高，适合日常业务沟通，数据永久有效。</li>
+      <li>包月版（不限量）： 适合短期内有爆发式营销需求的用户。因为包月版有时间限制（30天），过期作废，请根据您的实际业务节奏选择。</li>
+      </ul>
+    `,
   },
-] as const;
+];
 
 const sectionRefs = {
   "char-packages": charPackagesRef,

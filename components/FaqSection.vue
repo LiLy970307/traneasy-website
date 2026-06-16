@@ -46,9 +46,10 @@
                   : '-translate-y-1 opacity-0'
               "
             >
-              <div class="px-6 py-5 text-[15px] leading-8 text-[#5F6472]">
-                {{ faq.answer }}
-              </div>
+              <div
+                class="px-6 py-5 text-[15px] leading-8 text-[#5F6472] prose prose-slate max-w-none"
+                v-html="faq.answer"
+              />
             </div>
           </div>
         </div>
