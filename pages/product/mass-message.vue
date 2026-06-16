@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "精准消息群发 - Traneasy 易翻译";
 const pageDescription =
   "通过自动化批量发送、智能随机防封、灵活对象筛选和变量插入能力，让企业实现更稳定、更精准的消息群发。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "极速批量发送",

@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "工单系统/分流链接 - Traneasy 易翻译";
 const pageDescription =
   "通过分流链接追踪、自动打标分组、智能接待分配、客户工单生成和业绩归属管理，让线索流转更清晰、更高效。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "短链接智能追踪",

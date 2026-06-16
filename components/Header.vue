@@ -89,7 +89,7 @@
           </NuxtLink>
 
           <NuxtLink
-            :to="localePath('/resources')"
+            :to="localePath('/download')"
             class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
           >
             {{ $t("nav.resources") }}
@@ -185,12 +185,12 @@
           >
             {{ displayNickname }}
           </span>
-          <NuxtLink
+          <!-- <NuxtLink
             :to="localePath('/') + '#download'"
             class="ml-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors shadow-sm whitespace-nowrap flex-shrink-0 max-w-[180px] truncate text-center"
           >
             {{ $t("nav.downloadBtn") }}
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
 
         <!-- Mobile toggle -->
@@ -324,7 +324,7 @@
               </NuxtLink>
 
               <NuxtLink
-                :to="localePath('/resources')"
+                :to="localePath('/download')"
                 class="px-3 py-2.5 rounded-full text-slate-600 hover:bg-blue-50 text-sm block"
               >
                 {{ $t("nav.resources") }}
@@ -362,7 +362,7 @@
                 {{ displayNickname }}
               </div>
               <NuxtLink
-                :to="localePath('/') + '#download'"
+                :to="localePath('/download')"
                 class="mt-1 bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded-full text-center block"
               >
                 {{ $t("nav.downloadBtn") }}
@@ -434,8 +434,22 @@ let lastHeaderScrollY = -1;
 const triggerCleanupFns: Array<() => void> = [];
 const dropdownCleanupFns: Array<() => void> = [];
 
+// const handleDocumentClick = (e: MouseEvent) => {
+//   const target = e.target as HTMLElement;
+//   if (!target.closest(".nav-dropdown") && !target.closest(".lang-dropdown")) {
+//     if (document.activeElement instanceof HTMLElement) {
+//       document.activeElement.blur();
+//     }
+//   }
+// };
+
 const handleDocumentClick = (e: MouseEvent) => {
   const target = e.target as HTMLElement;
+  // 新增：点击 Crisp 聊天区域，直接返回，不做任何失焦处理
+  if (target.closest(".crisp-chatbox") || target.closest(".crisp-client")) {
+    return;
+  }
+  // 原有逻辑不变
   if (!target.closest(".nav-dropdown") && !target.closest(".lang-dropdown")) {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();

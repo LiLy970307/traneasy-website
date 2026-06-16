@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "数据分析 - Traneasy 易翻译";
 const pageDescription =
   "通过员工绩效看板、客户来源追踪和沟通话术分析，把分散的沟通数据转化为驱动业绩增长的决策依据。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "员工绩效看板",

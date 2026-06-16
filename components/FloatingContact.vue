@@ -18,7 +18,7 @@
           class="absolute bottom-[138px] right-[104px] w-[190px] rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-[0_18px_50px_rgba(15,23,42,0.16)]"
         >
           <div class="text-sm font-semibold text-slate-800">
-            {{ platformLabel(activeGroup.platform) }}
+            {{ activeGroup.platform }}
           </div>
           <div
             class="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-2"
@@ -26,7 +26,7 @@
             <img
               v-if="activeAccount?.qrCode"
               :src="activeAccount.qrCode"
-              :alt="`${platformLabel(activeGroup.platform)} 客服二维码`"
+              :alt="`${activeGroup.platform} 客服二维码`"
               class="aspect-square w-full object-contain"
               loading="lazy"
             />
@@ -72,10 +72,19 @@
 
       <div class="absolute bottom-0 right-0 flex flex-col items-center gap-7">
         <!-- Platform buttons -->
+
         <div
           v-if="expanded"
           class="flex w-[68px] flex-col items-center rounded-xl border border-slate-100 bg-white py-4 shadow-[0_12px_36px_rgba(15,23,42,0.14)]"
         >
+          <button
+            @click="openCrisp"
+            class="w-[42px] h-[42px] my-1.5 rounded-full bg-[linear-gradient(180deg,#5192fd,#1d6ced)] text-white text-[12px] flex items-center justify-center"
+          >
+            在线
+            <br />
+            客服
+          </button>
           <template v-if="pending">
             <div
               v-for="item in 3"
@@ -88,7 +97,6 @@
               v-for="group in sortedGroups"
               :key="group.platform"
               type="button"
-              :title="platformLabel(group.platform)"
               :class="[
                 'relative my-1.5 flex h-12 w-12 items-center justify-center rounded-full transition-all hover:scale-105',
                 activePlatform === group.platform
@@ -99,12 +107,19 @@
             >
               <img
                 :src="platformIcon(group.platform)"
-                :alt="platformLabel(group.platform)"
                 class="h-10 w-10 object-contain"
                 loading="lazy"
               />
             </button>
           </template>
+          <button
+            @click="openVerifyDialog"
+            class="w-[42px] h-[42px] my-1.5 rounded-full bg-[linear-gradient(180deg,#5192fd,#1d6ced)] text-white text-[12px] flex items-center justify-center"
+          >
+            客服
+            <br />
+            验证
+          </button>
         </div>
 
         <!-- Toggle button -->
@@ -154,9 +169,160 @@
       </div>
     </div>
   </ClientOnly>
+
+  <!-- Verify Customer Service Dialog -->
+  <Teleport to="body">
+    <div
+      v-show="verifyDialog.visible"
+      class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-4"
+      @click.self="closeVerifyDialog"
+    >
+      <div
+        class="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
+        @click.stop
+      >
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold text-slate-900">客服验证</h3>
+          <button
+            type="button"
+            class="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
+            @click="closeVerifyDialog"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 5L15 15M15 5L5 15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="mt-6 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >客服平台</label
+            >
+            <select
+              v-model="verifyDialog.platform"
+              class="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option
+                v-for="platform in platformOptions"
+                :key="platform"
+                :value="platform"
+              >
+                {{ platform }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-slate-700"
+              >客服用户名/账号</label
+            >
+            <input
+              ref="accountInputRef"
+              v-model="verifyDialog.account"
+              type="text"
+              placeholder="请输入客服账号"
+              class="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 shadow-sm transition-colors placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              @keyup.enter="doVerify"
+            />
+          </div>
+
+          <!-- Result message -->
+          <div
+            v-if="verifyDialog.result"
+            :class="[
+              'rounded-lg px-4 py-3 text-sm',
+              verifyDialog.resultType === 'success'
+                ? 'bg-green-50 text-green-700 border border-green-200'
+                : 'bg-red-50 text-red-700 border border-red-200',
+            ]"
+          >
+            <div class="flex items-start gap-2">
+              <svg
+                v-if="verifyDialog.resultType === 'success'"
+                class="mt-0.5 h-4 w-4 flex-shrink-0 text-green-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <svg
+                v-else
+                class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>{{ verifyDialog.result }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-3">
+          <button
+            type="button"
+            class="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+            @click="closeVerifyDialog"
+          >
+            关闭
+          </button>
+          <button
+            type="button"
+            :disabled="
+              verifyDialog.loading ||
+              !verifyDialog.platform ||
+              !verifyDialog.account
+            "
+            class="flex-1 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="doVerify"
+          >
+            <span
+              v-if="verifyDialog.loading"
+              class="flex items-center justify-center gap-2"
+            >
+              <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
+              </svg>
+              验证中...
+            </span>
+            <span v-else>验证</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
+const openCrisp = () => {
+  window.$crisp?.push(["do", "chat:open"]);
+};
 interface CustomerAccount {
   id: number;
   platform: string;
@@ -179,8 +345,46 @@ interface CustomerServiceResponse {
   data: CustomerServiceGroup[];
 }
 
+interface PlatformListResponse {
+  success: boolean;
+  code: number;
+  msg: string;
+  data: string[];
+}
+
+interface VerifyResponse {
+  success: boolean;
+  code: number;
+  msg: string;
+  data: unknown;
+}
+
 const config = useRuntimeConfig();
 const API_URL = `${config.public.clientUserApiBase}/customer-service/list`;
+const VERIFY_API = `${config.public.clientUserApiBase}/customer-service/get`;
+const PLATFORM_LIST_API = `${config.public.clientUserApiBase}/customer-service/platform/list`;
+
+const { data: platformData } = await useFetch<PlatformListResponse>(
+  PLATFORM_LIST_API,
+  {
+    key: "customer-service-platform-list",
+    server: false,
+    lazy: true,
+  },
+);
+
+const platformOptions = computed(() => {
+  return platformData.value?.data ?? ["WeChat", "WhatsApp", "Telegram"];
+});
+
+const verifyDialog = reactive({
+  visible: false,
+  platform: "",
+  account: "",
+  loading: false,
+  result: null as string | null,
+  resultType: "" as "success" | "error" | "",
+});
 
 const platformOrder = ["WeChat", "WhatsApp", "Telegram"];
 
@@ -188,6 +392,7 @@ const visible = ref(true);
 const expanded = ref(false);
 const activePlatform = ref("WeChat");
 const activeAccountId = ref<number>();
+const accountInputRef = ref<HTMLInputElement | null>(null);
 
 const { data, pending, error } = await useFetch<CustomerServiceResponse>(
   API_URL,
@@ -239,16 +444,6 @@ const selectPlatform = (group: CustomerServiceGroup) => {
   activeAccountId.value = group.accountList[0]?.id;
 };
 
-const platformLabel = (platform: string) => {
-  const labelMap: Record<string, string> = {
-    WeChat: "微信客服",
-    WhatsApp: "WhatsApp",
-    Telegram: "Telegram",
-  };
-
-  return labelMap[platform] ?? platform;
-};
-
 const platformIcon = (platform: string) => {
   const iconMap: Record<string, string> = {
     WeChat: "/images/icon/WeChat.svg",
@@ -257,6 +452,54 @@ const platformIcon = (platform: string) => {
   };
 
   return iconMap[platform] ?? "/images/icon/global.svg";
+};
+
+const openVerifyDialog = () => {
+  verifyDialog.visible = true;
+  verifyDialog.platform = "";
+  verifyDialog.account = "";
+  verifyDialog.result = null;
+  verifyDialog.resultType = "";
+  nextTick(() => {
+    accountInputRef.value?.focus();
+  });
+};
+
+const closeVerifyDialog = () => {
+  verifyDialog.visible = false;
+  verifyDialog.result = null;
+  verifyDialog.resultType = "";
+};
+
+const doVerify = async () => {
+  if (!verifyDialog.platform || !verifyDialog.account) return;
+
+  verifyDialog.loading = true;
+  verifyDialog.result = null;
+  verifyDialog.resultType = "";
+
+  try {
+    const data = await $fetch<VerifyResponse>(VERIFY_API, {
+      params: {
+        account: verifyDialog.account,
+        platform: verifyDialog.platform,
+      },
+    });
+
+    if (data.success) {
+      verifyDialog.result = "该账号为官方客服账号，请放心联系！";
+      verifyDialog.resultType = "success";
+    } else {
+      verifyDialog.result =
+        data.msg || "该账户非官方客服帐号，请注意防范！！！";
+      verifyDialog.resultType = "error";
+    }
+  } catch (err) {
+    verifyDialog.result = "网络异常，请稍后重试";
+    verifyDialog.resultType = "error";
+  } finally {
+    verifyDialog.loading = false;
+  }
 };
 
 watch(

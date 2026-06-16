@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "实时翻译 - Traneasy 易翻译";
 const pageDescription =
   "通过双向自动互译、自动理由回复、多语种覆盖、原文对照和专业术语库能力，让跨语言聊天更自然、更高效。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "双向自动互译",

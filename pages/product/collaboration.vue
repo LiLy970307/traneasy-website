@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "跨境团队协作管理 - Traneasy 易翻译";
 const pageDescription =
   "通过主子账号体系、独立权限控制、共享快捷回复与客户资产沉淀能力，让跨境团队实现更稳定、更高效的协同管理。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "主子账号体系",

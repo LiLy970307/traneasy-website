@@ -24,11 +24,13 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const { t } = useI18n();
+
+const pageTitle = "全渠道沟通 - Traneasy 易翻译";
+const pageDescription =
+  "将 WhatsApp、Telegram、Line、Facebook、Instagram、TikTok 等全球主流社交平台聚合到一个工作台，管理所有客户对话，跨境沟通效率 300%。";
 
 const heroImageSrc = "/images/product/communication-image.png";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "多平台统一收件箱",
@@ -186,7 +188,12 @@ const ctaPoints = [
 ] as const;
 
 useHead({
-  title: () => t("seo.featuresTitle"),
-  meta: [{ name: "description", content: () => t("seo.featuresDesc") }],
+  title: () => pageTitle,
+  meta: [
+    {
+      name: "description",
+      content: pageDescription,
+    },
+  ],
 });
 </script>

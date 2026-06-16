@@ -51,6 +51,8 @@
               <template v-if="item.href">
                 <NuxtLink
                   :to="localePath(item.href)"
+                  :target="item.external ? '_blank' : undefined"
+                  :rel="item.external ? 'noopener noreferrer' : undefined"
                   class="transition-colors hover:text-white"
                   >{{ item.label }}</NuxtLink
                 >
@@ -126,6 +128,7 @@ const footerLogoSrc = "/images/icon/footerLogo.svg";
 interface FooterLinkItem {
   label: string;
   href?: string;
+  external?: boolean;
 }
 
 const productItems: readonly FooterLinkItem[] = [
@@ -148,13 +151,8 @@ const integrationItems: readonly FooterLinkItem[] = [
 ];
 
 const aboutItems: readonly FooterLinkItem[] = [
-  { label: "合作伙伴关系" },
-  { label: "服务协议" },
-  { label: "用户行为规范" },
-  { label: "隐私政策" },
-  { label: "自动续订协议" },
-  { label: "SDK隐私政策" },
-  { label: "SDK合规配置指引" },
+  { label: "产品教程" },
+  { label: "服务协议", href: "/service-agreement", external: true },
 ];
 
 const socialItems = [

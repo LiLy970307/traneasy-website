@@ -16,9 +16,7 @@
       aria-hidden="true"
     />
 
-    <div
-      class="relative mx-auto max-w-7xl px-6 pt-8"
-    >
+    <div class="relative mx-auto max-w-7xl px-6 pt-8">
       <div class="mx-auto text-center">
         <h1
           class="mt-8 text-center text-[44px] font-semibold not-italic leading-[1.2] text-[#000213]"
@@ -26,10 +24,14 @@
           Traneasy 易翻译
         </h1>
 
-        <h1 class="mt-8  text-[#000213] font-bold text-[56px] sm:text-5xl  lg:text-6xl lg:leading-[1.08]">
+        <h1
+          class="mt-8 text-[#000213] font-bold text-[56px] sm:text-5xl lg:text-6xl lg:leading-[1.08]"
+        >
           跨越语言鸿沟，链接全球商机
         </h1>
-        <p class="mx-auto mt-10 text-[26px] leading-8 text-[#000213] sm:text-xl">
+        <p
+          class="mx-auto mt-10 text-[26px] leading-8 text-[#000213] sm:text-xl"
+        >
           专为出海企业打造，集实时翻译、客户管理、矩阵运营于一体，一站式解决出海沟通与获客难题。
         </p>
 
@@ -37,16 +39,16 @@
           class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <NuxtLink
-            :to="localePath('/login')"
+            :to="localePath('/register')"
             class="inline-flex min-w-36 items-center justify-center rounded bg-brand-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_rgba(37,99,235,0.28)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-brand-700"
           >
             免费试用
           </NuxtLink>
           <NuxtLink
-            :to="localePath('/pricing')"
+            :to="localePath('/download')"
             class="inline-flex min-w-36 items-center justify-center rounded border border-orange-200 bg-orange-500 px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_rgba(249,115,22,0.18)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-orange-600"
           >
-            预约演示
+            免费下载
           </NuxtLink>
         </div>
 

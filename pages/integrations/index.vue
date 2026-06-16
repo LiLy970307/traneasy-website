@@ -81,7 +81,10 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const { t } = useI18n();
+
+const pageTitle = "集成资源 - Traneasy 易翻译";
+const pageDescription =
+  "集成资源，支持全球主流社交平台的对接，统一管理客户沟通，高效转化每一笔商机。";
 
 const integrations = [
   {
@@ -129,7 +132,7 @@ const integrations = [
 ] as const;
 
 useHead({
-  title: () => t("seo.integrationsTitle"),
-  meta: [{ name: "description", content: () => t("seo.integrationsDesc") }],
+  title: () => pageTitle,
+  meta: [{ name: "description", content: pageDescription }],
 });
 </script>

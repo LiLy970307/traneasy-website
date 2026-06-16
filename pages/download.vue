@@ -21,11 +21,11 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-14 grid gap-5 md:grid-cols-3">
+      <div class="mx-auto mt-14 flex flex-wrap justify-center gap-5">
         <article
           v-for="item in downloadCards"
           :key="item.title"
-          class="rounded-[18px] border border-[#E8EDF5] bg-white px-6 pb-6 pt-8 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
+          class="min-w-[280px] flex-1 rounded-[18px] border border-[#E8EDF5] bg-white px-6 pb-6 pt-8 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
         >
           <img
             :src="item.iconSrc"
@@ -36,15 +36,17 @@
             {{ item.title }}
           </h2>
 
-          <div :class="item.grid" class="mt-6 grid gap-2">
-            <button
+          <div class="mt-6 flex flex-wrap gap-2">
+            <a
               v-for="button in item.buttons"
-              :key="button"
-              type="button"
+              :key="button.label"
+              :href="button.url"
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex min-h-[36px] items-center justify-center rounded-[6px] border border-[#AEB7C8] px-3 text-[12px] font-medium text-[#2A2F3A] transition-colors hover:border-[#205DFF] hover:text-[#205DFF]"
             >
-              {{ button }}
-            </button>
+              {{ button.label }}
+            </a>
           </div>
         </article>
       </div>
@@ -105,6 +107,38 @@
 </template>
 
 <script setup lang="ts">
+interface DownloadItem {
+  id: number;
+  label: string;
+  val: string;
+  enLabel?: string;
+}
+
+interface DownloadGroupChild {
+  id: number;
+  label: string;
+  enLabel?: string;
+  val?: string;
+  childId?: number[];
+  child?: DownloadGroupChild[];
+}
+
+interface DownloadConfigGroup {
+  id: number;
+  label: string;
+  child: DownloadGroupChild[];
+}
+
+interface DownloadConfigResponse {
+  success: boolean;
+  code: number;
+  msg: string;
+  data: {
+    keyed: string;
+    valued: string;
+  };
+}
+
 interface ResourceFaq {
   question: string;
   points?: readonly string[];
@@ -115,26 +149,107 @@ const pageTitle = "客户端下载 - Traneasy 易翻译";
 const pageDescription =
   "官方原版安装包下载入口，提供 Windows、Mac 与 Signal 翻译版客户端，并附常见安装与适配问题说明。";
 
-const downloadCards = [
+const config = useRuntimeConfig();
+const DOWNLOAD_API = `${config.public.clientUserApiBase}/dataCus/get`;
+
+const { data: downloadData } = await useFetch<DownloadConfigResponse>(
+  DOWNLOAD_API,
   {
-    title: "Windows客户端",
-    iconSrc: "/images/resource/Windows.svg",
-    buttons: ["win10/11", "win7/8", "电脑适配"],
-    grid: "grid-cols-3",
+    params: { id: "SOFT_DOWNLOAD_CONFIG" },
+    server: false,
+    lazy: true,
   },
-  {
-    title: "Windows客户端",
-    iconSrc: "/images/resource/Mac.svg",
-    buttons: ["5.2.0 M芯片", "5.2.0 intel芯片"],
-    grid: "grid-cols-2",
-  },
-  {
-    title: "Signal翻译版",
-    iconSrc: "/images/resource/Signal.svg",
-    buttons: ["立即下载"],
-    grid: "grid-cols-1",
-  },
-] as const;
+);
+
+interface DownloadCardItem {
+  title: string;
+  iconSrc: string;
+  buttons: { label: string; url: string }[];
+  grid: string;
+}
+
+const downloadCards = computed<DownloadCardItem[]>(() => {
+  const raw = downloadData.value?.data?.valued;
+  if (!raw) {
+    return [];
+  }
+
+  let groups: DownloadConfigGroup[];
+  try {
+    groups = JSON.parse(raw);
+  } catch {
+    return [];
+  }
+
+  const allChildren: DownloadGroupChild[] = [];
+  for (const group of groups) {
+    for (const child of group.child ?? []) {
+      // If child has its own children, expand them
+      if (child.child && child.child.length > 0) {
+        // This child is a group (e.g. "易翻译" or "mac版"), include its children
+        for (const sub of child.child) {
+          if (sub.val) {
+            allChildren.push(sub);
+          }
+        }
+      } else if (child.val) {
+        allChildren.push(child);
+      }
+    }
+  }
+
+  // Categorize by keyword matching
+  const windowsItems = allChildren.filter(
+    (item) =>
+      !/mac|M芯片|inter芯片|Signal/i.test(item.label) &&
+      !item.label.includes("mac版"),
+  );
+  const macItems = allChildren.filter(
+    (item) =>
+      /mac|M芯片|inter芯片/i.test(item.label) || item.label.includes("mac版"),
+  );
+  const signalItems = allChildren.filter((item) => /Signal/i.test(item.label));
+
+  const cards: DownloadCardItem[] = [];
+
+  if (windowsItems.length > 0) {
+    cards.push({
+      title: "Windows客户端",
+      iconSrc: "/images/resource/Windows.svg",
+      buttons: windowsItems.map((item) => ({
+        label: item.label,
+        url: item.val,
+      })),
+      grid: windowsItems.length <= 2 ? "grid-cols-2" : "grid-cols-3",
+    });
+  }
+
+  if (macItems.length > 0) {
+    cards.push({
+      title: "Mac客户端",
+      iconSrc: "/images/resource/Mac.svg",
+      buttons: macItems.map((item) => ({
+        label: item.label,
+        url: item.val,
+      })),
+      grid: macItems.length <= 2 ? "grid-cols-2" : "grid-cols-3",
+    });
+  }
+
+  if (signalItems.length > 0) {
+    cards.push({
+      title: "Signal翻译版",
+      iconSrc: "/images/resource/Signal.svg",
+      buttons: signalItems.map((item) => ({
+        label: item.label,
+        url: item.val,
+      })),
+      grid: "grid-cols-1",
+    });
+  }
+
+  return cards;
+});
 
 const faqs: readonly ResourceFaq[] = [
   {

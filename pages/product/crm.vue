@@ -27,8 +27,7 @@ const localePath = useLocalePath();
 const pageTitle = "客户关系管理 - Traneasy 易翻译";
 const pageDescription =
   "通过智能标签系统、跟进计划提醒与客户资产沉淀能力，帮助企业建立 360 度客户画像，持续提升复购与运营效率。";
-const downloadLink = `${localePath("/")}#download`;
-
+const downloadLink = `${localePath("/download")}`;
 const featureSections = [
   {
     title: "智能标签系统",
