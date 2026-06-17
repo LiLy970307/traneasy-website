@@ -2,171 +2,295 @@
   <ClientOnly>
     <div
       v-if="visible"
-      class="fixed right-4 top-1/2 z-[60] hidden h-[88px] w-[88px] -translate-y-1/2 md:block xl:right-8"
+      class="fixed bottom-5 right-4 z-[60] md:bottom-8 md:right-8"
     >
-      <!-- QR code panel -->
       <Transition
-        enter-active-class="transition duration-200 ease-out"
-        enter-from-class="opacity-0 translate-x-3 scale-95"
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 translate-y-4 scale-95"
         enter-to-class="opacity-100 translate-x-0 scale-100"
-        leave-active-class="transition duration-150 ease-in"
+        leave-active-class="transition duration-200 ease-in"
         leave-from-class="opacity-100 translate-x-0 scale-100"
-        leave-to-class="opacity-0 translate-x-3 scale-95"
+        leave-to-class="opacity-0 translate-y-4 scale-95"
       >
         <div
-          v-if="expanded && activeGroup"
-          class="absolute bottom-[138px] right-[104px] w-[190px] rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-[0_18px_50px_rgba(15,23,42,0.16)]"
+          v-if="expanded"
+          class="mb-4 flex w-[400px] h-[700px] flex-col overflow-hidden rounded-[22px] border border-white/70 bg-[linear-gradient(to_bottom,#c9d8ff_0%,#e5f7f0_44%,#f7f9fc_100%)] shadow-[0_22px_70px_rgba(15,23,42,0.2)]"
         >
-          <div class="text-sm font-semibold text-slate-800">
-            {{ activeGroup.platform }}
-          </div>
-          <div
-            class="mt-3 overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-2"
-          >
-            <img
-              v-if="activeAccount?.qrCode"
-              :src="activeAccount.qrCode"
-              :alt="`${activeGroup.platform} 客服二维码`"
-              class="aspect-square w-full object-contain"
-              loading="lazy"
-            />
-            <div
-              v-else
-              class="flex aspect-square w-full items-center justify-center text-xs text-slate-400"
+          <div class="relative overflow-hidden px-5 pb-4 pt-5 text-slate-950">
+            <button
+              type="button"
+              aria-label="收起客服入口"
+              class="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-white/35 hover:text-slate-700"
+              @click="expanded = false"
             >
-              暂无二维码
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 6L18 18M18 6L6 18"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+
+            <div class="flex items-center gap-3 pr-10">
+              <span
+                class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white shadow-sm"
+              >
+                <img
+                  src="/public/images/icon.png"
+                  alt="Traneasy"
+                  class="h-8 w-8 object-contain"
+                />
+              </span>
+              <span class="text-2xl font-bold leading-none text-slate-900">
+                Traneasy
+              </span>
+            </div>
+
+            <div
+              class="mt-7 text-[22px] font-bold leading-tight text-[#17305f]"
+            >
+              <span>👋 您好！欢迎来到易翻译客服中心</span>
+              <!-- <span class="block text-[#1558d6]">Traneasy!</span> -->
             </div>
           </div>
 
-          <div
-            v-if="activeGroup.accountList.length > 1"
-            class="mt-3 space-y-1.5"
-          >
-            <button
-              v-for="account in activeGroup.accountList"
-              :key="account.id"
-              type="button"
-              :class="[
-                'w-full truncate rounded-lg px-2.5 py-1.5 text-xs transition-colors',
-                account.id === activeAccount?.id
-                  ? 'bg-blue-50 font-semibold text-blue-600'
-                  : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700',
-              ]"
-              @click="activeAccountId = account.id"
+          <div class="-mt-1 flex-1 space-y-2.5 overflow-y-auto px-4 pb-4">
+            <div
+              class="rounded-xl bg-white/92 p-3.5 shadow-[0_12px_34px_rgba(30,41,59,0.1)]"
             >
-              {{ account.account }}
-            </button>
-          </div>
+              <div class="flex items-start gap-3">
+                <span
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-50"
+                >
+                  <img
+                    src="/public/images/icon.png"
+                    alt="Traneasy"
+                    class="h-7 w-7 object-contain"
+                  />
+                </span>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="font-semibold text-slate-900">Traneasy</div>
+                    <div class="shrink-0 text-sm text-slate-400">
+                      yesterday 03:17:01
+                    </div>
+                  </div>
+                  <div class="mt-2 text-sm text-slate-500">
+                    [Template message]
+                  </div>
+                </div>
+                <span
+                  class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-600 text-sm font-bold text-white ring-2 ring-white"
+                >
+                  2
+                </span>
+              </div>
 
-          <a
-            v-if="activeAccount?.referUrl"
-            :href="activeAccount.referUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-3 block rounded-full bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700"
-          >
-            立即联系
-          </a>
+              <button
+                type="button"
+                class="mt-4 flex h-[52px] w-full items-center justify-center gap-3 rounded-full bg-[#2364f4] text-lg font-semibold text-white shadow-sm transition-colors hover:bg-[#1756df]"
+              >
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2-3.6 7.2-8 7.2c-.7 0-1.5-.1-2.2-.3L5.6 20a.8.8 0 0 1-1.1-1l1.2-3.1A6.7 6.7 0 0 1 4 11.2Zm5-.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"
+                  />
+                </svg>
+                Enter chat
+              </button>
+            </div>
+
+            <template v-if="pending">
+              <div
+                v-for="item in 3"
+                :key="item"
+                class="h-[58px] animate-pulse rounded-xl bg-white/80"
+              />
+            </template>
+
+            <div
+              v-for="group in sortedGroups"
+              :key="group.platform"
+              class="w-full rounded-xl bg-white/92 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
+            >
+              <button
+                type="button"
+                class="flex min-h-[58px] w-full items-center gap-3 px-4 text-left"
+                @click="toggleContactGroup(group)"
+              >
+                <img
+                  :src="platformIcon(group.platform)"
+                  :alt="group.platform"
+                  class="h-9 w-9 shrink-0 object-contain"
+                  loading="lazy"
+                />
+                <span class="flex-1 text-base text-slate-500">联系我们</span>
+                <span
+                  :class="[
+                    'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white transition-transform',
+                    activePlatform === group.platform ? 'rotate-90' : '',
+                  ]"
+                >
+                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M4.5 3L7.5 6L4.5 9"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+
+              <div
+                v-if="activePlatform === group.platform"
+                class="border-t border-slate-100 px-4 pb-4"
+                @click.stop
+              >
+                <div class="grid gap-3 pt-4">
+                  <button
+                    v-for="account in group.accountList"
+                    :key="account.id"
+                    type="button"
+                    :class="[
+                      'rounded-lg border px-3 py-2 text-left text-sm transition-colors',
+                      account.id === activeAccountId
+                        ? 'border-blue-200 bg-blue-50 text-blue-700'
+                        : 'border-slate-100 bg-slate-50 text-slate-600 hover:bg-slate-100',
+                    ]"
+                    @click="activeAccountId = account.id"
+                  >
+                    {{ account.account || group.platform }}
+                  </button>
+                </div>
+
+                <div
+                  class="mt-4 overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-3 text-center"
+                >
+                  <img
+                    v-if="selectedGroupAccount(group)?.qrCode"
+                    :src="selectedGroupAccount(group)?.qrCode"
+                    :alt="`${group.platform} 客服二维码`"
+                    class="mx-auto aspect-square w-full max-w-[210px] object-contain"
+                    loading="lazy"
+                  />
+                  <div
+                    v-else
+                    class="mx-auto flex aspect-square w-full max-w-[210px] items-center justify-center text-sm text-slate-400"
+                  >
+                    暂无二维码
+                  </div>
+                </div>
+
+                <a
+                  v-if="selectedGroupAccount(group)?.referUrl"
+                  :href="selectedGroupAccount(group)?.referUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-3 flex h-10 w-full items-center justify-center rounded-full bg-[#2364f4] text-sm font-semibold text-white transition-colors hover:bg-[#1756df]"
+                >
+                  快速联系
+                </a>
+                <button
+                  v-else
+                  type="button"
+                  disabled
+                  class="mt-3 flex h-10 w-full cursor-not-allowed items-center justify-center rounded-full bg-slate-200 text-sm font-semibold text-slate-400"
+                >
+                  快速联系
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="flex min-h-[58px] w-full items-center gap-3 rounded-xl bg-white/92 px-4 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
+              @click="openVerifyDialog"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2364f4] text-white"
+              >
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M8 4h8a2 2 0 0 1 2 2v14l-4-2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M9 8h6M9 12h4"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </span>
+              <span class="flex-1 text-base text-slate-500">客服验证</span>
+              <span
+                class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white"
+              >
+                <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M4.5 3L7.5 6L4.5 9"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <div class="pt-20 text-center text-base text-slate-500">
+              Powered by Traneasy
+            </div>
+          </div>
         </div>
       </Transition>
 
-      <div class="absolute bottom-0 right-0 flex flex-col items-center gap-7">
-        <!-- Platform buttons -->
-
-        <div
+      <button
+        type="button"
+        :aria-label="expanded ? '收起客服入口' : '展开客服入口'"
+        class="ml-auto flex h-[68px] w-[68px] items-center justify-center rounded-full bg-[#2364f4] text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-[#1756df]"
+        @click="expanded = !expanded"
+      >
+        <svg
           v-if="expanded"
-          class="flex w-[68px] flex-col items-center rounded-xl border border-slate-100 bg-white py-4 shadow-[0_12px_36px_rgba(15,23,42,0.14)]"
+          class="h-9 w-9"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
         >
-          <button
-            @click="openCrisp"
-            class="w-[42px] h-[42px] my-1.5 rounded-full bg-[linear-gradient(180deg,#5192fd,#1d6ced)] text-white text-[12px] flex items-center justify-center"
-          >
-            在线
-            <br />
-            客服
-          </button>
-          <template v-if="pending">
-            <div
-              v-for="item in 3"
-              :key="item"
-              class="my-2 h-11 w-11 animate-pulse rounded-full bg-slate-100"
-            />
-          </template>
-          <template v-else>
-            <button
-              v-for="group in sortedGroups"
-              :key="group.platform"
-              type="button"
-              :class="[
-                'relative my-1.5 flex h-12 w-12 items-center justify-center rounded-full transition-all hover:scale-105',
-                activePlatform === group.platform
-                  ? 'bg-blue-50 shadow-[0_8px_18px_rgba(37,99,235,0.16)]'
-                  : 'bg-white hover:bg-slate-50',
-              ]"
-              @click="selectPlatform(group)"
-            >
-              <img
-                :src="platformIcon(group.platform)"
-                class="h-10 w-10 object-contain"
-                loading="lazy"
-              />
-            </button>
-          </template>
-          <button
-            @click="openVerifyDialog"
-            class="w-[42px] h-[42px] my-1.5 rounded-full bg-[linear-gradient(180deg,#5192fd,#1d6ced)] text-white text-[12px] flex items-center justify-center"
-          >
-            客服
-            <br />
-            验证
-          </button>
-        </div>
-
-        <!-- Toggle button -->
-        <button
-          type="button"
-          :aria-label="expanded ? '收起客服入口' : '展开客服入口'"
-          class="group flex h-[68px] w-[68px] items-center justify-center rounded-lg bg-blue-600 text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-blue-700"
-          @click="expanded = !expanded"
+          <path
+            d="M13 13L35 35M35 13L13 35"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg
+          v-else
+          class="h-9 w-9"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
         >
-          <svg
-            v-if="expanded"
-            class="h-11 w-11 transition-transform group-hover:rotate-90"
-            viewBox="0 0 48 48"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M13 13L35 35M35 13L13 35"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-          </svg>
-          <div v-else class="flex flex-col items-center gap-1">
-            <svg
-              class="h-9 w-9"
-              viewBox="0 0 48 48"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M12 21.5C12 14.596 17.82 9 25 9s13 5.596 13 12.5S32.18 34 25 34h-3.5L14 39v-8.017A12.222 12.222 0 0 1 12 21.5Z"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M19 21.5h.01M25 21.5h.01M31 21.5h.01"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-            </svg>
-            <span class="text-xs font-semibold">客服</span>
-          </div>
-        </button>
-      </div>
+          <path
+            d="M12 21.5C12 14.596 17.82 9 25 9s13 5.596 13 12.5S32.18 34 25 34h-3.5L14 39v-8.017A12.222 12.222 0 0 1 12 21.5Z"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M19 21.5h.01M25 21.5h.01M31 21.5h.01"
+            stroke="currentColor"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
     </div>
   </ClientOnly>
 
@@ -320,9 +444,6 @@
 </template>
 
 <script setup lang="ts">
-const openCrisp = () => {
-  window.$crisp?.push(["do", "chat:open"]);
-};
 interface CustomerAccount {
   id: number;
   platform: string;
@@ -390,7 +511,7 @@ const platformOrder = ["WeChat", "WhatsApp", "Telegram"];
 
 const visible = ref(true);
 const expanded = ref(false);
-const activePlatform = ref("WeChat");
+const activePlatform = ref("");
 const activeAccountId = ref<number>();
 const accountInputRef = ref<HTMLInputElement | null>(null);
 
@@ -423,25 +544,26 @@ const sortedGroups = computed(() => {
   });
 });
 
-const activeGroup = computed(() => {
-  return (
-    sortedGroups.value.find(
-      (group) => group.platform === activePlatform.value,
-    ) ?? sortedGroups.value[0]
-  );
-});
-
-const activeAccount = computed(() => {
-  const accountList = activeGroup.value?.accountList ?? [];
-  return (
-    accountList.find((account) => account.id === activeAccountId.value) ??
-    accountList[0]
-  );
-});
-
 const selectPlatform = (group: CustomerServiceGroup) => {
   activePlatform.value = group.platform;
   activeAccountId.value = group.accountList[0]?.id;
+};
+
+const toggleContactGroup = (group: CustomerServiceGroup) => {
+  if (activePlatform.value === group.platform) {
+    activePlatform.value = "";
+    activeAccountId.value = undefined;
+    return;
+  }
+
+  selectPlatform(group);
+};
+
+const selectedGroupAccount = (group: CustomerServiceGroup) => {
+  return (
+    group.accountList.find((account) => account.id === activeAccountId.value) ??
+    group.accountList[0]
+  );
 };
 
 const platformIcon = (platform: string) => {
@@ -505,21 +627,23 @@ const doVerify = async () => {
 watch(
   sortedGroups,
   (groupList) => {
-    if (!activePlatform.value && groupList[0]) {
-      selectPlatform(groupList[0]);
-      return;
-    }
+    if (!activePlatform.value) return;
 
     const currentGroup = groupList.find(
       (group) => group.platform === activePlatform.value,
     );
 
-    if (!currentGroup && groupList[0]) {
-      selectPlatform(groupList[0]);
+    if (!currentGroup) {
+      activePlatform.value = "";
+      activeAccountId.value = undefined;
       return;
     }
 
-    if (currentGroup && !activeAccount.value) {
+    const currentAccount = currentGroup.accountList.find(
+      (account) => account.id === activeAccountId.value,
+    );
+
+    if (!currentAccount) {
       activeAccountId.value = currentGroup.accountList[0]?.id;
     }
   },

@@ -1,19 +1,22 @@
 <template>
   <div class="product-guide-page">
     <!-- 主体内容 -->
-    <div class="max-w-7xl mx-auto mt-[120px] px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto mt-[80px] px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex gap-8">
         <!-- 左侧树形导航 (桌面) -->
+        <!-- 左侧树形导航 (桌面) - 固定500px，不参与滚动 -->
         <aside class="hidden lg:block w-64 shrink-0">
           <div
-            class="sticky top-8 bg-white rounded-xl border border-slate-200 p-3 shadow-sm"
+            class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-y-auto h-[700px]"
           >
-            <ProductGuideTree @select="handleSelect" ref="treeRef" />
+            <div class="p-3">
+              <ProductGuideTree @select="handleSelect" ref="treeRef" />
+            </div>
           </div>
         </aside>
 
-        <!-- 右侧内容 -->
-        <main class="flex-1 min-w-0">
+        <!-- 右侧内容 - 可滚动 -->
+        <main class="flex-1 min-w-0 overflow-y-auto h-[700px]">
           <div
             class="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 shadow-sm"
           >

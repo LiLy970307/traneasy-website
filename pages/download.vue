@@ -180,6 +180,12 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
       !/mac|M芯片|inter芯片|Signal/i.test(item.label) &&
       !item.label.includes("mac版"),
   );
+  // 如果存在"正式版"，在 label 后追加系统版本信息
+  for (const item of windowsItems) {
+    if (item.label === "正式版") {
+      item.label = "正式版 (win7/8/10/11)";
+    }
+  }
   const macItems = allChildren.filter(
     (item) =>
       /mac|M芯片|inter芯片/i.test(item.label) || item.label.includes("mac版"),

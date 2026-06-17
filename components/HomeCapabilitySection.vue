@@ -37,10 +37,11 @@
       <div
         class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-sm"
       >
-        <img
+        <NuxtImg
           :src="imageSrc"
-          width="1368"
-          height="1024"
+          sizes="sm:100vw md:80vw lg:1368px"
+          format="webp"
+          quality="80"
           loading="lazy"
           decoding="async"
           class="h-auto w-full rounded-[1.5rem] object-cover"
