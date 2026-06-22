@@ -1,5 +1,6 @@
 <template>
   <ClientOnly>
+    <Crisp ref="crispRef" />
     <div
       v-if="visible"
       ref="floatingContactRef"
@@ -576,10 +577,11 @@ interface VerifyResponse {
   data: unknown;
 }
 
-interface CrispLastMessage {
-  content: string;
-  timestamp: number;
-  from: string;
+interface CrispExposed {
+  open: () => void;
+  close: () => void;
+  isOpen: boolean;
+  isLoading: boolean;
 }
 
 const config = useRuntimeConfig();
@@ -615,20 +617,14 @@ const afterSalesPlatformKey = "__after_sales__";
 const visible = ref(true);
 const expanded = ref(false);
 const compactFloatingButton = ref(false);
-const crispChatOpen = ref(false);
-const crispLoading = ref(false);
+const crispChatOpen = computed(() => crispRef.value?.isOpen ?? false);
+const crispLoading = computed(() => crispRef.value?.isLoading ?? false);
 const activePlatform = ref("");
 const activeAccountId = ref<number>();
 const accountInputRef = ref<HTMLInputElement | null>(null);
 const floatingContactRef = ref<HTMLElement | null>(null);
+const crispRef = ref<CrispExposed | null>(null);
 const lastMessage = useCrispLastMessage();
-
-let hideCrispLauncherTimers: Array<ReturnType<typeof window.setTimeout>> = [];
-let injectCrispBackButtonTimers: Array<ReturnType<typeof window.setTimeout>> =
-  [];
-let resizeCrispWindowTimers: Array<ReturnType<typeof window.setTimeout>> = [];
-let crispWindowRevealTimer: ReturnType<typeof window.setTimeout> | undefined;
-let crispLoadingTimer: ReturnType<typeof window.setTimeout> | undefined;
 
 const { data, pending, error } = await useFetch<CustomerServiceResponse>(
   API_URL,
@@ -732,169 +728,8 @@ const formatAccountName = (account: string, fallback: string) => {
   return account === "@traneasy" ? "售后客服" : account || fallback;
 };
 
-const getCrisp = () => {
-  return typeof window !== "undefined" ? window.$crisp : undefined;
-};
-
-const hideCrispLauncher = () => {
-  if (typeof document === "undefined") return;
-
-  document
-    .querySelectorAll<HTMLElement>(".crisp-client .cc-13wro")
-    .forEach((launcher) => {
-      launcher.style.setProperty("display", "none", "important");
-      launcher.style.setProperty("visibility", "hidden", "important");
-      launcher.style.setProperty("opacity", "0", "important");
-      launcher.style.setProperty("pointer-events", "none", "important");
-    });
-};
-
-const clearHideCrispLauncherTimers = () => {
-  hideCrispLauncherTimers.forEach((timer) => window.clearTimeout(timer));
-  hideCrispLauncherTimers = [];
-};
-
-const injectCrispBackButton = () => {
-  if (typeof document === "undefined") return;
-
-  const header = document.querySelector<HTMLElement>(".crisp-client .cc-1wrj8");
-  if (!header || header.querySelector(".traneasy-crisp-back")) return;
-
-  const arrow = document.createElement("img");
-  arrow.className = "traneasy-crisp-back";
-  arrow.src = "/images/icon/arrow-left.svg";
-  arrow.alt = "返回客服中心";
-  arrow.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    closeCrispChat();
-  });
-
-  header.prepend(arrow);
-  header.classList.add("traneasy-crisp-header-with-back");
-};
-
-const clearInjectCrispBackButtonTimers = () => {
-  injectCrispBackButtonTimers.forEach((timer) => window.clearTimeout(timer));
-  injectCrispBackButtonTimers = [];
-};
-
-const hideCrispWindowUntilSized = () => {
-  document.body.classList.add("traneasy-crisp-sizing");
-  window.clearTimeout(crispWindowRevealTimer);
-  crispWindowRevealTimer = window.setTimeout(() => {
-    document.body.classList.remove("traneasy-crisp-sizing");
-  }, 2000);
-};
-
-const revealCrispWindow = () => {
-  document.body.classList.remove("traneasy-crisp-sizing");
-  window.clearTimeout(crispWindowRevealTimer);
-  crispWindowRevealTimer = undefined;
-  crispLoading.value = false;
-  window.clearTimeout(crispLoadingTimer);
-  crispLoadingTimer = undefined;
-};
-
-const resizeCrispWindow = () => {
-  if (typeof document === "undefined") return;
-
-  const chatWindows = document.querySelectorAll<HTMLElement>(
-    ".crisp-client .cc-w7v18",
-  );
-
-  chatWindows.forEach((chatWindow) => {
-    chatWindow.style.setProperty("width", "370px", "important");
-    chatWindow.style.setProperty("height", "570px", "important");
-  });
-
-  if (chatWindows.length) {
-    revealCrispWindow();
-  }
-};
-
-const clearResizeCrispWindowTimers = () => {
-  resizeCrispWindowTimers.forEach((timer) => window.clearTimeout(timer));
-  resizeCrispWindowTimers = [];
-};
-
-const scheduleHideCrispLauncher = () => {
-  clearHideCrispLauncherTimers();
-  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
-    hideCrispLauncherTimers.push(
-      window.setTimeout(() => {
-        hideCrispLauncher();
-      }, delay),
-    );
-  });
-};
-
-const scheduleInjectCrispBackButton = () => {
-  clearInjectCrispBackButtonTimers();
-  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
-    injectCrispBackButtonTimers.push(
-      window.setTimeout(() => {
-        injectCrispBackButton();
-      }, delay),
-    );
-  });
-};
-
-const scheduleResizeCrispWindow = () => {
-  clearResizeCrispWindowTimers();
-  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
-    resizeCrispWindowTimers.push(
-      window.setTimeout(() => {
-        resizeCrispWindow();
-      }, delay),
-    );
-  });
-};
-
-const refreshCrispWindowLayout = () => {
-  if (!crispChatOpen.value) return;
-
-  scheduleHideCrispLauncher();
-  scheduleInjectCrispBackButton();
-  scheduleResizeCrispWindow();
-};
-
-const handlePageVisibilityChange = () => {
-  if (document.visibilityState === "visible") {
-    refreshCrispWindowLayout();
-  }
-};
-
-const openCrispChat = () => {
-  const crisp = getCrisp();
-  crispLoading.value = true;
-  window.clearTimeout(crispLoadingTimer);
-  crispLoadingTimer = window.setTimeout(() => {
-    crispLoading.value = false;
-  }, 8000);
-  hideCrispWindowUntilSized();
-  crisp?.push(["do", "chat:show"]);
-  crisp?.push(["do", "chat:open"]);
-  scheduleHideCrispLauncher();
-  scheduleInjectCrispBackButton();
-  scheduleResizeCrispWindow();
-  crispChatOpen.value = true;
-};
-
-const closeCrispChat = () => {
-  clearHideCrispLauncherTimers();
-  clearInjectCrispBackButtonTimers();
-  clearResizeCrispWindowTimers();
-  const crisp = getCrisp();
-  crisp?.push(["do", "chat:close"]);
-  crisp?.push(["do", "chat:hide"]);
-  revealCrispWindow();
-  crispLoading.value = false;
-  crispChatOpen.value = false;
-};
-
 const openCrispPanel = () => {
-  openCrispChat();
+  crispRef.value?.open();
 };
 
 const closeFloatingPanel = () => {
@@ -914,7 +749,7 @@ const handlePanelAfterLeave = () => {
 
 const handleCloseClick = () => {
   if (crispChatOpen.value) {
-    closeCrispChat();
+    crispRef.value?.close();
     visible.value = false;
     return;
   }
@@ -935,7 +770,7 @@ const handleOutsideClick = (event: MouseEvent) => {
   if (targetElement?.closest(".crisp-client")) return;
 
   if (crispChatOpen.value) {
-    closeCrispChat();
+    crispRef.value?.close();
   }
 
   closeFloatingPanel();
@@ -943,7 +778,7 @@ const handleOutsideClick = (event: MouseEvent) => {
 
 const toggleFloatingContact = () => {
   if (crispChatOpen.value) {
-    closeCrispChat();
+    crispRef.value?.close();
     closeFloatingPanel();
     return;
   }
@@ -1057,57 +892,10 @@ watch(error, (fetchError) => {
 });
 
 onMounted(() => {
-  window.addEventListener("focus", refreshCrispWindowLayout);
-  window.addEventListener("pageshow", refreshCrispWindowLayout);
-  window.addEventListener("resize", refreshCrispWindowLayout);
   document.addEventListener("click", handleOutsideClick);
-  document.addEventListener("visibilitychange", handlePageVisibilityChange);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("focus", refreshCrispWindowLayout);
-  window.removeEventListener("pageshow", refreshCrispWindowLayout);
-  window.removeEventListener("resize", refreshCrispWindowLayout);
   document.removeEventListener("click", handleOutsideClick);
-  document.removeEventListener("visibilitychange", handlePageVisibilityChange);
-  clearHideCrispLauncherTimers();
-  clearInjectCrispBackButtonTimers();
-  clearResizeCrispWindowTimers();
-  revealCrispWindow();
-  window.clearTimeout(crispLoadingTimer);
 });
 </script>
-
-<style>
-.crisp-client .cc-13wro {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.crisp-client .cc-w7v18 {
-  height: 570px !important;
-  width: 370px !important;
-}
-
-body.traneasy-crisp-sizing .crisp-client .cc-w7v18 {
-  opacity: 0 !important;
-}
-
-.crisp-client .traneasy-crisp-back {
-  cursor: pointer !important;
-  height: 24px !important;
-  left: 12px !important;
-  pointer-events: auto !important;
-  position: absolute !important;
-  top: 12px !important;
-  visibility: visible !important;
-  width: 24px !important;
-  z-index: 2147483647 !important;
-}
-
-.crisp-client .traneasy-crisp-header-with-back {
-  position: relative !important;
-}
-</style>
