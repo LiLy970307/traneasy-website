@@ -82,9 +82,11 @@
             imageCardClass,
           ]"
         >
-          <img
+          <NuxtImg
             :src="imageSrc"
             :alt="imageAlt"
+            format="webp"
+            quality="80"
             loading="lazy"
             decoding="async"
             :class="['h-auto w-full rounded-[1.5rem] object-cover', imageClass]"

@@ -1,8 +1,16 @@
 node_modules
 .DS_Store
 .nuxt/
+dist/
+
+/dist
+
+# 忽略 .output 文件夹
 .output/
-.dist/
-.output/
-.output.zip
+
+# 所有 .output 开头、后缀zip的文件（包含带空格/数字）
+.output*.zip
+
+# 顺带忽略纯 output.zip 这种不带点的
+output*.zip
 

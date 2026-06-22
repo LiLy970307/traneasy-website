@@ -2,7 +2,9 @@
   <ClientOnly>
     <div
       v-if="visible"
-      class="fixed bottom-5 right-4 z-[60] md:bottom-8 md:right-8"
+      ref="floatingContactRef"
+      class="fixed bottom-5 right-6 z-[60] flex flex-col items-end"
+      @click.stop
     >
       <Transition
         enter-active-class="transition duration-300 ease-out"
@@ -11,17 +13,18 @@
         leave-active-class="transition duration-200 ease-in"
         leave-from-class="opacity-100 translate-x-0 scale-100"
         leave-to-class="opacity-0 translate-y-4 scale-95"
+        @after-leave="handlePanelAfterLeave"
       >
         <div
           v-if="expanded"
-          class="mb-4 flex w-[400px] h-[700px] flex-col overflow-hidden rounded-[22px] border border-white/70 bg-[linear-gradient(to_bottom,#c9d8ff_0%,#e5f7f0_44%,#f7f9fc_100%)] shadow-[0_22px_70px_rgba(15,23,42,0.2)]"
+          class="relative mb-6 flex w-[370px] h-[570px] flex-col overflow-hidden rounded-[22px] border border-white/70 bg-[linear-gradient(to_bottom,#c9d8ff_0%,#e5f7f0_44%,#f7f9fc_100%)] shadow-[0_22px_70px_rgba(15,23,42,0.2)]"
         >
           <div class="relative overflow-hidden px-5 pb-4 pt-5 text-slate-950">
             <button
               type="button"
               aria-label="收起客服入口"
               class="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-white/35 hover:text-slate-700"
-              @click="expanded = false"
+              @click="handleCloseClick"
             >
               <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none">
                 <path
@@ -49,7 +52,7 @@
             </div>
 
             <div
-              class="mt-7 text-[22px] font-bold leading-tight text-[#17305f]"
+              class="mt-7 text-[20px] font-bold leading-tight text-[#17305f]"
             >
               <span>👋 您好！欢迎来到易翻译客服中心</span>
               <!-- <span class="block text-[#1558d6]">Traneasy!</span> -->
@@ -72,32 +75,33 @@
                 </span>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-3">
-                    <div class="font-semibold text-slate-900">Traneasy</div>
-                    <div class="shrink-0 text-sm text-slate-400">
-                      yesterday 03:17:01
+                    <div class="font-semibold text-slate-900">
+                      {{ lastMessage?.nickname || "客服" }}
+                    </div>
+                    <div
+                      class="shrink-0 text-sm text-slate-400"
+                      v-if="lastMessage?.timestamp"
+                    >
+                      {{ formatMessageTime(lastMessage.timestamp) }}
                     </div>
                   </div>
-                  <div class="mt-2 text-sm text-slate-500">
-                    [Template message]
+                  <div class="mt-2 truncate text-sm text-slate-500">
+                    {{ lastMessage?.content || "暂无消息" }}
                   </div>
                 </div>
-                <span
-                  class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-600 text-sm font-bold text-white ring-2 ring-white"
-                >
-                  2
-                </span>
               </div>
 
               <button
                 type="button"
-                class="mt-4 flex h-[52px] w-full items-center justify-center gap-3 rounded-full bg-[#2364f4] text-lg font-semibold text-white shadow-sm transition-colors hover:bg-[#1756df]"
+                class="mt-4 flex h-[46px] w-full items-center justify-center gap-3 rounded-full bg-[#2364f4] text-lg font-semibold text-white shadow-sm transition-colors hover:bg-[#1756df]"
+                @click="openCrispPanel"
               >
                 <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
                   <path
                     d="M4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2-3.6 7.2-8 7.2c-.7 0-1.5-.1-2.2-.3L5.6 20a.8.8 0 0 1-1.1-1l1.2-3.1A6.7 6.7 0 0 1 4 11.2Zm5-.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"
                   />
                 </svg>
-                Enter chat
+                咨询客服
               </button>
             </div>
 
@@ -114,35 +118,48 @@
               :key="group.platform"
               class="w-full rounded-xl bg-white/92 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
             >
-              <button
-                type="button"
-                class="flex min-h-[58px] w-full items-center gap-3 px-4 text-left"
+              <div
+                class="flex min-h-[48px] w-full cursor-pointer items-center gap-3 px-4 text-left"
                 @click="toggleContactGroup(group)"
               >
-                <img
-                  :src="platformIcon(group.platform)"
-                  :alt="group.platform"
-                  class="h-9 w-9 shrink-0 object-contain"
-                  loading="lazy"
-                />
-                <span class="flex-1 text-base text-slate-500">联系我们</span>
-                <span
-                  :class="[
-                    'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white transition-transform',
-                    activePlatform === group.platform ? 'rotate-90' : '',
-                  ]"
+                <button
+                  type="button"
+                  class="shrink-0"
+                  @click.stop="openDefaultContact(group)"
                 >
-                  <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M4.5 3L7.5 6L4.5 9"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-              </button>
+                  <img
+                    :src="platformIcon(group.platform)"
+                    :alt="group.platform"
+                    class="h-9 w-9 object-contain"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  type="button"
+                  class="text-left text-base text-slate-500 hover:text-[#2364f4]"
+                  @click.stop="openDefaultContact(group)"
+                >
+                  联系我们
+                </button>
+                <div class="flex justify-end flex-1">
+                  <span
+                    :class="[
+                      'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white transition-transform',
+                      activePlatform === group.platform ? 'rotate-90' : '',
+                    ]"
+                  >
+                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M4.5 3L7.5 6L4.5 9"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
 
               <div
                 v-if="activePlatform === group.platform"
@@ -154,15 +171,10 @@
                     v-for="account in group.accountList"
                     :key="account.id"
                     type="button"
-                    :class="[
-                      'rounded-lg border px-3 py-2 text-left text-sm transition-colors',
-                      account.id === activeAccountId
-                        ? 'border-blue-200 bg-blue-50 text-blue-700'
-                        : 'border-slate-100 bg-slate-50 text-slate-600 hover:bg-slate-100',
-                    ]"
+                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700"
                     @click="activeAccountId = account.id"
                   >
-                    {{ account.account || group.platform }}
+                    {{ formatAccountName(account.account, group.platform) }}
                   </button>
                 </div>
 
@@ -183,30 +195,97 @@
                     暂无二维码
                   </div>
                 </div>
-
-                <a
-                  v-if="selectedGroupAccount(group)?.referUrl"
-                  :href="selectedGroupAccount(group)?.referUrl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="mt-3 flex h-10 w-full items-center justify-center rounded-full bg-[#2364f4] text-sm font-semibold text-white transition-colors hover:bg-[#1756df]"
-                >
-                  快速联系
-                </a>
-                <button
-                  v-else
-                  type="button"
-                  disabled
-                  class="mt-3 flex h-10 w-full cursor-not-allowed items-center justify-center rounded-full bg-slate-200 text-sm font-semibold text-slate-400"
-                >
-                  快速联系
-                </button>
               </div>
             </div>
 
+            <!-- 售后客服 @traneasy -->
+            <div
+              v-if="afterSalesAccount"
+              class="w-full rounded-xl bg-white/92 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
+            >
+              <div
+                class="flex min-h-[48px] w-full cursor-pointer items-center gap-3 px-4 text-left"
+                @click="toggleAfterSalesContact"
+              >
+                <button
+                  type="button"
+                  class="shrink-0"
+                  @click.stop="openAccountContact(afterSalesAccount)"
+                >
+                  <img
+                    :src="platformIcon(afterSalesAccount.platform)"
+                    alt="售后客服"
+                    class="h-9 w-9 object-contain"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  type="button"
+                  class="text-left text-base text-slate-500 hover:text-[#2364f4]"
+                  @click.stop="openAccountContact(afterSalesAccount)"
+                >
+                  售后客服
+                </button>
+                <div class="flex flex-1 justify-end">
+                  <span
+                    :class="[
+                      'flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white transition-transform',
+                      activePlatform === afterSalesPlatformKey
+                        ? 'rotate-90'
+                        : '',
+                    ]"
+                  >
+                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M4.5 3L7.5 6L4.5 9"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <div
+                v-if="activePlatform === afterSalesPlatformKey"
+                class="border-t border-slate-100 px-4 pb-4"
+                @click.stop
+              >
+                <div class="grid gap-3 pt-4">
+                  <button
+                    type="button"
+                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700"
+                  >
+                    {{ afterSalesAccount.account }}
+                  </button>
+                </div>
+
+                <div
+                  class="mt-4 overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-3 text-center"
+                >
+                  <img
+                    v-if="afterSalesAccount.qrCode"
+                    :src="afterSalesAccount.qrCode"
+                    alt="售后客服二维码"
+                    class="mx-auto aspect-square w-full max-w-[210px] object-contain"
+                    loading="lazy"
+                  />
+                  <div
+                    v-else
+                    class="mx-auto flex aspect-square w-full max-w-[210px] items-center justify-center text-sm text-slate-400"
+                  >
+                    暂无二维码
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 客服验证 -->
             <button
               type="button"
-              class="flex min-h-[58px] w-full items-center gap-3 rounded-xl bg-white/92 px-4 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
+              class="flex min-h-[48px] w-full items-center gap-3 rounded-xl bg-white/92 px-4 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
               @click="openVerifyDialog"
             >
               <span
@@ -242,23 +321,36 @@
                 </svg>
               </span>
             </button>
+          </div>
 
-            <div class="pt-20 text-center text-base text-slate-500">
-              Powered by Traneasy
-            </div>
+          <div
+            v-if="crispLoading"
+            class="absolute inset-0 z-20 flex items-center justify-center bg-white/92 text-sm font-medium text-slate-500"
+          >
+            正在连接客服...
           </div>
         </div>
       </Transition>
 
       <button
         type="button"
-        :aria-label="expanded ? '收起客服入口' : '展开客服入口'"
-        class="ml-auto flex h-[68px] w-[68px] items-center justify-center rounded-full bg-[#2364f4] text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-[#1756df]"
-        @click="expanded = !expanded"
+        :class="[
+          'flex items-center justify-center bg-[#2364f4] text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-[#1756df]',
+          compactFloatingButton
+            ? 'h-12 w-12 rounded-full'
+            : 'h-auto w-auto flex-col rounded-[120px] px-1.5 py-3 tracking-[4px]',
+        ]"
+        @click="toggleFloatingContact"
       >
+        <div
+          v-if="!compactFloatingButton"
+          style="writing-mode: vertical-rl; text-orientation: upright"
+        >
+          客服中心
+        </div>
         <svg
-          v-if="expanded"
-          class="h-9 w-9"
+          v-if="compactFloatingButton"
+          class="h-6 w-6"
           viewBox="0 0 48 48"
           fill="none"
           aria-hidden="true"
@@ -330,12 +422,13 @@
             >
             <select
               v-model="verifyDialog.platform"
-              class="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-black shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             >
               <option
                 v-for="platform in platformOptions"
                 :key="platform"
                 :value="platform"
+                class="bg-white text-black"
               >
                 {{ platform }}
               </option>
@@ -444,6 +537,9 @@
 </template>
 
 <script setup lang="ts">
+import formatMessageTime from "@/utils/formatDateTime";
+import { useCrispLastMessage } from "~/composables/useCrisp";
+
 interface CustomerAccount {
   id: number;
   platform: string;
@@ -480,6 +576,12 @@ interface VerifyResponse {
   data: unknown;
 }
 
+interface CrispLastMessage {
+  content: string;
+  timestamp: number;
+  from: string;
+}
+
 const config = useRuntimeConfig();
 const API_URL = `${config.public.clientUserApiBase}/customer-service/list`;
 const VERIFY_API = `${config.public.clientUserApiBase}/customer-service/get`;
@@ -508,12 +610,25 @@ const verifyDialog = reactive({
 });
 
 const platformOrder = ["WeChat", "WhatsApp", "Telegram"];
+const afterSalesPlatformKey = "__after_sales__";
 
 const visible = ref(true);
 const expanded = ref(false);
+const compactFloatingButton = ref(false);
+const crispChatOpen = ref(false);
+const crispLoading = ref(false);
 const activePlatform = ref("");
 const activeAccountId = ref<number>();
 const accountInputRef = ref<HTMLInputElement | null>(null);
+const floatingContactRef = ref<HTMLElement | null>(null);
+const lastMessage = useCrispLastMessage();
+
+let hideCrispLauncherTimers: Array<ReturnType<typeof window.setTimeout>> = [];
+let injectCrispBackButtonTimers: Array<ReturnType<typeof window.setTimeout>> =
+  [];
+let resizeCrispWindowTimers: Array<ReturnType<typeof window.setTimeout>> = [];
+let crispWindowRevealTimer: ReturnType<typeof window.setTimeout> | undefined;
+let crispLoadingTimer: ReturnType<typeof window.setTimeout> | undefined;
 
 const { data, pending, error } = await useFetch<CustomerServiceResponse>(
   API_URL,
@@ -528,12 +643,33 @@ const { data, pending, error } = await useFetch<CustomerServiceResponse>(
   },
 );
 
+const isAfterSalesAccount = (account: CustomerAccount) => {
+  return account.account === "@traneasy";
+};
+
 const groups = computed(() => {
   if (error.value) {
     return [];
   }
 
-  return (data.value?.data ?? []).filter((group) => group.accountList?.length);
+  return (data.value?.data ?? [])
+    .map((group) => ({
+      ...group,
+      accountList: (group.accountList ?? []).filter(
+        (account) => !isAfterSalesAccount(account),
+      ),
+    }))
+    .filter((group) => group.accountList.length);
+});
+
+const afterSalesAccount = computed(() => {
+  if (error.value) {
+    return undefined;
+  }
+
+  return (data.value?.data ?? [])
+    .flatMap((group) => group.accountList ?? [])
+    .find(isAfterSalesAccount);
 });
 
 const sortedGroups = computed(() => {
@@ -559,11 +695,266 @@ const toggleContactGroup = (group: CustomerServiceGroup) => {
   selectPlatform(group);
 };
 
+const toggleAfterSalesContact = () => {
+  if (activePlatform.value === afterSalesPlatformKey) {
+    activePlatform.value = "";
+    activeAccountId.value = undefined;
+    return;
+  }
+
+  activePlatform.value = afterSalesPlatformKey;
+  activeAccountId.value = afterSalesAccount.value?.id;
+};
+
 const selectedGroupAccount = (group: CustomerServiceGroup) => {
   return (
     group.accountList.find((account) => account.id === activeAccountId.value) ??
     group.accountList[0]
   );
+};
+
+const defaultContactAccount = (group: CustomerServiceGroup) => {
+  return group.accountList[0];
+};
+
+const openAccountContact = (account?: CustomerAccount) => {
+  const referUrl = account?.referUrl;
+  if (!referUrl || typeof window === "undefined") return;
+
+  window.open(referUrl, "_blank", "noopener,noreferrer");
+};
+
+const openDefaultContact = (group: CustomerServiceGroup) => {
+  openAccountContact(defaultContactAccount(group));
+};
+
+const formatAccountName = (account: string, fallback: string) => {
+  return account === "@traneasy" ? "售后客服" : account || fallback;
+};
+
+const getCrisp = () => {
+  return typeof window !== "undefined" ? window.$crisp : undefined;
+};
+
+const hideCrispLauncher = () => {
+  if (typeof document === "undefined") return;
+
+  document
+    .querySelectorAll<HTMLElement>(".crisp-client .cc-13wro")
+    .forEach((launcher) => {
+      launcher.style.setProperty("display", "none", "important");
+      launcher.style.setProperty("visibility", "hidden", "important");
+      launcher.style.setProperty("opacity", "0", "important");
+      launcher.style.setProperty("pointer-events", "none", "important");
+    });
+};
+
+const clearHideCrispLauncherTimers = () => {
+  hideCrispLauncherTimers.forEach((timer) => window.clearTimeout(timer));
+  hideCrispLauncherTimers = [];
+};
+
+const injectCrispBackButton = () => {
+  if (typeof document === "undefined") return;
+
+  const header = document.querySelector<HTMLElement>(".crisp-client .cc-1wrj8");
+  if (!header || header.querySelector(".traneasy-crisp-back")) return;
+
+  const arrow = document.createElement("img");
+  arrow.className = "traneasy-crisp-back";
+  arrow.src = "/images/icon/arrow-left.svg";
+  arrow.alt = "返回客服中心";
+  arrow.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeCrispChat();
+  });
+
+  header.prepend(arrow);
+  header.classList.add("traneasy-crisp-header-with-back");
+};
+
+const clearInjectCrispBackButtonTimers = () => {
+  injectCrispBackButtonTimers.forEach((timer) => window.clearTimeout(timer));
+  injectCrispBackButtonTimers = [];
+};
+
+const hideCrispWindowUntilSized = () => {
+  document.body.classList.add("traneasy-crisp-sizing");
+  window.clearTimeout(crispWindowRevealTimer);
+  crispWindowRevealTimer = window.setTimeout(() => {
+    document.body.classList.remove("traneasy-crisp-sizing");
+  }, 2000);
+};
+
+const revealCrispWindow = () => {
+  document.body.classList.remove("traneasy-crisp-sizing");
+  window.clearTimeout(crispWindowRevealTimer);
+  crispWindowRevealTimer = undefined;
+  crispLoading.value = false;
+  window.clearTimeout(crispLoadingTimer);
+  crispLoadingTimer = undefined;
+};
+
+const resizeCrispWindow = () => {
+  if (typeof document === "undefined") return;
+
+  const chatWindows = document.querySelectorAll<HTMLElement>(
+    ".crisp-client .cc-w7v18",
+  );
+
+  chatWindows.forEach((chatWindow) => {
+    chatWindow.style.setProperty("width", "370px", "important");
+    chatWindow.style.setProperty("height", "570px", "important");
+  });
+
+  if (chatWindows.length) {
+    revealCrispWindow();
+  }
+};
+
+const clearResizeCrispWindowTimers = () => {
+  resizeCrispWindowTimers.forEach((timer) => window.clearTimeout(timer));
+  resizeCrispWindowTimers = [];
+};
+
+const scheduleHideCrispLauncher = () => {
+  clearHideCrispLauncherTimers();
+  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
+    hideCrispLauncherTimers.push(
+      window.setTimeout(() => {
+        hideCrispLauncher();
+      }, delay),
+    );
+  });
+};
+
+const scheduleInjectCrispBackButton = () => {
+  clearInjectCrispBackButtonTimers();
+  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
+    injectCrispBackButtonTimers.push(
+      window.setTimeout(() => {
+        injectCrispBackButton();
+      }, delay),
+    );
+  });
+};
+
+const scheduleResizeCrispWindow = () => {
+  clearResizeCrispWindowTimers();
+  [0, 50, 150, 300, 700, 1200, 2000].forEach((delay) => {
+    resizeCrispWindowTimers.push(
+      window.setTimeout(() => {
+        resizeCrispWindow();
+      }, delay),
+    );
+  });
+};
+
+const refreshCrispWindowLayout = () => {
+  if (!crispChatOpen.value) return;
+
+  scheduleHideCrispLauncher();
+  scheduleInjectCrispBackButton();
+  scheduleResizeCrispWindow();
+};
+
+const handlePageVisibilityChange = () => {
+  if (document.visibilityState === "visible") {
+    refreshCrispWindowLayout();
+  }
+};
+
+const openCrispChat = () => {
+  const crisp = getCrisp();
+  crispLoading.value = true;
+  window.clearTimeout(crispLoadingTimer);
+  crispLoadingTimer = window.setTimeout(() => {
+    crispLoading.value = false;
+  }, 8000);
+  hideCrispWindowUntilSized();
+  crisp?.push(["do", "chat:show"]);
+  crisp?.push(["do", "chat:open"]);
+  scheduleHideCrispLauncher();
+  scheduleInjectCrispBackButton();
+  scheduleResizeCrispWindow();
+  crispChatOpen.value = true;
+};
+
+const closeCrispChat = () => {
+  clearHideCrispLauncherTimers();
+  clearInjectCrispBackButtonTimers();
+  clearResizeCrispWindowTimers();
+  const crisp = getCrisp();
+  crisp?.push(["do", "chat:close"]);
+  crisp?.push(["do", "chat:hide"]);
+  revealCrispWindow();
+  crispLoading.value = false;
+  crispChatOpen.value = false;
+};
+
+const openCrispPanel = () => {
+  openCrispChat();
+};
+
+const closeFloatingPanel = () => {
+  if (!expanded.value) {
+    compactFloatingButton.value = false;
+    return;
+  }
+
+  expanded.value = false;
+};
+
+const handlePanelAfterLeave = () => {
+  if (!expanded.value && !crispChatOpen.value) {
+    compactFloatingButton.value = false;
+  }
+};
+
+const handleCloseClick = () => {
+  if (crispChatOpen.value) {
+    closeCrispChat();
+    visible.value = false;
+    return;
+  }
+
+  closeFloatingPanel();
+};
+
+const handleOutsideClick = (event: MouseEvent) => {
+  if (!expanded.value && !crispChatOpen.value && !crispLoading.value) return;
+
+  const target = event.target as Node | null;
+  if (!target) return;
+
+  if (floatingContactRef.value?.contains(target)) return;
+
+  const targetElement =
+    target instanceof Element ? target : target.parentElement;
+  if (targetElement?.closest(".crisp-client")) return;
+
+  if (crispChatOpen.value) {
+    closeCrispChat();
+  }
+
+  closeFloatingPanel();
+};
+
+const toggleFloatingContact = () => {
+  if (crispChatOpen.value) {
+    closeCrispChat();
+    closeFloatingPanel();
+    return;
+  }
+
+  if (expanded.value) {
+    closeFloatingPanel();
+    return;
+  }
+
+  compactFloatingButton.value = true;
+  expanded.value = true;
 };
 
 const platformIcon = (platform: string) => {
@@ -629,6 +1020,15 @@ watch(
   (groupList) => {
     if (!activePlatform.value) return;
 
+    if (activePlatform.value === afterSalesPlatformKey) {
+      if (!afterSalesAccount.value) {
+        activePlatform.value = "";
+        activeAccountId.value = undefined;
+      }
+
+      return;
+    }
+
     const currentGroup = groupList.find(
       (group) => group.platform === activePlatform.value,
     );
@@ -655,4 +1055,59 @@ watch(error, (fetchError) => {
     console.error("Failed to fetch customer service list:", fetchError);
   }
 });
+
+onMounted(() => {
+  window.addEventListener("focus", refreshCrispWindowLayout);
+  window.addEventListener("pageshow", refreshCrispWindowLayout);
+  window.addEventListener("resize", refreshCrispWindowLayout);
+  document.addEventListener("click", handleOutsideClick);
+  document.addEventListener("visibilitychange", handlePageVisibilityChange);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("focus", refreshCrispWindowLayout);
+  window.removeEventListener("pageshow", refreshCrispWindowLayout);
+  window.removeEventListener("resize", refreshCrispWindowLayout);
+  document.removeEventListener("click", handleOutsideClick);
+  document.removeEventListener("visibilitychange", handlePageVisibilityChange);
+  clearHideCrispLauncherTimers();
+  clearInjectCrispBackButtonTimers();
+  clearResizeCrispWindowTimers();
+  revealCrispWindow();
+  window.clearTimeout(crispLoadingTimer);
+});
 </script>
+
+<style>
+.crisp-client .cc-13wro {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.crisp-client .cc-w7v18 {
+  height: 570px !important;
+  width: 370px !important;
+}
+
+body.traneasy-crisp-sizing .crisp-client .cc-w7v18 {
+  opacity: 0 !important;
+}
+
+.crisp-client .traneasy-crisp-back {
+  cursor: pointer !important;
+  height: 24px !important;
+  left: 12px !important;
+  pointer-events: auto !important;
+  position: absolute !important;
+  top: 12px !important;
+  visibility: visible !important;
+  width: 24px !important;
+  z-index: 2147483647 !important;
+}
+
+.crisp-client .traneasy-crisp-header-with-back {
+  position: relative !important;
+}
+</style>

@@ -1,14 +1,19 @@
 <template>
-  <div ref="wrapRef" class="relative">
-    <a
-      href="#"
-      @click.prevent="toggle"
+  <div
+    ref="wrapRef"
+    class="relative"
+    @mouseenter="openByHover"
+    @mouseleave="closeByHover"
+  >
+    <button
+      type="button"
+      @click="handleTriggerClick"
       class="flex items-center gap-1.5 text-slate-600 hover:text-blue-600 text-sm font-medium px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors cursor-pointer select-none"
     >
       <span class="text-base leading-none">{{ current.flag }}</span>
-      <span class="hidden sm:inline max-w-[80px] truncate">{{
-        current.label
-      }}</span>
+      <span v-if="props.showLabel" class="hidden sm:inline max-w-[80px] truncate">
+        {{ current.label }}
+      </span>
       <svg
         :class="[
           'w-3 h-3 flex-shrink-0 transition-transform',
@@ -25,11 +30,19 @@
           d="M19 9l-7 7-7-7"
         />
       </svg>
-    </a>
+    </button>
+
+    <div
+      v-if="open && props.trigger === 'hover'"
+      class="absolute right-0 top-full h-3 w-48"
+    />
 
     <div
       v-if="open"
-      class="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-[100] py-1"
+      :class="[
+        'absolute right-0 top-full w-48 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-[100] py-1',
+        props.trigger === 'hover' ? 'mt-3' : 'mt-2',
+      ]"
     >
       <button
         v-for="lang in languages"
@@ -65,6 +78,17 @@
 </template>
 
 <script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    showLabel?: boolean;
+    trigger?: "click" | "hover";
+  }>(),
+  {
+    showLabel: true,
+    trigger: "click",
+  },
+);
+
 const { locale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const router = useRouter();
@@ -90,12 +114,27 @@ const current = computed(
   () => languages.find((l) => l.code === locale.value) ?? languages[0],
 );
 
-const toggle = () => {
+const handleTriggerClick = () => {
+  if (props.trigger === "hover") return;
+
   open.value = !open.value;
+};
+
+const openByHover = () => {
+  if (props.trigger !== "hover") return;
+
+  open.value = true;
+};
+
+const closeByHover = () => {
+  if (props.trigger !== "hover") return;
+
+  open.value = false;
 };
 
 const switchLocale = (code: string) => {
   open.value = false;
+  localStorage.setItem("language", code);
   const path = switchLocalePath(code);
   if (path) router.push(path);
 };
@@ -107,7 +146,9 @@ const onDocClick = (e: Event) => {
 };
 
 onMounted(() => {
-  document.addEventListener("click", onDocClick, true);
+  if (props.trigger === "click") {
+    document.addEventListener("click", onDocClick, true);
+  }
 });
 
 onUnmounted(() => {

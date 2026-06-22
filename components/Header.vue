@@ -115,61 +115,7 @@
         <div
           class="relative z-[80] hidden lg:flex items-center gap-2 flex-shrink-0 ml-4"
         >
-          <!-- Language switcher — pure CSS hover -->
-          <div class="lang-dropdown relative flex-shrink-0">
-            <button
-              type="button"
-              class="lang-dropdown-trigger flex items-center gap-1.5 text-slate-600 hover:text-blue-600 text-sm font-medium px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors cursor-pointer select-none bg-transparent border-none outline-none whitespace-nowrap"
-            >
-              <span class="text-base leading-none">{{ currentLang.flag }}</span>
-              <svg
-                class="w-3 h-3 flex-shrink-0 transition-transform lang-dropdown-arrow"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-            <!-- Hover-safe area for language dropdown -->
-            <div class="lang-dropdown-area">
-              <div class="lang-dropdown-panel">
-                <NuxtLink
-                  v-for="lang in languages"
-                  :key="lang.code"
-                  :to="switchLocalePath(lang.code)"
-                  :class="[
-                    'w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors text-left cursor-pointer no-underline',
-                    lang.code === locale
-                      ? 'text-blue-600 font-semibold bg-blue-50'
-                      : 'text-slate-600 hover:bg-slate-50',
-                  ]"
-                >
-                  <span class="text-base">{{ lang.flag }}</span>
-                  <span>{{ lang.label }}</span>
-                  <svg
-                    v-if="lang.code === locale"
-                    class="w-3.5 h-3.5 ml-auto text-blue-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2.5"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </NuxtLink>
-              </div>
-            </div>
-          </div>
+          <LanguageSwitcher :show-label="false" trigger="hover" />
 
           <NuxtLink
             v-if="!isLoggedIn"
@@ -195,50 +141,7 @@
 
         <!-- Mobile toggle -->
         <div class="flex lg:hidden items-center gap-2">
-          <!-- Mobile language — native <details> for touch devices -->
-          <details class="mobile-lang-details relative">
-            <summary
-              class="flex items-center gap-1.5 text-slate-600 text-sm font-medium px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden"
-            >
-              <span class="text-base leading-none">{{ currentLang.flag }}</span>
-              <svg
-                class="w-3 h-3 flex-shrink-0 transition-transform mobile-lang-arrow"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </summary>
-            <!-- Backdrop: tap outside closes language panel -->
-            <div
-              class="fixed inset-0 z-[99]"
-              onclick="this.closest('details').open = false"
-            />
-            <div
-              class="absolute right-0 top-full mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-[100] py-1"
-            >
-              <NuxtLink
-                v-for="lang in languages"
-                :key="'m-' + lang.code"
-                :to="switchLocalePath(lang.code)"
-                :class="[
-                  'w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors text-left cursor-pointer no-underline',
-                  lang.code === locale
-                    ? 'text-blue-600 font-semibold bg-blue-50'
-                    : 'text-slate-600 hover:bg-slate-50',
-                ]"
-              >
-                <span class="text-base">{{ lang.flag }}</span>
-                <span>{{ lang.label }}</span>
-              </NuxtLink>
-            </div>
-          </details>
+          <LanguageSwitcher :show-label="false" trigger="hover" />
 
           <!-- Mobile menu — all content inside <details> so it works without JS -->
           <details ref="mobileMenuDetailsEl" class="mobile-menu-details">
@@ -377,8 +280,6 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const { locale } = useI18n();
-const switchLocalePath = useSwitchLocalePath();
 const route = useRoute();
 
 interface HeaderUserInfo {
@@ -450,30 +351,12 @@ const handleDocumentClick = (e: MouseEvent) => {
     return;
   }
   // 原有逻辑不变
-  if (!target.closest(".nav-dropdown") && !target.closest(".lang-dropdown")) {
+  if (!target.closest(".nav-dropdown")) {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
   }
 };
-
-const languages = [
-  { code: "zh", label: "简体中文", flag: "🇨🇳" },
-  { code: "en", label: "English", flag: "🇺🇸" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-  { code: "pt", label: "Português", flag: "🇧🇷" },
-  { code: "id", label: "Indonesia", flag: "🇮🇩" },
-  { code: "ja", label: "日本語", flag: "🇯🇵" },
-  { code: "ko", label: "한국어", flag: "🇰🇷" },
-  { code: "fr", label: "Français", flag: "🇫🇷" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪" },
-  { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
-  { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
-];
-
-const currentLang = computed(
-  () => languages.find((l) => l.code === locale.value) ?? languages[0],
-);
 
 const productItems = [
   {
@@ -628,7 +511,7 @@ onMounted(() => {
   // ═══ Fix: macOS Safari/Chrome don't focus <button> on click ═══
   // This makes :focus-within CSS work when user clicks dropdown buttons
   const allTriggers = headerEl.value?.querySelectorAll(
-    ".nav-dropdown-trigger, .lang-dropdown-trigger",
+    ".nav-dropdown-trigger",
   );
   allTriggers?.forEach((btn) => {
     // On mousedown, force focus so :focus-within activates
@@ -651,7 +534,7 @@ onMounted(() => {
 
   // Mouse leaves dropdown area → blur button so panel hides
   headerEl.value
-    ?.querySelectorAll(".nav-dropdown, .lang-dropdown")
+    ?.querySelectorAll(".nav-dropdown")
     .forEach((wrapper) => {
       if (wrapper.classList.contains("product-dropdown")) return;
 
@@ -766,57 +649,9 @@ onBeforeUnmount(() => {
 }
 
 /* ═══════════════════════════════════════════════════
-   LANGUAGE DROPDOWN — same hover-safe pattern
-   ═══════════════════════════════════════════════════ */
-.lang-dropdown .lang-dropdown-area {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  padding-top: 8px;
-  z-index: 100;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition:
-    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.lang-dropdown .lang-dropdown-panel {
-  width: 12rem; /* w-48 */
-  background: white;
-  border-radius: 1rem;
-  box-shadow:
-    0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1);
-  border: 1px solid #f1f5f9;
-  overflow: hidden;
-  padding: 4px 0;
-}
-
-.lang-dropdown:hover .lang-dropdown-area,
-.lang-dropdown:focus-within .lang-dropdown-area {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
-
-.lang-dropdown:hover .lang-dropdown-arrow,
-.lang-dropdown:focus-within .lang-dropdown-arrow {
-  transform: rotate(180deg);
-}
-
-/* ═══════════════════════════════════════════════════
    MOBILE ACCORDION
    ═══════════════════════════════════════════════════ */
 .mobile-accordion[open] .accordion-arrow {
-  transform: rotate(180deg);
-}
-
-.mobile-lang-details[open] .mobile-lang-arrow {
   transform: rotate(180deg);
 }
 

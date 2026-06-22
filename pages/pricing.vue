@@ -24,12 +24,17 @@
               套餐选择
             </h2>
 
-            <button
-              type="button"
-              class="inline-flex h-11 w-fit items-center justify-center rounded-[4px] bg-[#205DFF] px-6 text-[13px] font-semibold text-white transition-colors hover:bg-[#174fe0]"
+            <NuxtLink
+              :to="localePath('/download')"
+              class="inline-flex items-center"
             >
-              下载试用
-            </button>
+              <button
+                type="button"
+                class="inline-flex h-11 w-fit items-center justify-center rounded-[4px] bg-[#205DFF] px-6 text-[13px] font-semibold text-white transition-colors hover:bg-[#174fe0]"
+              >
+                下载试用
+              </button>
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -266,6 +271,8 @@
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath();
+
 interface PricingPlan {
   name: string;
   enName?: string;
@@ -340,18 +347,20 @@ const { data: saleData } = await useFetch<SaleListResponse>(SALE_API, {
 });
 
 const allPlans = computed(() => {
-  return (saleData.value?.data ?? []).sort((a, b) => a.sort - b.sort);
+  return [...(saleData.value?.data ?? [])].sort((a, b) => a.sort - b.sort);
 });
 
 const characterPlans = computed(() => {
   return allPlans.value
     .filter((item) => item.translationBillingMode === "char")
+    .sort((a, b) => a.salePrice - b.salePrice)
     .map((item) => mapToPlan(item));
 });
 
 const monthlyPlans = computed(() => {
   return allPlans.value
     .filter((item) => item.translationBillingMode === "time")
+    .sort((a, b) => a.salePrice - b.salePrice)
     .map((item) => mapToPlan(item));
 });
 
