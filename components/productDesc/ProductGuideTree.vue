@@ -13,7 +13,7 @@
           ]"
         >
           <component :is="item.icon" class="w-4 h-4 shrink-0" />
-          <span class="flex-1">{{ item.label }}</span>
+          <span class="flex-1">{{ $t(item.label) }}</span>
           <ArrowRight
             v-if="item.children"
             :class="[
@@ -41,7 +41,7 @@
                 ]"
               >
                 <component :is="child.icon" class="w-3.5 h-3.5 shrink-0" />
-                <span class="flex-1">{{ child.label }}</span>
+                <span class="flex-1">{{ $t(child.label) }}</span>
                 <ArrowRight
                   :class="[
                     'w-3 h-3 text-slate-400 transition-transform duration-200',
@@ -68,7 +68,7 @@
                   ]"
                 >
                   <component :is="grandchild.icon" class="w-3 h-3 shrink-0" />
-                  <span>{{ grandchild.label }}</span>
+                  <span>{{ $t(grandchild.label) }}</span>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@
               ]"
             >
               <component :is="child.icon" class="w-3.5 h-3.5 shrink-0" />
-              <span>{{ child.label }}</span>
+              <span>{{ $t(child.label) }}</span>
             </div>
           </div>
         </div>
@@ -127,60 +127,60 @@ const expandedNodes = ref(new Set(["cpjc"]));
 
 const treeData = [
   {
-    label: "易翻译产品教程",
+    label: "productGuide.tree.root",
     icon: Star,
     id: "cpjc",
   },
   {
-    label: "入门指南",
+    label: "productGuide.tree.gettingStarted",
     icon: Promotion,
     children: [
-      { label: "新手必看", icon: Document, id: "xsbk" },
-      { label: "注册&登录", icon: Document, id: "zcdl" },
-      { label: "下载&安装", icon: Download, id: "xzaz" },
+      { label: "productGuide.tree.newbieGuide", icon: Document, id: "xsbk" },
+      { label: "productGuide.tree.registerLogin", icon: Document, id: "zcdl" },
+      { label: "productGuide.tree.downloadInstall", icon: Download, id: "xzaz" },
     ],
   },
   {
-    label: "功能详解",
+    label: "productGuide.tree.featureDetails",
     icon: Search,
     children: [
       {
-        label: "易翻译官网控制台",
+        label: "productGuide.tree.console",
         icon: Platform,
         children: [
-          { label: "会员信息", icon: User, id: "hyxx" },
-          { label: "会员充值", icon: Wallet, id: "hycz" },
-          { label: "子账号管理", icon: Management, id: "zzhgl" },
-          { label: "其他功能", icon: Edit, id: "xgmm" },
-          { label: "推广有礼", icon: Present, id: "tgyl" },
+          { label: "productGuide.tree.memberInfo", icon: User, id: "hyxx" },
+          { label: "productGuide.tree.memberRecharge", icon: Wallet, id: "hycz" },
+          { label: "productGuide.tree.subAccountMgmt", icon: Management, id: "zzhgl" },
+          { label: "productGuide.tree.otherFeatures", icon: Edit, id: "xgmm" },
+          { label: "productGuide.tree.referralRewards", icon: Present, id: "tgyl" },
         ],
       },
       {
-        label: "易翻译客户端",
+        label: "productGuide.tree.client",
         icon: Platform,
         children: [
-          { label: "用户中心", icon: User, id: "yhzx" },
-          { label: "添加应用", icon: DocumentAdd, id: "tjyy" },
-          { label: "应用管理", icon: Menu, id: "yygl" },
-          { label: "翻译设置", icon: Setting, id: "gysz" },
-          { label: "快捷回复", icon: Iphone, id: "kjhf" },
-          { label: "粉丝备注", icon: Notebook, id: "fsbz" },
-          { label: "群发消息", icon: Message, id: "qfxx" },
-          { label: "AI回复", icon: MessageBox, id: "aihf" },
-          { label: "代理设置", icon: Setting, id: "dlsz" },
-          { label: "系统设置", icon: Setting, id: "xtsz" },
+          { label: "productGuide.tree.userCenter", icon: User, id: "yhzx" },
+          { label: "productGuide.tree.addApp", icon: DocumentAdd, id: "tjyy" },
+          { label: "productGuide.tree.appMgmt", icon: Menu, id: "yygl" },
+          { label: "productGuide.tree.translationSettings", icon: Setting, id: "gysz" },
+          { label: "productGuide.tree.quickReply", icon: Iphone, id: "kjhf" },
+          { label: "productGuide.tree.fanNotes", icon: Notebook, id: "fsbz" },
+          { label: "productGuide.tree.massMessage", icon: Message, id: "qfxx" },
+          { label: "productGuide.tree.aiReply", icon: MessageBox, id: "aihf" },
+          { label: "productGuide.tree.proxySettings", icon: Setting, id: "dlsz" },
+          { label: "productGuide.tree.systemSettings", icon: Setting, id: "xtsz" },
         ],
       },
     ],
   },
   {
-    label: "特色功能",
+    label: "productGuide.tree.specialFeatures",
     icon: Star,
     children: [
-      { label: "智能AI", icon: ElementPlus, id: "znai" },
-      { label: "图片翻译", icon: Refresh, id: "tpfy" },
-      { label: "客户中心", icon: UserFilled, id: "khzx" },
-      { label: "显示设置", icon: Setting, id: "xssz" },
+      { label: "productGuide.tree.smartAI", icon: ElementPlus, id: "znai" },
+      { label: "productGuide.tree.imageTranslation", icon: Refresh, id: "tpfy" },
+      { label: "productGuide.tree.customerCenter", icon: UserFilled, id: "khzx" },
+      { label: "productGuide.tree.displaySettings", icon: Setting, id: "xssz" },
     ],
   },
 ];

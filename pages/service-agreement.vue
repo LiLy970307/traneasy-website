@@ -4,7 +4,7 @@
       v-if="loading"
       class="flex items-center justify-center py-32 text-slate-400"
     >
-      加载中...
+      {{ $t("pages.serviceAgreement.loading") }}
     </div>
 
     <div

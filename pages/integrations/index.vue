@@ -12,12 +12,12 @@
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[56px]"
         >
-          全渠道社交矩阵，一键触达全球客户
+          {{ $t("pages.integrations.index.pageTitle") }}
         </h1>
         <p
           class="mx-auto mt-5 max-w-4xl font-normal text-[18px] leading-8 text-[#000213] sm:text-[26px]"
         >
-          无缝对接全球主流社交平台，统一管理客户沟通，高效转化每一笔商机
+          {{ $t("pages.integrations.index.pageDesc") }}
         </p>
       </div>
 
@@ -46,7 +46,7 @@
                   :key="tag"
                   class="rounded-full bg-[#F5F7FB] px-2.5 py-1"
                 >
-                  {{ tag }}
+                  {{ $t(tag) }}
                 </span>
               </div>
             </div>
@@ -55,7 +55,7 @@
           <p
             class="mt-6 min-h-[72px] font-normal text-[16px] leading-7 text-[#000213]"
           >
-            {{ item.description }}
+            {{ $t(item.description) }}
           </p>
 
           <NuxtLink
@@ -63,7 +63,7 @@
             :to="localePath(item.href)"
             class="mt-6 inline-flex items-center gap-1 text-[14px] font-semibold text-[#205DFF]"
           >
-            查看详情
+            {{ $t("pages.integrations.index.viewDetail") }}
             <span aria-hidden="true">↗</span>
           </NuxtLink>
 
@@ -71,7 +71,7 @@
             v-else
             class="mt-6 inline-flex items-center gap-1 text-[14px] font-semibold text-[#AEB7C8]"
           >
-            即将开放
+            {{ $t("pages.integrations.index.comingSoon") }}
           </span>
         </article>
       </div>
@@ -80,59 +80,81 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const localePath = useLocalePath();
 
-const pageTitle = "集成资源 - Traneasy 易翻译";
-const pageDescription =
-  "集成资源，支持全球主流社交平台的对接，统一管理客户沟通，高效转化每一笔商机。";
+const pageTitle = "pages.integrations.index.seoTitle";
+const pageDescription = "pages.integrations.index.seoDesc";
 
 const integrations = [
   {
     name: "WhatsApp",
     iconSrc: "/images/integration/whatsapp/logo.svg",
-    tags: ["全球主流通讯", "拉美", "印度"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagEUUS",
+      "pages.integrations.index.tagLatam",
+      "pages.integrations.index.tagIndia",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/whatsapp",
   },
   {
     name: "Telegram",
     iconSrc: "/images/integration/telegram/logo.svg",
-    tags: ["全球主流通讯", "欧洲", "东欧"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagGlobal",
+      "pages.integrations.index.tagEurope",
+      "pages.integrations.index.tagEastEurope",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/telegram",
   },
   {
     name: "Facebook",
     iconSrc: "/images/integration/facebook/logo.svg",
-    tags: ["全球", "东南亚"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagWorldwide",
+      "pages.integrations.index.tagSEAsia",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/facebook",
   },
   {
     name: "Instagram",
     iconSrc: "/images/integration/instagram/logo.svg",
-    tags: ["欧美", "全球年轻群体活跃"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagEUUS",
+      "pages.integrations.index.tagYouth",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/instagram",
   },
   {
     name: "Line",
     iconSrc: "/images/integration/line/logo.svg",
-    tags: ["日韩", "泰国", "中国台湾"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagJapanKorea",
+      "pages.integrations.index.tagThailand",
+      "pages.integrations.index.tagTaiwan",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/line",
   },
   {
     name: "TikTok",
     iconSrc: "/images/integration/tiktok/logo.svg",
-    tags: ["全球", "欧美", "Z世代"],
-    description: "全球主流通讯，支持多账号管理、实时响应客户咨询，转化更高效。",
+    tags: [
+      "pages.integrations.index.tagWorldwide",
+      "pages.integrations.index.tagEUUS",
+      "pages.integrations.index.tagGenZ",
+    ],
+    description: "pages.integrations.index.descDefault",
     href: "/integrations/tiktok",
   },
 ] as const;
 
 useHead({
-  title: () => pageTitle,
-  meta: [{ name: "description", content: pageDescription }],
+  title: () => t(pageTitle),
+  meta: [{ name: "description", content: t(pageDescription) }],
 });
 </script>

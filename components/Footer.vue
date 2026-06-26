@@ -5,19 +5,21 @@
         class="grid gap-y-14 gap-x-10 grid-cols-2 lg:grid-cols-[1.15fr_0.95fr_0.95fr_1.1fr]"
       >
         <div>
-          <h4 class="mb-8 text-[15px] font-semibold text-white">产品</h4>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">
+            {{ $t("footer.colProducts") }}
+          </h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
-            <li v-for="item in productItems" :key="item.label">
+            <li v-for="item in productItems" :key="item.labelKey">
               <template v-if="item.href">
                 <NuxtLink
                   :to="localePath(item.href)"
                   class="transition-colors hover:text-white"
-                  >{{ item.label }}</NuxtLink
+                  >{{ $t(item.labelKey!) }}</NuxtLink
                 >
               </template>
               <template v-else>
                 <span class="transition-colors hover:text-white">{{
-                  item.label
+                  $t(item.labelKey!)
                 }}</span>
               </template>
             </li>
@@ -25,7 +27,9 @@
         </div>
 
         <div>
-          <h4 class="mb-8 text-[15px] font-semibold text-white">集成</h4>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">
+            {{ $t("footer.colIntegrations") }}
+          </h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
             <li v-for="item in integrationItems" :key="item.label">
               <template v-if="item.href">
@@ -45,21 +49,23 @@
         </div>
 
         <div>
-          <h4 class="mb-8 text-[15px] font-semibold text-white">关于</h4>
+          <h4 class="mb-8 text-[15px] font-semibold text-white">
+            {{ $t("footer.colAbout") }}
+          </h4>
           <ul class="space-y-6 text-[15px] leading-none text-white/75">
-            <li v-for="item in aboutItems" :key="item.label">
+            <li v-for="item in aboutItems" :key="item.labelKey">
               <template v-if="item.href">
                 <NuxtLink
                   :to="localePath(item.href)"
                   :target="item.external ? '_blank' : undefined"
                   :rel="item.external ? 'noopener noreferrer' : undefined"
                   class="transition-colors hover:text-white"
-                  >{{ item.label }}</NuxtLink
+                  >{{ $t(item.labelKey!) }}</NuxtLink
                 >
               </template>
               <template v-else>
                 <span class="transition-colors hover:text-white">{{
-                  item.label
+                  $t(item.labelKey!)
                 }}</span>
               </template>
             </li>
@@ -73,7 +79,7 @@
           <p
             class="mt-6 max-w-xs text-[15px] font-semibold leading-8 text-white/90"
           >
-            跨越语言鸿沟 链接全球商机
+            {{ $t("footer.brandSlogan") }}
           </p>
 
           <div class="mt-12 flex items-center gap-4">
@@ -95,9 +101,11 @@
           </div>
 
           <div class="mt-14">
-            <h4 class="text-[15px] font-semibold text-white">联系我们</h4>
+            <h4 class="text-[15px] font-semibold text-white">
+              {{ $t("footer.colContact") }}
+            </h4>
             <p class="mt-6 text-[15px] text-white/75">
-              投诉建议：yifanyi@traneasy.com.cn
+              {{ $t("footer.contactEmail") }}
             </p>
           </div>
         </div>
@@ -109,13 +117,13 @@
         class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-[15px] text-white/80 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12"
       >
         <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-5">
-          <span>蜀ICP备2024115121号</span>
-          <span>Copyright © 2025-2026 UCloud</span>
-          <NuxtLink class="transition-colors hover:text-white"
-            >隐私政策</NuxtLink
-          >
+          <span>{{ $t("footer.icp") }}</span>
+          <span>{{ $t("footer.copyright") }}</span>
+          <NuxtLink class="transition-colors hover:text-white">{{
+            $t("footer.privacyPolicy")
+          }}</NuxtLink>
         </div>
-        <p>© 2026 TalentBridge. All rights reserved.</p>
+        <p>{{ $t("footer.allRightsReserved") }}</p>
       </div>
     </div>
   </footer>
@@ -126,19 +134,20 @@ const localePath = useLocalePath();
 const footerLogoSrc = "/images/icon/footerLogo.svg";
 
 interface FooterLinkItem {
-  label: string;
+  labelKey?: string;
+  label?: string;
   href?: string;
   external?: boolean;
 }
 
 const productItems: readonly FooterLinkItem[] = [
-  { label: "全渠道沟通", href: "/product/communication" },
-  { label: "数据分析", href: "/product/data-analysis" },
-  { label: "精准消息群发", href: "/product/mass-message" },
-  { label: "实时翻译", href: "/product/translation" },
-  { label: "工单系统/分流链接", href: "/product/work-order" },
-  { label: "团队协作", href: "/product/collaboration" },
-  { label: "客户关系管理", href: "/product/crm" },
+  { labelKey: "productsPanel.prod1Title", href: "/product/communication" },
+  { labelKey: "productsPanel.prod2Title", href: "/product/data-analysis" },
+  { labelKey: "productsPanel.prod3Title", href: "/product/mass-message" },
+  { labelKey: "productsPanel.prod4Title", href: "/product/translation" },
+  { labelKey: "productsPanel.prod5Title", href: "/product/work-order" },
+  { labelKey: "productsPanel.prod6Title", href: "/product/collaboration" },
+  { labelKey: "productsPanel.prod7Title", href: "/product/crm" },
 ];
 
 const integrationItems: readonly FooterLinkItem[] = [
@@ -151,8 +160,12 @@ const integrationItems: readonly FooterLinkItem[] = [
 ];
 
 const aboutItems: readonly FooterLinkItem[] = [
-  { label: "产品教程", href: "/product-guide" },
-  { label: "服务协议", href: "/service-agreement", external: true },
+  { labelKey: "footer.productTutorial", href: "/product-guide" },
+  {
+    labelKey: "footer.serviceAgreement",
+    href: "/service-agreement",
+    external: true,
+  },
 ];
 
 const socialItems = [

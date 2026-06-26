@@ -12,12 +12,12 @@
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
         >
-          客户端下载
+          {{ $t("pages.download.pageTitle") }}
         </h1>
         <p
           class="mx-auto mt-5 max-w-3xl text-[18px] leading-8 text-[#3A4050] sm:text-[20px]"
         >
-          官方原版安装包，安全校验，高速下载无需等待
+          {{ $t("pages.download.pageDesc") }}
         </p>
       </div>
 
@@ -79,8 +79,8 @@
     </section>
 
     <FaqSection
-      title="常见问题"
-      description="全系统适配指南+故障排查，快速上手无门槛！"
+      :title="$t('pages.download.faqTitle')"
+      :description="$t('pages.download.faqDesc')"
       :faqs="faqItems"
       section-class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:px-8 lg:px-12"
       container-class="max-w-[1180px]"
@@ -121,10 +121,10 @@ interface DownloadConfigResponse {
   };
 }
 
-const pageTitle = "客户端下载 - Traneasy 易翻译";
-const pageDescription =
-  "官方原版安装包下载入口，提供 Windows、Mac 与 Signal 翻译版客户端，并附常见安装与适配问题说明。";
+const pageTitle = "pages.download.seoTitle";
+const pageDescription = "pages.download.seoDesc";
 
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const DOWNLOAD_API = `${config.public.clientUserApiBase}/dataCus/get`;
 
@@ -183,7 +183,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
   // 如果存在"正式版"，在 label 后追加系统版本信息
   for (const item of windowsItems) {
     if (item.label === "正式版") {
-      item.label = "正式版 (win7/8/10/11)";
+      item.label = t("pages.download.btnOfficial");
     }
   }
   const macItems = allChildren.filter(
@@ -196,7 +196,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
 
   if (windowsItems.length > 0) {
     cards.push({
-      title: "Windows客户端",
+      title: t("pages.download.cardWin"),
       iconSrc: "/images/resource/Windows.svg",
       buttons: windowsItems.map((item) => ({
         label: item.label,
@@ -211,7 +211,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
 
   if (macItems.length > 0) {
     cards.push({
-      title: "Mac客户端",
+      title: t("pages.download.cardMac"),
       iconSrc: "/images/resource/Mac.svg",
       buttons: macItems.map((item) => ({
         label: item.label,
@@ -226,7 +226,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
 
   if (signalItems.length > 0) {
     cards.push({
-      title: "Signal翻译版",
+      title: t("pages.download.cardSignal"),
       iconSrc: "/images/resource/Signal.svg",
       buttons: signalItems.map((item) => ({
         label: item.label,
@@ -242,36 +242,15 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
   return cards;
 });
 
-const faqItems = [
-  {
-    question: "如何选择适合我电脑的 Windows 版本？",
-    answer: `<ul class="list-disc pl-5 space-y-1">
-      <li>Windows 10 / 11：如果您的电脑的系统为 Windows 10 或 Windows 11，请选择此版本以获得最佳性能和兼容性。</li>
-      <li>Windows 7 / 8：如果您的电脑操作系统是 Windows 7 或 Windows 8/8.1，请仍然选择此版本，否则组件可能无法正常激活运行。</li>
-      <li>适配版：如果您不能确定自己的系统版本，或者上述两个版本都无法正常运行，可以尝试下载适配版。它兼容大多数 Windows 系统环境，但体积可能更大。</li>
-    </ul>`,
-  },
-  {
-    question: "苹果电脑（Mac）用户应该下载哪个版本？",
-    answer: `<ul class="list-disc pl-5 space-y-1">
-      <li>M 芯片：适用于搭载 Apple M1、M2 等自研芯片的新款 Mac 电脑。</li>
-      <li>Intel 芯片：适用于搭载英特尔处理器的旧款 Mac 电脑。</li>
-    </ul>`,
-  },
-  {
-    question: "下载后的文件如何安装？",
-    answer:
-      "下载完成后，双击安装包并按照向导完成安装。若系统提示权限验证，请根据系统要求允许应用执行安装。",
-  },
-  {
-    question: "什么是“Signal翻译版”？",
-    answer:
-      "Signal翻译版是在原有消息安全能力基础上提供多语言翻译辅助的版本，适合需要跨语种沟通的团队或个人使用。",
-  },
-];
+const faqItems = computed(() => [
+  { question: t("pages.download.faqQ1"), answer: t("pages.download.faqA1") },
+  { question: t("pages.download.faqQ2"), answer: t("pages.download.faqA2") },
+  { question: t("pages.download.faqQ3"), answer: t("pages.download.faqA3") },
+  { question: t("pages.download.faqQ4"), answer: t("pages.download.faqA4") },
+]);
 
 useHead({
-  title: pageTitle,
-  meta: [{ name: "description", content: pageDescription }],
+  title: t(pageTitle),
+  meta: [{ name: "description", content: t(pageDescription) }],
 });
 </script>

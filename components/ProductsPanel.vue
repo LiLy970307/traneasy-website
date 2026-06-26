@@ -4,7 +4,7 @@
       <div class="grid grid-cols-3 gap-x-16 gap-y-12">
         <NuxtLink
           v-for="item in productItems"
-          :key="item.title"
+          :key="item.titleKey"
           :to="item.href ? localePath(item.href) : undefined"
           @click="handleItemClick(item.href)"
           :class="[
@@ -17,18 +17,18 @@
           >
             <img
               :src="item.iconSrc"
-              :alt="item.title"
+              :alt="$t(item.titleKey)"
               class="h-5 w-5 object-contain"
             />
           </div>
           <div class="min-w-0">
             <h3 class="text-[18px] font-semibold leading-[28px] text-[#000213]">
-              {{ item.title }}
+              {{ $t(item.titleKey) }}
             </h3>
             <p
               class="mt-1 max-w-[260px] text-[14px] leading-[26px] text-[#8B90A0]"
             >
-              {{ item.description }}
+              {{ $t(item.descKey) }}
             </p>
           </div>
         </NuxtLink>
@@ -46,44 +46,44 @@ const emit = defineEmits<{
 
 const productItems = [
   {
-    title: "全渠道沟通",
-    description: "聚合全球主流社交平台，告别多平台切换的混乱",
+    titleKey: "productsPanel.prod1Title",
+    descKey: "productsPanel.prod1Desc",
     iconSrc: "/images/product/dropdown-1.svg",
     href: "/product/communication",
   },
   {
-    title: "数据分析",
-    description: "用数据复盘业务，用图表驱动决策，告别凭感觉做外贸",
+    titleKey: "productsPanel.prod2Title",
+    descKey: "productsPanel.prod2Desc",
     iconSrc: "/images/product/dropdown-2.svg",
     href: "/product/data-analysis",
   },
   {
-    title: "精准消息群发",
-    description: "用自动化工具实现千人千面的批量触达",
+    titleKey: "productsPanel.prod3Title",
+    descKey: "productsPanel.prod3Desc",
     iconSrc: "/images/product/dropdown-3.svg",
     href: "/product/mass-message",
   },
   {
-    title: "实时翻译",
-    description: "让沟通像母语一样自然流畅。",
+    titleKey: "productsPanel.prod4Title",
+    descKey: "productsPanel.prod4Desc",
     iconSrc: "/images/product/dropdown-4.svg",
     href: "/product/translation",
   },
   {
-    title: "工单系统/分流链接",
-    description: "自动化线索管理，让每个商机都有迹可循",
+    titleKey: "productsPanel.prod5Title",
+    descKey: "productsPanel.prod5Desc",
     iconSrc: "/images/product/dropdown-5.svg",
     href: "/product/work-order",
   },
   {
-    title: "跨境团队协作管理",
-    description: "从单打独斗到平团队作战，打造高执行力的跨境铁军",
+    titleKey: "productsPanel.prod6Title",
+    descKey: "productsPanel.prod6Desc",
     iconSrc: "/images/product/dropdown-6.svg",
     href: "/product/collaboration",
   },
   {
-    title: "客户关系管理",
-    description: "用精细化的 CRM 系统挖掘客户的终身价值",
+    titleKey: "productsPanel.prod7Title",
+    descKey: "productsPanel.prod7Desc",
     iconSrc: "/images/product/dropdown-7.svg",
     href: "/product/crm",
   },

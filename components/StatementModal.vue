@@ -29,7 +29,7 @@
             >
               <button
                 type="button"
-                aria-label="关闭声明弹窗"
+                :aria-label="$t('statementModal.closeAriaLabel')"
                 class="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-400 shadow-sm transition-colors hover:bg-slate-100 hover:text-slate-600"
                 @click="closeModal"
               >

@@ -2,7 +2,7 @@
   <section :class="sectionClass">
     <div :class="containerClass">
       <h2 class="text-[23px] font-medium leading-[1.5] text-[#000213]">
-        {{ title }}
+        {{ $t(title) }}
       </h2>
       <p class="text-[23px] font-medium leading-[1.5] text-[#000213]">
         {{ description }}
@@ -47,7 +47,7 @@
               "
             >
               <div
-                class="px-6 py-5 text-[15px] leading-8 text-[#5F6472] prose prose-slate max-w-none"
+                class="px-6 py-5 text-[15px] leading-8 text-[#5F6472] prose prose-slate max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1"
                 v-html="faq.answer"
               />
             </div>
@@ -74,7 +74,7 @@ const props = withDefaults(
     initialOpenIndex?: number;
   }>(),
   {
-    title: "常见问题",
+    title: "faqSection.defaultTitle",
     sectionClass: "px-6 py-20 sm:px-8 lg:px-12",
     containerClass: "mx-auto max-w-container px-6 sm:px-8 lg:px-12",
     initialOpenIndex: 0,

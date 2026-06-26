@@ -1,14 +1,14 @@
 <template>
   <AuthPageWrapper>
     <div class="mb-10 flex items-center justify-between gap-4">
-      <h1 class="text-2xl font-bold tracking-tight text-slate-900">注册</h1>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $t("pages.register.pageTitle") }}</h1>
       <p class="text-sm text-slate-600">
-        已有账号，
+        {{ $t("pages.register.hasAccount") }}
         <NuxtLink
           :to="localePath('/login')"
           class="font-semibold text-blue-500 transition-colors hover:text-blue-600"
         >
-          直接登录
+          {{ $t("pages.register.goLogin") }}
         </NuxtLink>
       </p>
     </div>
@@ -16,13 +16,13 @@
     <form class="" @submit.prevent="handleRegister">
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
-          昵称
+          {{ $t("pages.register.labelNickname") }}
         </label>
         <input
           v-model.trim="form.nickname"
           type="text"
           class="auth-input"
-          placeholder="请输入昵称"
+          :placeholder="$t('pages.register.placeholderNickname')"
           @blur="validateNickname"
         />
         <p
@@ -38,14 +38,14 @@
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
           <span class="text-red-500">*</span>
-          用户名
+          {{ $t("pages.register.labelUsername") }}
         </label>
         <input
           v-model.trim="form.username"
           type="text"
           autocomplete="username"
           class="auth-input"
-          placeholder="请输入用户名（必填，必须字母开头，不出现特殊字符）"
+          :placeholder="$t('pages.register.placeholderUsername')"
           @blur="checkUsername"
         />
         <p
@@ -62,10 +62,10 @@
         <div class="flex items-center justify-between mb-3">
           <label class="block text-sm font-bold text-slate-800">
             <span class="text-red-500">*</span>
-            邮箱
+            {{ $t("pages.register.labelEmail") }}
           </label>
           <p class="text-right text-sm text-slate-500">
-            用户名和邮箱都可以用于登录
+            {{ $t("pages.register.emailHint") }}
           </p>
         </div>
         <input
@@ -73,7 +73,7 @@
           type="email"
           autocomplete="email"
           class="auth-input"
-          placeholder="请输入您的注册邮箱（必填）"
+          :placeholder="$t('pages.register.placeholderEmail')"
           @blur="checkAccount"
         />
         <p
@@ -89,7 +89,7 @@
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
           <span class="text-red-500">*</span>
-          验证码
+          {{ $t("pages.register.labelCaptcha") }}
         </label>
         <div class="grid gap-4 sm:grid-cols-[1fr_220px]">
           <input
@@ -97,7 +97,7 @@
             type="text"
             inputmode="numeric"
             class="auth-input"
-            placeholder="请输入验证码（必填）"
+            :placeholder="$t('pages.register.placeholderCaptcha')"
             @blur="validateVCode"
           />
           <button
@@ -122,7 +122,7 @@
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
           <span class="text-red-500">*</span>
-          密码
+          {{ $t("pages.register.labelPassword") }}
         </label>
         <div class="relative">
           <input
@@ -130,13 +130,13 @@
             :type="showPassword ? 'text' : 'password'"
             autocomplete="new-password"
             class="auth-input pr-14"
-            placeholder="请输入密码（必填）"
+            :placeholder="$t('pages.register.placeholderPassword')"
             @blur="validatePassword"
           />
           <button
             type="button"
             class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
-            :aria-label="showPassword ? '隐藏密码' : '显示密码'"
+            :aria-label="showPassword ? $t('pages.register.hidePassword') : $t('pages.register.showPassword')"
             @click="showPassword = !showPassword"
           >
             <svg
@@ -182,7 +182,7 @@
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
           <span class="text-red-500">*</span>
-          再次输入密码
+          {{ $t("pages.register.labelConfirmPassword") }}
         </label>
         <div class="relative">
           <input
@@ -190,13 +190,13 @@
             :type="showConfirmPassword ? 'text' : 'password'"
             autocomplete="new-password"
             class="auth-input pr-14"
-            placeholder="请再次输入密码（必填）"
+            :placeholder="$t('pages.register.placeholderConfirmPassword')"
             @blur="validateConfirmPassword"
           />
           <button
             type="button"
             class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
-            :aria-label="showConfirmPassword ? '隐藏密码' : '显示密码'"
+            :aria-label="showConfirmPassword ? $t('pages.register.hidePassword') : $t('pages.register.showPassword')"
             @click="showConfirmPassword = !showConfirmPassword"
           >
             <svg
@@ -247,14 +247,14 @@
           @change="validateAgreement"
         />
         <span class="text-sm">
-          已阅读并同意
+          {{ $t("pages.register.agreePrefix") }}
           <a
             href="https://www.traneasy.com.cn/zh/#/term-and-condition"
             target="_blank"
             rel="noopener noreferrer"
             class="text-blue-500 hover:text-blue-600"
           >
-            用户协议
+            {{ $t("pages.register.userAgreement") }}
           </a>
         </span>
       </label>
@@ -272,7 +272,7 @@
         :disabled="isRegistering"
         class="mt-4 w-full rounded-full bg-blue-500 py-2 text-xl font-bold text-white shadow-[0_12px_28px_rgba(59,130,246,0.28)] transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-300"
       >
-        {{ isRegistering ? "注册中..." : "注册" }}
+        {{ isRegistering ? $t("pages.register.btnLoading") : $t("pages.register.btnRegister") }}
       </button>
     </form>
   </AuthPageWrapper>
@@ -353,7 +353,7 @@
             <button
               type="button"
               class="text-slate-300 transition-colors hover:text-slate-500"
-              aria-label="关闭"
+              :aria-label="$t('pages.register.dialogClose')"
               @click="closeDialog"
             >
               <svg
@@ -378,7 +378,7 @@
               class="rounded-lg bg-blue-500 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-600"
               @click="confirmDialog"
             >
-              确定
+              {{ $t("pages.register.dialogConfirm") }}
             </button>
           </div>
         </div>
@@ -390,6 +390,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: false });
 
+const { t } = useI18n();
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 const localePath = useLocalePath();
@@ -526,14 +527,14 @@ const isRegistering = computed(() => registerStatus.value === "pending");
 
 const vcodeButtonText = computed(() => {
   if (isSendingCode.value) {
-    return "发送中...";
+    return t("pages.register.captchaSending");
   }
 
   if (vcodeCountdown.value > 0) {
-    return `${vcodeCountdown.value}s 后重新获取`;
+    return t("pages.register.captchaRetry").replace("{n}", String(vcodeCountdown.value));
   }
 
-  return "点击获取验证码";
+  return t("pages.register.captchaGet");
 });
 
 const isEmail = (value: string) => {
@@ -549,7 +550,7 @@ const showDialog = (
   } = {},
 ) => {
   dialog.visible = true;
-  dialog.title = options.title || "提示";
+  dialog.title = options.title || t("pages.register.dialogTitle");
   dialog.message = message;
   dialog.type = options.type || "warning";
   dialog.onConfirm = options.onConfirm;
@@ -601,7 +602,7 @@ const validateVCode = () => {
   fieldErrors.vcode = "";
 
   if (!form.vcode) {
-    fieldErrors.vcode = "请输入验证码";
+    fieldErrors.vcode = t("pages.register.errCaptchaRequired");
     return false;
   }
 
@@ -612,7 +613,7 @@ const validatePassword = () => {
   fieldErrors.password = "";
 
   if (!form.password) {
-    fieldErrors.password = "请输入密码";
+    fieldErrors.password = t("pages.register.errPasswordRequired");
     return false;
   }
 
@@ -623,12 +624,12 @@ const validateConfirmPassword = () => {
   fieldErrors.confirmPassword = "";
 
   if (!confirmPassword.value) {
-    fieldErrors.confirmPassword = "请再次输入密码";
+    fieldErrors.confirmPassword = t("pages.register.errConfirmRequired");
     return false;
   }
 
   if (form.password !== confirmPassword.value) {
-    fieldErrors.confirmPassword = "两次输入的密码不一致";
+    fieldErrors.confirmPassword = t("pages.register.errPasswordMismatch");
     return false;
   }
 
@@ -639,7 +640,7 @@ const validateAgreement = () => {
   fieldErrors.agreed = "";
 
   if (!agreed.value) {
-    fieldErrors.agreed = "请先阅读并同意用户协议";
+    fieldErrors.agreed = t("pages.register.errAgreementRequired");
     return false;
   }
 
@@ -650,12 +651,12 @@ const checkAccount = async () => {
   fieldErrors.account = "";
 
   if (!form.account) {
-    fieldErrors.account = "请输入邮箱";
+    fieldErrors.account = t("pages.register.errEmailRequired");
     return false;
   }
 
   if (!isEmail(form.account)) {
-    fieldErrors.account = "请输入正确的邮箱地址";
+    fieldErrors.account = t("pages.register.errEmailInvalid");
     return false;
   }
 
@@ -668,18 +669,18 @@ const checkAccount = async () => {
   if (checkAccountError.value) {
     fieldErrors.account = getErrorMessage(
       checkAccountError.value,
-      "邮箱检测失败，请稍后重试",
+      t("pages.register.errEmailCheckFailed"),
     );
     return false;
   }
 
   if (checkAccountData.value?.success === false) {
-    fieldErrors.account = checkAccountData.value.msg || "邮箱检测失败";
+    fieldErrors.account = checkAccountData.value.msg || t("pages.register.errEmailCheckFailShort");
     return false;
   }
 
   if (checkAccountData.value?.data === false) {
-    fieldErrors.account = "该邮箱已被注册";
+    fieldErrors.account = t("pages.register.errEmailRegistered");
     return false;
   }
 
@@ -690,7 +691,7 @@ const checkUsername = async () => {
   fieldErrors.username = "";
 
   if (!form.username) {
-    fieldErrors.username = "请输入用户名";
+    fieldErrors.username = t("pages.register.errUsernameRequired");
     return false;
   }
 
@@ -703,18 +704,18 @@ const checkUsername = async () => {
   if (checkUsernameError.value) {
     fieldErrors.username = getErrorMessage(
       checkUsernameError.value,
-      "用户名检测失败，请稍后重试",
+      t("pages.register.errUsernameCheckFailed"),
     );
     return false;
   }
 
   if (checkUsernameData.value?.success === false) {
-    fieldErrors.username = checkUsernameData.value.msg || "用户名检测失败";
+    fieldErrors.username = checkUsernameData.value.msg || t("pages.register.errUsernameCheckFailShort");
     return false;
   }
 
   if (checkUsernameData.value?.data === false) {
-    fieldErrors.username = "该用户名已被注册";
+    fieldErrors.username = t("pages.register.errUsernameRegistered");
     return false;
   }
 
@@ -736,18 +737,18 @@ const sendVCode = async () => {
 
   if (sendVCodeError.value) {
     showDialog(
-      getErrorMessage(sendVCodeError.value, "验证码发送失败，请稍后重试"),
+      getErrorMessage(sendVCodeError.value, t("pages.register.errCaptchaSendFailed")),
     );
     return;
   }
 
   if (sendVCodeData.value?.success === false || !sendVCodeData.value?.data) {
-    showDialog(sendVCodeData.value?.msg || "验证码发送失败，请稍后重试");
+    showDialog(sendVCodeData.value?.msg || t("pages.register.errCaptchaSendFailed"));
     return;
   }
 
-  showDialog("验证码已发送，请查收邮箱", {
-    title: "发送成功",
+  showDialog(t("pages.register.captchaSent"), {
+    title: t("pages.register.captchaSentTitle"),
     type: "success",
   });
   startCountdown();
@@ -799,19 +800,19 @@ const handleRegister = async () => {
   await executeRegister();
 
   if (registerError.value) {
-    showDialog(getErrorMessage(registerError.value, "注册失败，请稍后重试"));
+    showDialog(getErrorMessage(registerError.value, t("pages.register.errRegisterFailed")));
     return;
   }
 
   const response = registerData.value;
 
   if (!response || response.code !== 200) {
-    showDialog(response?.msg || "注册失败，请稍后重试");
+    showDialog(response?.msg || t("pages.register.errRegisterFailed"));
     return;
   }
 
-  showDialog("注册成功，请登录", {
-    title: "注册成功",
+  showDialog(t("pages.register.registerSuccess"), {
+    title: t("pages.register.registerSuccessTitle"),
     type: "success",
     onConfirm: () => navigateTo(localePath("/login")),
   });
@@ -823,7 +824,7 @@ onBeforeUnmount(() => {
   }
 });
 
-useHead({ title: "注册 - TranEasy" });
+useHead({ title: t("pages.register.seoTitle") });
 </script>
 
 <style scoped>

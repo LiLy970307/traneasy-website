@@ -40,7 +40,7 @@
       <p v-if="currentNotice?.subTitle" class="mb-2 text-slate-500">
         {{ currentNotice.subTitle }}
       </p>
-      <p class="text-sm text-slate-400">更新日期：{{ formattedUpdateDate }}</p>
+      <p class="text-sm text-slate-400">{{ $t("statementContent.updateDatePrefix") }}{{ formattedUpdateDate }}</p>
     </div>
 
     <div v-if="pending" class="space-y-4">
@@ -54,7 +54,7 @@
       v-else-if="error || !currentNotice"
       class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-800"
     >
-      声明内容暂时加载失败，请稍后重试。
+      {{ $t("statementContent.loadError") }}
     </div>
 
     <div v-else class="statement-content" v-html="currentNotice.content" />

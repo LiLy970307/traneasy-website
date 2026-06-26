@@ -17,22 +17,22 @@
     />
 
     <div class="relative mx-auto max-w-7xl px-6 pt-8">
-      <div class="mx-auto text-center">
+      <!-- <div class="mx-auto text-center">
         <h1
           class="mt-8 text-center text-[44px] font-semibold not-italic leading-[1.2] text-[#000213]"
         >
-          Traneasy 易翻译
+          {{ $t("homeHero.brandName") }}
         </h1>
 
         <h1
           class="mt-8 text-[#000213] font-bold text-[56px] sm:text-5xl lg:text-6xl lg:leading-[1.08]"
         >
-          跨越语言鸿沟，链接全球商机
+          {{ $t("homeHero.title") }}
         </h1>
         <p
           class="mx-auto mt-10 text-[26px] leading-8 text-[#000213] sm:text-xl"
         >
-          专为出海企业打造，集实时翻译、客户管理、矩阵运营于一体，一站式解决出海沟通与获客难题。
+          {{ $t("homeHero.subtitle") }}
         </p>
 
         <div
@@ -42,26 +42,57 @@
             :to="localePath('/register')"
             class="inline-flex min-w-36 items-center justify-center rounded bg-brand-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_rgba(37,99,235,0.28)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-brand-700"
           >
-            免费试用
+            {{ $t("homeHero.ctaTrial") }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/download')"
             class="inline-flex min-w-36 items-center justify-center rounded border border-orange-200 bg-orange-500 px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_rgba(249,115,22,0.18)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-orange-600"
           >
-            免费下载
+            {{ $t("homeHero.ctaDownload") }}
           </NuxtLink>
         </div>
 
         <p class="mt-10 text-[14px] font-normal text-[#000213]">
-          全平台覆盖 一屏掌控
+          {{ $t("homeHero.platformBadge") }}
         </p>
-      </div>
+      </div> -->
+
+      <!-- 轮播 -->
+      <!-- <ClientOnly>
+        <Swiper
+          :autoplay="{ delay: 4000, disableOnInteraction: false }"
+          :loop="true"
+          :pagination="{ clickable: true }"
+          :navigation="true"
+          class="mx-auto max-w-[1120px]"
+        >
+          <SwiperSlide v-for="(slide, idx) in slides" :key="slide">
+            <img
+              :src="slide"
+              class="w-full rounded-2xl object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          </SwiperSlide>
+        </Swiper>
+      </ClientOnly> -->
+
+      <swiper-container
+        :loop="true"
+        :navigation="false"
+        :pagination="true"
+        :autoplay-delay="4000"
+      >
+        <swiper-slide v-for="slide in slides" :key="slide">
+          <img :src="slide" class="w-full rounded-2xl object-cover" />
+        </swiper-slide>
+      </swiper-container>
     </div>
 
     <div class="relative w-full px-6 pb-6 sm:px-8 lg:px-12 lg:pb-8">
       <ul
         class="mt-10 flex w-full flex-wrap justify-center gap-3 lg:justify-between"
-        aria-label="支持的平台"
+        :aria-label="$t('homeHero.supportedPlatforms')"
       >
         <li v-for="platform in platforms" :key="platform.name">
           <img
@@ -81,6 +112,12 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+
+const slides = [
+  "/images/index/carousel-1.png",
+  "/images/index/carousel-2.png",
+  "/images/index/carousel-3.png",
+];
 
 interface PlatformIcon {
   name: string;

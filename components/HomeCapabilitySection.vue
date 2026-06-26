@@ -9,7 +9,7 @@
         <ul class="mt-10 divide-y divide-white/10 border-y border-white/10">
           <li
             v-for="benefit in benefits"
-            :key="benefit.title"
+            :key="benefit.titleKey"
             class="flex gap-5 py-6"
           >
             <img
@@ -24,10 +24,10 @@
             />
             <div>
               <h3 class="text-lg font-semibold text-white">
-                {{ benefit.title }}
+                {{ $t(benefit.titleKey) }}
               </h3>
               <p class="mt-2 text-sm leading-7 text-slate-300 sm:text-base">
-                {{ benefit.description }}
+                {{ $t(benefit.descKey) }}
               </p>
             </div>
           </li>
@@ -53,8 +53,8 @@
 
 <script setup lang="ts">
 interface CapabilityBenefit {
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   iconSrc: string;
 }
 
@@ -62,18 +62,18 @@ const imageSrc = "/images/index/computer.png";
 
 const benefits: readonly CapabilityBenefit[] = [
   {
-    title: "AI 无感翻译",
-    description: "输入中文秒发外文，200+语种实时互译",
+    titleKey: "homeCapability.benefit1Title",
+    descKey: "homeCapability.benefit1Desc",
     iconSrc: "/images/index/black-1.png",
   },
   {
-    title: "指纹级防关联",
-    description: "独立环境 + 全球IP，彻底告别封号风险",
+    titleKey: "homeCapability.benefit2Title",
+    descKey: "homeCapability.benefit2Desc",
     iconSrc: "/images/index/black-3.png",
   },
   {
-    title: "高效获客",
-    description: "一键群发 + 短链追踪，让客户来源清晰可见",
+    titleKey: "homeCapability.benefit3Title",
+    descKey: "homeCapability.benefit3Desc",
     iconSrc: "/images/index/black-2.png",
   },
 ];

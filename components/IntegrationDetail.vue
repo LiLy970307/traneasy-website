@@ -92,7 +92,7 @@
     <ProductSceneSection
       :title="sceneTitle"
       :description="sceneDescription"
-      button-label="立即下载"
+      :button-label="$t('integrationDetail.downloadBtn')"
       :button-to="`#${setupSectionId}`"
       :items="sceneItems"
       :columns="4"
@@ -108,7 +108,7 @@
         >
           <div>
             <p class="text-[14px] font-medium tracking-[0.18em] text-[#205DFF]">
-              使用教程
+              {{ $t("integrationDetail.sceneEyebrow") }}
             </p>
             <h2
               class="mt-3 text-[30px] font-semibold leading-[1.45] text-[#000213] sm:text-[34px]"
@@ -121,14 +121,18 @@
             :href="downloadAnchor"
             class="inline-flex items-center justify-center rounded-[10px] border border-[#CCD4E5] px-5 py-2.5 text-sm font-medium text-[#000213] transition-colors hover:border-[#205DFF] hover:text-[#205DFF]"
           >
-            立即下载
+            {{ $t("integrationDetail.downloadBtn") }}
           </a>
         </div>
 
         <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <div v-for="(step, index) in setupSteps" :key="step.title">
             <div class="flex items-center gap-4">
-              <img :src="stagePointSrc" alt="步骤节点" class="h-3 w-3" />
+              <img
+                :src="stagePointSrc"
+                :alt="$t('integrationDetail.stepNodeAlt')"
+                class="h-3 w-3"
+              />
               <div
                 class="left-[5px] top-5 h-[1px] w-[calc(100%-12px)] bg-[#DCE5F5] xl:block"
               />

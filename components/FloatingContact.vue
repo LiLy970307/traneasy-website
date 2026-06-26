@@ -23,7 +23,7 @@
           <div class="relative overflow-hidden px-5 pb-4 pt-5 text-slate-950">
             <button
               type="button"
-              aria-label="收起客服入口"
+              aria-label="$t('floatingContact.closeAriaLabel')"
               class="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-white/35 hover:text-slate-700"
               @click="handleCloseClick"
             >
@@ -55,7 +55,7 @@
             <div
               class="mt-7 text-[20px] font-bold leading-tight text-[#17305f]"
             >
-              <span>👋 您好！欢迎来到易翻译客服中心</span>
+              <span>{{ $t("floatingContact.greeting") }}</span>
               <!-- <span class="block text-[#1558d6]">Traneasy!</span> -->
             </div>
           </div>
@@ -77,7 +77,7 @@
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-3">
                     <div class="font-semibold text-slate-900">
-                      {{ lastMessage?.nickname || "客服" }}
+                      {{ lastMessage?.nickname || $t("floatingContact.defaultNickname") }}
                     </div>
                     <div
                       class="shrink-0 text-sm text-slate-400"
@@ -87,7 +87,7 @@
                     </div>
                   </div>
                   <div class="mt-2 truncate text-sm text-slate-500">
-                    {{ lastMessage?.content || "暂无消息" }}
+                    {{ lastMessage?.content || $t("floatingContact.noMessages") }}
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@
                     d="M4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2-3.6 7.2-8 7.2c-.7 0-1.5-.1-2.2-.3L5.6 20a.8.8 0 0 1-1.1-1l1.2-3.1A6.7 6.7 0 0 1 4 11.2Zm5-.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Zm3 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"
                   />
                 </svg>
-                咨询客服
+                {{ $t("floatingContact.consultService") }}
               </button>
             </div>
 
@@ -140,7 +140,7 @@
                   class="text-left text-base text-slate-500 hover:text-[#2364f4]"
                   @click.stop="openDefaultContact(group)"
                 >
-                  联系我们
+                  {{ $t("floatingContact.contactUs") }}
                 </button>
                 <div class="flex justify-end flex-1">
                   <span
@@ -185,7 +185,7 @@
                   <img
                     v-if="selectedGroupAccount(group)?.qrCode"
                     :src="selectedGroupAccount(group)?.qrCode"
-                    :alt="`${group.platform} 客服二维码`"
+                    :alt="`${group.platform} QR`"
                     class="mx-auto aspect-square w-full max-w-[210px] object-contain"
                     loading="lazy"
                   />
@@ -193,13 +193,13 @@
                     v-else
                     class="mx-auto flex aspect-square w-full max-w-[210px] items-center justify-center text-sm text-slate-400"
                   >
-                    暂无二维码
+                    {{ $t("floatingContact.noQrCode") }}
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 售后客服 @traneasy -->
+            <!-- {{ $t("floatingContact.afterSales") }} @traneasy -->
             <div
               v-if="afterSalesAccount"
               class="w-full rounded-xl bg-white/92 text-left shadow-[0_10px_30px_rgba(30,41,59,0.08)] transition-colors hover:bg-white"
@@ -215,7 +215,7 @@
                 >
                   <img
                     :src="platformIcon(afterSalesAccount.platform)"
-                    alt="售后客服"
+                    :alt="$t('floatingContact.afterSales')"
                     class="h-9 w-9 object-contain"
                     loading="lazy"
                   />
@@ -225,7 +225,7 @@
                   class="text-left text-base text-slate-500 hover:text-[#2364f4]"
                   @click.stop="openAccountContact(afterSalesAccount)"
                 >
-                  售后客服
+                  {{ $t("floatingContact.afterSales") }}
                 </button>
                 <div class="flex flex-1 justify-end">
                   <span
@@ -269,7 +269,7 @@
                   <img
                     v-if="afterSalesAccount.qrCode"
                     :src="afterSalesAccount.qrCode"
-                    alt="售后客服二维码"
+                    :alt="$t('floatingContact.afterSalesQrAlt')"
                     class="mx-auto aspect-square w-full max-w-[210px] object-contain"
                     loading="lazy"
                   />
@@ -277,7 +277,7 @@
                     v-else
                     class="mx-auto flex aspect-square w-full max-w-[210px] items-center justify-center text-sm text-slate-400"
                   >
-                    暂无二维码
+                    {{ $t("floatingContact.noQrCode") }}
                   </div>
                 </div>
               </div>
@@ -307,7 +307,7 @@
                   />
                 </svg>
               </span>
-              <span class="flex-1 text-base text-slate-500">客服验证</span>
+              <span class="flex-1 text-base text-slate-500">{{ $t("floatingContact.verifyTitle") }}</span>
               <span
                 class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white"
               >
@@ -328,7 +328,7 @@
             v-if="crispLoading"
             class="absolute inset-0 z-20 flex items-center justify-center bg-white/92 text-sm font-medium text-slate-500"
           >
-            正在连接客服...
+            {{ $t("floatingContact.connecting") }}
           </div>
         </div>
       </Transition>
@@ -347,7 +347,7 @@
           v-if="!compactFloatingButton"
           style="writing-mode: vertical-rl; text-orientation: upright"
         >
-          客服中心
+          {{ $t("floatingContact.floatingBtn") }}
         </div>
         <svg
           v-if="compactFloatingButton"
@@ -399,7 +399,7 @@
         @click.stop
       >
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-bold text-slate-900">客服验证</h3>
+          <h3 class="text-lg font-bold text-slate-900">{{ $t("floatingContact.verifyTitle") }}</h3>
           <button
             type="button"
             class="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
@@ -419,7 +419,7 @@
         <div class="mt-6 space-y-4">
           <div>
             <label class="block text-sm font-medium text-slate-700"
-              >客服平台</label
+              >{{ $t("floatingContact.verifyPlatformLabel") }}</label
             >
             <select
               v-model="verifyDialog.platform"
@@ -438,13 +438,13 @@
 
           <div>
             <label class="block text-sm font-medium text-slate-700"
-              >客服用户名/账号</label
+              >{{ $t("floatingContact.verifyAccountLabel") }}</label
             >
             <input
               ref="accountInputRef"
               v-model="verifyDialog.account"
               type="text"
-              placeholder="请输入客服账号"
+              :placeholder="$t('floatingContact.verifyAccountPlaceholder')"
               class="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700 shadow-sm transition-colors placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               @keyup.enter="doVerify"
             />
@@ -496,7 +496,7 @@
             class="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
             @click="closeVerifyDialog"
           >
-            关闭
+            {{ $t("floatingContact.verifyClose") }}
           </button>
           <button
             type="button"
@@ -527,9 +527,9 @@
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                 />
               </svg>
-              验证中...
+              {{ $t("floatingContact.verifyLoading") }}
             </span>
-            <span v-else>验证</span>
+            <span v-else>{{ $t("floatingContact.verifyBtn") }}</span>
           </button>
         </div>
       </div>
@@ -585,6 +585,7 @@ interface CrispExposed {
 }
 
 const config = useRuntimeConfig();
+const { t } = useI18n();
 const API_URL = `${config.public.clientUserApiBase}/customer-service/list`;
 const VERIFY_API = `${config.public.clientUserApiBase}/customer-service/get`;
 const PLATFORM_LIST_API = `${config.public.clientUserApiBase}/customer-service/platform/list`;
@@ -725,7 +726,7 @@ const openDefaultContact = (group: CustomerServiceGroup) => {
 };
 
 const formatAccountName = (account: string, fallback: string) => {
-  return account === "@traneasy" ? "售后客服" : account || fallback;
+  return account === "@traneasy" ? t("floatingContact.afterSales") : account || fallback;
 };
 
 const openCrispPanel = () => {
@@ -835,15 +836,15 @@ const doVerify = async () => {
     });
 
     if (data.success) {
-      verifyDialog.result = "该账号为官方客服账号，请放心联系！";
+      verifyDialog.result = t("floatingContact.verifySuccess");
       verifyDialog.resultType = "success";
     } else {
       verifyDialog.result =
-        data.msg || "该账户非官方客服帐号，请注意防范！！！";
+        data.msg || t("floatingContact.verifyFail");
       verifyDialog.resultType = "error";
     }
   } catch (err) {
-    verifyDialog.result = "网络异常，请稍后重试";
+    verifyDialog.result = t("floatingContact.verifyError");
     verifyDialog.resultType = "error";
   } finally {
     verifyDialog.loading = false;

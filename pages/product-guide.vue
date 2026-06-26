@@ -28,45 +28,45 @@
       <!-- 移动端下拉选择 -->
       <div class="lg:hidden mb-6">
         <label class="block text-sm font-medium text-slate-700 mb-2"
-          >选择功能</label
+          >{{ $t("pages.productGuide.selectFeature") }}</label
         >
         <select
           v-model="currentNodeId"
           @change="handleMobileSelect"
           class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
         >
-          <optgroup label="产品教程">
-            <option value="cpjc">易翻译产品教程</option>
+          <optgroup :label="$t('pages.productGuide.optgroupTutorial')">
+            <option value="cpjc">{{ $t("productGuide.tree.root") }}</option>
           </optgroup>
-          <optgroup label="入门指南">
-            <option value="xsbk">新手必看</option>
-            <option value="zcdl">注册&登录</option>
-            <option value="xzaz">下载&安装</option>
+          <optgroup :label="$t('pages.productGuide.optgroupGettingStarted')">
+            <option value="xsbk">{{ $t("productGuide.tree.newbieGuide") }}</option>
+            <option value="zcdl">{{ $t("productGuide.tree.registerLogin") }}</option>
+            <option value="xzaz">{{ $t("productGuide.tree.downloadInstall") }}</option>
           </optgroup>
-          <optgroup label="功能详解 - 官网控制台">
-            <option value="hyxx">会员信息</option>
-            <option value="hycz">会员充值</option>
-            <option value="zzhgl">子账号管理</option>
-            <option value="xgmm">其他功能</option>
-            <option value="tgyl">推广有礼</option>
+          <optgroup :label="$t('pages.productGuide.optgroupConsole')">
+            <option value="hyxx">{{ $t("productGuide.tree.memberInfo") }}</option>
+            <option value="hycz">{{ $t("productGuide.tree.memberRecharge") }}</option>
+            <option value="zzhgl">{{ $t("productGuide.tree.subAccountMgmt") }}</option>
+            <option value="xgmm">{{ $t("productGuide.tree.otherFeatures") }}</option>
+            <option value="tgyl">{{ $t("productGuide.tree.referralRewards") }}</option>
           </optgroup>
-          <optgroup label="功能详解 - 客户端">
-            <option value="yhzx">用户中心</option>
-            <option value="tjyy">添加应用</option>
-            <option value="yygl">应用管理</option>
-            <option value="gysz">翻译设置</option>
-            <option value="kjhf">快捷回复</option>
-            <option value="fsbz">粉丝备注</option>
-            <option value="qfxx">群发消息</option>
-            <option value="aihf">AI回复</option>
-            <option value="dlsz">代理设置</option>
-            <option value="xtsz">系统设置</option>
+          <optgroup :label="$t('pages.productGuide.optgroupClient')">
+            <option value="yhzx">{{ $t("productGuide.tree.userCenter") }}</option>
+            <option value="tjyy">{{ $t("productGuide.tree.addApp") }}</option>
+            <option value="yygl">{{ $t("productGuide.tree.appMgmt") }}</option>
+            <option value="gysz">{{ $t("productGuide.tree.translationSettings") }}</option>
+            <option value="kjhf">{{ $t("productGuide.tree.quickReply") }}</option>
+            <option value="fsbz">{{ $t("productGuide.tree.fanNotes") }}</option>
+            <option value="qfxx">{{ $t("productGuide.tree.massMessage") }}</option>
+            <option value="aihf">{{ $t("productGuide.tree.aiReply") }}</option>
+            <option value="dlsz">{{ $t("productGuide.tree.proxySettings") }}</option>
+            <option value="xtsz">{{ $t("productGuide.tree.systemSettings") }}</option>
           </optgroup>
-          <optgroup label="特色功能">
-            <option value="znai">智能AI</option>
-            <option value="tpfy">图片翻译</option>
-            <option value="khzx">客户中心</option>
-            <option value="xssz">显示设置</option>
+          <optgroup :label="$t('pages.productGuide.optgroupSpecial')">
+            <option value="znai">{{ $t("productGuide.tree.smartAI") }}</option>
+            <option value="tpfy">{{ $t("productGuide.tree.imageTranslation") }}</option>
+            <option value="khzx">{{ $t("productGuide.tree.customerCenter") }}</option>
+            <option value="xssz">{{ $t("productGuide.tree.displaySettings") }}</option>
           </optgroup>
         </select>
       </div>

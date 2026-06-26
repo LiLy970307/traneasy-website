@@ -99,7 +99,7 @@
             :to="localePath('/statement')"
             class="nav-item text-slate-600 hover:text-blue-600 transition-colors text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-50/60 whitespace-nowrap flex-shrink-0"
           >
-            声明
+            {{ $t("nav.statement") }}
           </NuxtLink>
 
           <!-- <a
@@ -119,7 +119,7 @@
 
           <NuxtLink
             v-if="!isLoggedIn"
-            :to="localePath('/login')"
+            @click="goLogin"
             class="ml-1 text-slate-600 hover:text-blue-600 border border-slate-200 hover:border-blue-300 text-sm font-medium px-4 py-2 rounded-full transition-colors whitespace-nowrap flex-shrink-0"
           >
             {{ $t("nav.login") }}
@@ -208,7 +208,7 @@
                     class="flex items-center gap-2 px-3 py-2 rounded-full text-slate-600 hover:bg-blue-50 text-sm"
                   >
                     <img :src="item.iconSrc" class="w-5 h-5 object-contain" />
-                    <span>{{ item.title }}</span>
+                    <span>{{ $t(item.titleKey) }}</span>
                   </NuxtLink>
                 </div>
               </details>
@@ -281,6 +281,7 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
 const route = useRoute();
+const { goLogin } = useLoginRedirect();
 
 interface HeaderUserInfo {
   nickname?: string | null;
@@ -329,7 +330,7 @@ const headerBgEl = ref<HTMLElement | null>(null);
 const productDropdownEl = ref<HTMLElement | null>(null);
 const mobileMenuDetailsEl = ref<HTMLDetailsElement | null>(null);
 const isProductDropdownClosing = ref(false);
-let headerSolidTimer: ReturnType<typeof window.setTimeout> | null = null;
+let headerSolidTimer: number | null = null;
 let headerScrollFrame: number | null = null;
 let lastHeaderScrollY = -1;
 const triggerCleanupFns: Array<() => void> = [];
@@ -360,44 +361,37 @@ const handleDocumentClick = (e: MouseEvent) => {
 
 const productItems = [
   {
-    title: "全渠道沟通",
-    description: "聚合全球主流社交平台，告别多平台切换的混乱",
+    titleKey: "productsPanel.prod1Title",
     iconSrc: "/images/product/dropdown-1.svg",
     href: "/product/communication",
   },
   {
-    title: "数据分析",
-    description: "用数据复盘业务，用图表驱动决策，告别凭感觉做外贸",
+    titleKey: "productsPanel.prod2Title",
     iconSrc: "/images/product/dropdown-2.svg",
     href: "/product/data-analysis",
   },
   {
-    title: "精准消息群发",
-    description: "用自动化工具实现千人千面的批量触达",
+    titleKey: "productsPanel.prod3Title",
     iconSrc: "/images/product/dropdown-3.svg",
     href: "/product/mass-message",
   },
   {
-    title: "实时翻译",
-    description: "让沟通像母语一样自然流畅。",
+    titleKey: "productsPanel.prod4Title",
     iconSrc: "/images/product/dropdown-4.svg",
     href: "/product/translation",
   },
   {
-    title: "工单系统/分流链接",
-    description: "自动化线索管理，让每个商机都有迹可循",
+    titleKey: "productsPanel.prod5Title",
     iconSrc: "/images/product/dropdown-5.svg",
     href: "/product/work-order",
   },
   {
-    title: "跨境团队协作管理",
-    description: "从单打独斗到平团队作战，打造高执行力的跨境铁军",
+    titleKey: "productsPanel.prod6Title",
     iconSrc: "/images/product/dropdown-6.svg",
     href: "/product/collaboration",
   },
   {
-    title: "客户关系管理",
-    description: "用精细化的 CRM 系统挖掘客户的终身价值",
+    titleKey: "productsPanel.prod7Title",
     iconSrc: "/images/product/dropdown-7.svg",
     href: "/product/crm",
   },
@@ -510,9 +504,7 @@ onMounted(() => {
 
   // ═══ Fix: macOS Safari/Chrome don't focus <button> on click ═══
   // This makes :focus-within CSS work when user clicks dropdown buttons
-  const allTriggers = headerEl.value?.querySelectorAll(
-    ".nav-dropdown-trigger",
-  );
+  const allTriggers = headerEl.value?.querySelectorAll(".nav-dropdown-trigger");
   allTriggers?.forEach((btn) => {
     // On mousedown, force focus so :focus-within activates
     const handleTriggerMouseDown = (e: Event) => {
@@ -533,21 +525,19 @@ onMounted(() => {
   });
 
   // Mouse leaves dropdown area → blur button so panel hides
-  headerEl.value
-    ?.querySelectorAll(".nav-dropdown")
-    .forEach((wrapper) => {
-      if (wrapper.classList.contains("product-dropdown")) return;
+  headerEl.value?.querySelectorAll(".nav-dropdown").forEach((wrapper) => {
+    if (wrapper.classList.contains("product-dropdown")) return;
 
-      const handleDropdownMouseLeave = () => {
-        const focused = wrapper.querySelector(":focus") as HTMLElement | null;
-        if (focused) focused.blur();
-      };
+    const handleDropdownMouseLeave = () => {
+      const focused = wrapper.querySelector(":focus") as HTMLElement | null;
+      if (focused) focused.blur();
+    };
 
-      wrapper.addEventListener("mouseleave", handleDropdownMouseLeave);
-      dropdownCleanupFns.push(() => {
-        wrapper.removeEventListener("mouseleave", handleDropdownMouseLeave);
-      });
+    wrapper.addEventListener("mouseleave", handleDropdownMouseLeave);
+    dropdownCleanupFns.push(() => {
+      wrapper.removeEventListener("mouseleave", handleDropdownMouseLeave);
     });
+  });
 
   // Click outside any dropdown → blur active trigger to close
   document.addEventListener("click", handleDocumentClick);

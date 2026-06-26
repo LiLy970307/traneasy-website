@@ -15,8 +15,8 @@
         <div
           class="grid grid-cols-[0.6fr_1.2fr_1.2fr] gap-4 bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
         >
-          <div>{{ dimensionLabel }}</div>
-          <div>{{ legacyLabel }}</div>
+          <div>{{ $t(dimensionLabel) }}</div>
+          <div>{{ $t(legacyLabel) }}</div>
           <div>{{ productName }}</div>
         </div>
 
@@ -57,8 +57,8 @@ withDefaults(
     legacyLabel?: string;
   }>(),
   {
-    dimensionLabel: "对比维度",
-    legacyLabel: "传统方式",
+    dimensionLabel: "comparisonTable.dimensionLabel",
+    legacyLabel: "comparisonTable.legacyLabel",
   },
 );
 

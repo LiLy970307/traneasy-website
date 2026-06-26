@@ -5,6 +5,7 @@
 <script setup lang="ts">
 const isOpen = ref(false);
 const isLoading = ref(false);
+const { t } = useI18n();
 
 let hideCrispLauncherTimers: number[] = [];
 let injectCrispBackButtonTimers: number[] = [];
@@ -43,7 +44,7 @@ const injectCrispBackButton = () => {
   const arrow = document.createElement("img");
   arrow.className = "traneasy-crisp-back";
   arrow.src = "/images/icon/arrow-left.svg";
-  arrow.alt = "返回客服中心";
+  arrow.alt = t('crisp.backToService');
   arrow.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();

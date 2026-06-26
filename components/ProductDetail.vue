@@ -53,9 +53,9 @@
     />
 
     <ProductSceneSection
-      eyebrow="应用场景"
+      :eyebrow="$t('productDetail.sceneEyebrow')"
       :title="sceneTitle"
-      button-label="立即下载"
+      :button-label="$t('productDetail.downloadBtn')"
       :button-to="downloadLink"
       :items="sceneItems"
     />
@@ -77,7 +77,7 @@
             :to="downloadLink"
             class="mt-10 inline-flex items-center justify-center rounded bg-[#084AFF] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1749cc]"
           >
-            {{ ctaButtonLabel }}
+            {{ ctaLabel }}
           </NuxtLink>
         </div>
 
@@ -135,7 +135,9 @@ interface FaqItem {
   answer: string;
 }
 
-withDefaults(
+const { t } = useI18n();
+
+const props = withDefaults(
   defineProps<{
     title: string;
     subtitle: string;
@@ -160,8 +162,11 @@ withDefaults(
   }>(),
   {
     backgroundImageSrc: "/images/product/bg-top.png",
-    ctaButtonLabel: "软件下载",
   },
+);
+
+const ctaLabel = computed(
+  () => props.ctaButtonLabel || t("productDetail.downloadBtn"),
 );
 
 const checkIconSrc = "/images/product/check-icon.svg";

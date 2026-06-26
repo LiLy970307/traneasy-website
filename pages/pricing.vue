@@ -15,13 +15,13 @@
           <h1
             class="text-[32px] w1130:text-[40px] font-semibold leading-[1.35] text-[#000213]"
           >
-            灵活配置，精准匹配——打造适合您的全周期翻译解决方案
+            {{ $t("pages.pricing.pageTitle") }}
           </h1>
           <div class="mt-6 flex items-center justify-between">
             <h2
               class="text-[32px] w1130:text-[40px] font-semibold leading-tight text-[#000213] sm:text-[34px]"
             >
-              套餐选择
+              {{ $t("pages.pricing.subtitle") }}
             </h2>
 
             <NuxtLink
@@ -32,7 +32,7 @@
                 type="button"
                 class="inline-flex h-11 w-fit items-center justify-center rounded-[4px] bg-[#205DFF] px-6 text-[13px] font-semibold text-white transition-colors hover:bg-[#174fe0]"
               >
-                下载试用
+                {{ $t("pages.pricing.btnDownload") }}
               </button>
             </NuxtLink>
           </div>
@@ -66,7 +66,9 @@
       ref="charPackagesRef"
       class="relative mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12"
     >
-      <h3 class="text-[14px] font-medium text-[#374151]">字符套餐</h3>
+      <h3 class="text-[14px] font-medium text-[#374151]">
+        {{ $t("pages.pricing.sectionChar") }}
+      </h3>
       <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="plan in characterPlans"
@@ -98,9 +100,8 @@
                 v-if="plan.originalPrice > plan.price"
                 class="text-[10px] font-medium text-[#8B90A0]"
               >
-                优惠{{
-                  Math.round((1 - plan.price / plan.originalPrice) * 100)
-                }}%
+                {{ $t("pages.pricing.discountLabel")
+                }}{{ Math.round((1 - plan.price / plan.originalPrice) * 100) }}%
               </span>
             </div>
 
@@ -125,11 +126,15 @@
             class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
           >
             <div class="whitespace-nowrap">
-              <span class="text-slate-500">字符数量：</span>
+              <span class="text-slate-500">{{
+                $t("pages.pricing.labelCharCount")
+              }}</span>
               <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
                 {{ plan.availability }}
               </span>
-              <span class="text-slate-500">字符</span>
+              <span class="text-slate-500">{{
+                $t("pages.pricing.unitChar")
+              }}</span>
             </div>
           </div>
 
@@ -153,6 +158,7 @@
           <div class="mt-auto px-5 pb-5">
             <button
               type="button"
+              @click="goLogin"
               class="inline-flex h-11 w-full items-center justify-center rounded-[4px] bg-[#05091B] text-[13px] font-semibold text-white transition-colors hover:bg-[#111827]"
             >
               {{ plan.cta }}
@@ -167,7 +173,9 @@
       ref="monthlyPackagesRef"
       class="relative mx-auto max-w-7xl px-6 pb-20 sm:px-8 lg:px-12"
     >
-      <h3 class="text-[14px] font-medium text-[#374151]">包月套餐</h3>
+      <h3 class="text-[14px] font-medium text-[#374151]">
+        {{ $t("pages.pricing.sectionMonthly") }}
+      </h3>
       <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <article
           v-for="plan in monthlyPlans"
@@ -190,9 +198,8 @@
                 v-if="plan.originalPrice > plan.price"
                 class="text-[10px] font-medium text-[#8B90A0]"
               >
-                优惠{{
-                  Math.round((1 - plan.price / plan.originalPrice) * 100)
-                }}%
+                {{ $t("pages.pricing.discountLabel")
+                }}{{ Math.round((1 - plan.price / plan.originalPrice) * 100) }}%
               </span>
             </div>
 
@@ -218,7 +225,9 @@
             class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
           >
             <div class="whitespace-nowrap">
-              <span class="text-slate-500">字符数量：</span>
+              <span class="text-slate-500">{{
+                $t("pages.pricing.labelCharCount")
+              }}</span>
               <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
                 {{ plan.availability }}
               </span>
@@ -261,8 +270,8 @@
       </div>
     </section>
     <FaqSection
-      title="常见问题"
-      description="有疑问？看这里，让您的每一分投入都清晰透明！"
+      :title="$t('pages.pricing.faqTitle')"
+      :description="$t('pages.pricing.faqDesc')"
       :faqs="faqs"
       section-class="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-12"
       container-class="max-w-[1180px]"
@@ -272,6 +281,7 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+const { goLogin } = useLoginRedirect();
 
 interface PricingPlan {
   name: string;
@@ -286,13 +296,13 @@ interface PricingPlan {
   badgeClass?: string;
 }
 
-const pageTitle = "套餐价格 - Traneasy 易翻译";
-const pageDescription =
-  "查看 TranEasy 易翻译字符套餐与包月套餐，按业务阶段灵活选择更适合团队的翻译与客服协作方案。";
+const pageTitle = "pages.pricing.seoTitle";
+const pageDescription = "pages.pricing.seoDesc";
 
+const { t } = useI18n();
 const pricingTabs = [
-  { label: "字符套餐", target: "char-packages" },
-  { label: "包月套餐", target: "monthly-packages" },
+  { label: t("pages.pricing.tabChar"), target: "char-packages" },
+  { label: t("pages.pricing.tabMonthly"), target: "monthly-packages" },
 ] as const;
 
 const charPackagesRef = ref<HTMLElement | null>(null);
@@ -323,23 +333,24 @@ interface SaleListResponse {
   data: SaleItem[];
 }
 
-const planDescriptions: Record<string, string> = {
-  标准版: "支持腾讯、有道两种翻译通道任意切换",
-  高级版: "支持谷歌、微软两种翻译通道任意切换",
-  专业版: "支持Deepl精准翻译",
-  AI翻译: "支持ChatGpt智能翻译",
+const planDescriptionKeys: Record<string, string> = {
+  标准版: "pages.pricing.planStandardDesc",
+  高级版: "pages.pricing.planAdvancedDesc",
+  专业版: "pages.pricing.planProDesc",
+  AI翻译: "pages.pricing.planAIDesc",
 };
 
-const planBadges: Record<string, { badge: string; badgeClass: string }> = {
-  高级版: {
-    badge: "热销推荐",
-    badgeClass: "border-[#FFB8A0] bg-[#FFF1EB] text-[#FF6B2C]",
-  },
-  专业版: {
-    badge: "企业优选",
-    badgeClass: "border-[#FFD7A8] bg-[#FFF8E8] text-[#FF8D1A]",
-  },
-};
+const planBadgeKeys: Record<string, { badgeKey: string; badgeClass: string }> =
+  {
+    高级版: {
+      badgeKey: "pages.pricing.badgeHot",
+      badgeClass: "border-[#FFB8A0] bg-[#FFF1EB] text-[#FF6B2C]",
+    },
+    专业版: {
+      badgeKey: "pages.pricing.badgeEnterprise",
+      badgeClass: "border-[#FFD7A8] bg-[#FFF8E8] text-[#FF8D1A]",
+    },
+  };
 
 const { data: saleData } = await useFetch<SaleListResponse>(SALE_API, {
   server: false,
@@ -366,63 +377,58 @@ const monthlyPlans = computed(() => {
 
 function mapToPlan(item: SaleItem): PricingPlan {
   const price = item.salePrice / 100;
-  const badgeInfo = planBadges[item.name];
-  const description = planDescriptions[item.name] || "支持翻译功能";
+  const badgeInfo = planBadgeKeys[item.name];
+  const descKey =
+    planDescriptionKeys[item.name] || "pages.pricing.defaultPlanDesc";
 
   const numText =
     item.translationBillingMode === "char"
       ? item.num >= 10000
         ? `${item.num / 10000}万`
         : `${item.num}`
-      : "时间限制30天";
+      : t("pages.pricing.limit30Days");
 
   return {
     name: item.name,
     enName: item.enName,
-    description,
+    description: t(descKey),
     price,
     originalPrice: item.showPrice / 100,
-    cta: "立即购买",
-    availability: item.translationBillingMode === "char" ? numText : "不限量",
+    cta: t("pages.pricing.btnBuy"),
+    availability:
+      item.translationBillingMode === "char"
+        ? numText
+        : t("pages.pricing.unlimited"),
     features:
       item.translationBillingMode === "char"
-        ? ["无时间限制", "支持子账号"]
-        : [numText, "不支持子账号"],
-    badge: badgeInfo?.badge,
+        ? [
+            t("pages.pricing.featureNoTimeLimit"),
+            t("pages.pricing.featureSubAccount"),
+          ]
+        : [numText, t("pages.pricing.featureNoSubAccount")],
+    badge: badgeInfo ? t(badgeInfo.badgeKey) : undefined,
     badgeClass: badgeInfo?.badgeClass,
   };
 }
 
-const faqs = [
+const faqs = computed(() => [
   {
-    question: "150万字符具体指什么？如果用完了怎么办？",
-    answer: `
-      <ul class="list-disc pl-5 space-y-1">
-      <li>150万字符是指翻译引擎处理的文本总量（包含发送和接收的双向翻译）。对于绝大多数中小微外贸企业，这通常足够使用6-12个月。</li>
-      <li>超出处理： 如果字符数用完，您的账号不会被冻结，系统会提示您以极低的单价单独购买字符包，或者升级到更高阶的套餐，确保您的业务不中断。</li>
-      </ul>
-    `,
+    question: t("pages.pricing.faqQ1"),
+    answer: t("pages.pricing.faqA1"),
   },
   {
-    question: "为什么专业版和AI版价格更高？值得升级吗？",
-    answer:
-      "更高版本提供更强的翻译能力、术语库匹配和智能化辅助，适合对准确率、效率和复杂业务场景有更高要求的团队。",
+    question: t("pages.pricing.faqQ2"),
+    answer: t("pages.pricing.faqA2"),
   },
   {
-    question: "什么是子账号？我为什么要选支持子账号的套餐？",
-    answer:
-      "子账号适合多人协作和权限分配场景，主管可以统一管理成员、数据与客户归属，避免团队协作时账号混用。",
+    question: t("pages.pricing.faqQ3"),
+    answer: t("pages.pricing.faqA3"),
   },
   {
-    question: "包月版（不限量）和字符版有什么区别？",
-    answer: `
-      <ul class="list-disc pl-5 space-y-1">
-      <li>字符版（推荐）： 性价比高，适合日常业务沟通，数据永久有效。</li>
-      <li>包月版（不限量）： 适合短期内有爆发式营销需求的用户。因为包月版有时间限制（30天），过期作废，请根据您的实际业务节奏选择。</li>
-      </ul>
-    `,
+    question: t("pages.pricing.faqQ4"),
+    answer: t("pages.pricing.faqA4"),
   },
-];
+]);
 
 const sectionRefs = {
   "char-packages": charPackagesRef,
@@ -475,7 +481,7 @@ onMounted(() => {
 });
 
 useHead({
-  title: pageTitle,
-  meta: [{ name: "description", content: pageDescription }],
+  title: t(pageTitle),
+  meta: [{ name: "description", content: t(pageDescription) }],
 });
 </script>

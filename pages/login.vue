@@ -1,14 +1,14 @@
 <template>
   <AuthPageWrapper>
     <div class="mb-10 flex items-center justify-between gap-4">
-      <h1 class="text-2xl font-bold tracking-tight text-slate-900">登录</h1>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $t("pages.login.pageTitle") }}</h1>
       <p class="text-sm text-slate-600">
-        还没有账户？
+        {{ $t("pages.login.noAccount") }}
         <NuxtLink
           :to="localePath('/register')"
           class="font-semibold text-blue-500 transition-colors hover:text-blue-600"
         >
-          去注册
+          {{ $t("pages.login.goRegister") }}
         </NuxtLink>
       </p>
     </div>
@@ -16,14 +16,14 @@
     <form @submit.prevent="handleLogin">
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
-          用户名/邮箱
+          {{ $t("pages.login.labelUsername") }}
         </label>
         <input
           v-model.trim="form.account"
           type="text"
           autocomplete="username"
           class="auth-input"
-          placeholder="请输入用户名或邮箱"
+          :placeholder="$t('pages.login.placeholderUsername')"
           @blur="validateAccount"
         />
         <p
@@ -38,7 +38,7 @@
 
       <div>
         <label class="mb-3 block text-sm font-bold text-slate-800">
-          密码
+          {{ $t("pages.login.labelPassword") }}
         </label>
         <div class="relative">
           <input
@@ -46,13 +46,13 @@
             :type="showPassword ? 'text' : 'password'"
             autocomplete="current-password"
             class="auth-input pr-14"
-            placeholder="请输入密码"
+            :placeholder="$t('pages.login.placeholderPassword')"
             @blur="validatePassword"
           />
           <button
             type="button"
             class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
-            :aria-label="showPassword ? '隐藏密码' : '显示密码'"
+            :aria-label="showPassword ? $t('pages.login.hidePassword') : $t('pages.login.showPassword')"
             @click="showPassword = !showPassword"
           >
             <svg
@@ -100,18 +100,18 @@
         :disabled="isSubmitting"
         class="mt-4 w-full rounded-full bg-blue-500 py-2 text-xl font-bold text-white shadow-[0_12px_28px_rgba(59,130,246,0.28)] transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-300"
       >
-        {{ isSubmitting ? "登录中..." : "登录" }}
+        {{ isSubmitting ? $t("pages.login.btnLoading") : $t("pages.login.btnLogin") }}
       </button>
 
       <p class="mt-7 text-center text-sm text-slate-500">
-        登录即代表您同意
+        {{ $t("pages.login.agreementPrefix") }}
         <a
           href="https://www.traneasy.com.cn/zh/#/term-and-condition"
           target="_blank"
           rel="noopener noreferrer"
           class="font-semibold text-blue-500 hover:text-blue-600"
         >
-          用户协议
+          {{ $t("pages.login.userAgreement") }}
         </a>
       </p>
     </form>
@@ -122,6 +122,7 @@
 import { buildAuthHeaders, saveLoginSession } from "~/utils/authHeaders";
 definePageMeta({ layout: false });
 
+const { t } = useI18n();
 const showPassword = ref(false);
 const localePath = useLocalePath();
 const config = useRuntimeConfig();
@@ -204,12 +205,12 @@ const {
 const isSubmitting = computed(() => loginStatus.value === "pending");
 
 const validateAccount = () => {
-  fieldErrors.account = form.account ? "" : "请输入用户名或邮箱";
+  fieldErrors.account = form.account ? "" : t("pages.login.errUsernameRequired");
   return !fieldErrors.account;
 };
 
 const validatePassword = () => {
-  fieldErrors.password = form.password ? "" : "请输入密码";
+  fieldErrors.password = form.password ? "" : t("pages.login.errPasswordRequired");
   return !fieldErrors.password;
 };
 
@@ -244,7 +245,7 @@ const handleLogin = async () => {
         message?: string;
       };
       setLoginError(
-        fetchError.data?.msg || fetchError.message || "登录失败，请稍后重试",
+        fetchError.data?.msg || fetchError.message || t("pages.login.errLoginFailed"),
       );
       return;
     }
@@ -252,12 +253,12 @@ const handleLogin = async () => {
     const response = loginData.value;
 
     if (response?.success === false) {
-      setLoginError(response.msg || "登录失败，请检查账号或密码");
+      setLoginError(response.msg || t("pages.login.errWrongCredentials"));
       return;
     }
 
     if (!response?.data?.sk) {
-      setLoginError("登录失败，未获取到登录凭证");
+      setLoginError(t("pages.login.errNoToken"));
       return;
     }
 
@@ -273,7 +274,7 @@ const handleLogin = async () => {
       setLoginError(
         fetchError.data?.msg ||
           fetchError.message ||
-          "获取用户信息失败，请稍后重试",
+          t("pages.login.errUserInfoFailed"),
       );
       return;
     }
@@ -281,7 +282,7 @@ const handleLogin = async () => {
     const userInfoResponse = userInfoData.value;
 
     if (userInfoResponse?.success === false) {
-      setLoginError(userInfoResponse.msg || "获取用户信息失败，请稍后重试");
+      setLoginError(userInfoResponse.msg || t("pages.login.errUserInfoFailed"));
       return;
     }
 
@@ -300,12 +301,12 @@ const handleLogin = async () => {
       message?: string;
     };
     setLoginError(
-      fetchError.data?.msg || fetchError.message || "登录失败，请稍后重试",
+      fetchError.data?.msg || fetchError.message || t("pages.login.errLoginFailed"),
     );
   }
 };
 
-useHead({ title: "登录 - TranEasy" });
+useHead({ title: t("pages.login.seoTitle") });
 </script>
 
 <style scoped>

@@ -5,7 +5,7 @@
     <NuxtLink
       :to="localePath('/')"
       class="absolute left-6 top-6 z-10 flex items-center sm:left-8 sm:top-8"
-      aria-label="TranEasy 首页"
+      aria-label="$t('authPage.homeAriaLabel')"
     >
       <img
         src="/public/images/traneasy-logo.svg"
@@ -19,9 +19,9 @@
     >
       <!-- 大标题 -->
       <div class="text-left h-[500px]">
-        <h1 class="text-4xl font-bold text-[#000213] mb-4">易翻译</h1>
-        <h1 class="text-4xl font-bold text-[#000213]">电商客服辅助翻译平台</h1>
-        <p class="mt-4 text-lg text-[#000213]">专业、快捷、高效的翻译软件</p>
+        <h1 class="text-4xl font-bold text-[#000213] mb-4">{{ $t("authPage.brandName") }}</h1>
+        <h1 class="text-4xl font-bold text-[#000213]">{{ $t("authPage.subtitle") }}</h1>
+        <p class="mt-4 text-lg text-[#000213]">{{ $t("authPage.description") }}</p>
       </div>
       <div class="w-[460px] rounded-[44px] border border-white/70 bg-white p-8">
         <slot />

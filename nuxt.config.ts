@@ -4,11 +4,13 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      clientUserApiBase: 'https://www.traneasy.com.cn/client-user',
+      clientUserApiBase:
+        process.env.CLIENT_USER_API_BASE,
+      loginBaseUrl: process.env.LOGIN_BASE_URL
     },
   },
 
-  modules: ['@nuxtjs/i18n', '@nuxt/image'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', 'nuxt-swiper'],
 
   postcss: {
     plugins: {
@@ -40,9 +42,18 @@ export default defineNuxtConfig({
       cookieKey: 'i18n_redirected',
       redirectOn: 'root',
     },
+    vueI18n: './i18n.config.ts',
+    compilation: {
+      strictMessage: false,
+    },
   },
 
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    "swiper/css",
+    "swiper/css/pagination",
+    "swiper/css/navigation"
+  ],
 
   app: {
     head: {
