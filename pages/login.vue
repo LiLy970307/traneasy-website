@@ -184,7 +184,7 @@ const {
   error: loginError,
   status: loginStatus,
   execute: executeLogin,
-} = await useFetch<LoginResponse>(LOGIN_API, {
+} = await useApiFetch<LoginResponse>(LOGIN_API, {
   method: "POST",
   body: loginBody,
   immediate: false,
@@ -195,7 +195,7 @@ const {
   data: userInfoData,
   error: userInfoError,
   execute: executeGetUserInfo,
-} = await useFetch<UserInfoResponse>(USER_INFO_API, {
+} = await useApiFetch<UserInfoResponse>(USER_INFO_API, {
   method: "GET",
   headers: userInfoHeaders,
   immediate: false,

@@ -15,6 +15,7 @@ module.exports = {
       },
       fontFamily: {
         inter: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        logo: ['"Crisp Noto Sans Bold"'],
       },
       colors: {
         brand: {

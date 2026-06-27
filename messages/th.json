@@ -143,7 +143,7 @@
     "verifyFail": "บัญชีนี้ไม่ใช่บัญชีฝ่ายสนับสนุนอย่างเป็นทางการ โปรดระวัง!!!",
     "verifyError": "ข้อผิดพลาดเครือข่าย โปรดลองอีกครั้งในภายหลัง",
     "connecting": "กำลังเชื่อมต่อไปยังฝ่ายสนับสนุน...",
-    "floatingBtn": "ศูนย์สนับสนุน"
+    "floatingBtn": "ช่วยเหลือ"
   },
   "statementContent": {
     "updateDatePrefix": "วันที่อัปเดต: ",
@@ -430,6 +430,7 @@
       "badgeHot": "ขายดี",
       "badgeEnterprise": "แนะนำสำหรับองค์กร",
       "labelCharCount": "จำนวนตัวอักษร: ",
+      "unitWan": "万",
       "unitChar": "ตัวอักษร",
       "btnBuy": "ซื้อทันที",
       "limit30Days": "จำกัด 30 วัน",

@@ -143,7 +143,7 @@
     "verifyFail": "Ce compte n'est PAS un compte de support officiel — soyez vigilant !!!",
     "verifyError": "Erreur réseau, veuillez réessayer plus tard",
     "connecting": "Connexion au support...",
-    "floatingBtn": "Centre de support"
+    "floatingBtn": "Support"
   },
   "statementContent": {
     "updateDatePrefix": "Date de mise à jour : ",
@@ -430,6 +430,7 @@
       "badgeHot": "Meilleure vente",
       "badgeEnterprise": "Recommandé entreprise",
       "labelCharCount": "Nombre de caractères : ",
+      "unitWan": "万",
       "unitChar": "caractères",
       "btnBuy": "Acheter maintenant",
       "limit30Days": "Valable 30 jours",

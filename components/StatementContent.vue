@@ -6,7 +6,7 @@
     ]"
   >
     <div :class="compact ? 'mb-6 text-center' : 'mb-10 text-center'">
-      <div
+      <!-- <div
         :class="[
           'mb-5 inline-flex items-center justify-center rounded-full bg-red-50',
           compact ? 'h-12 w-12' : 'h-16 w-16',
@@ -26,7 +26,7 @@
             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
           />
         </svg>
-      </div>
+      </div> -->
 
       <component
         :is="titleTag"
@@ -40,7 +40,9 @@
       <p v-if="currentNotice?.subTitle" class="mb-2 text-slate-500">
         {{ currentNotice.subTitle }}
       </p>
-      <p class="text-sm text-slate-400">{{ $t("statementContent.updateDatePrefix") }}{{ formattedUpdateDate }}</p>
+      <p class="text-sm text-slate-400">
+        {{ $t("statementContent.updateDatePrefix") }}{{ formattedUpdateDate }}
+      </p>
     </div>
 
     <div v-if="pending" class="space-y-4">

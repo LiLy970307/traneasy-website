@@ -143,7 +143,7 @@
     "verifyFail": "Akun ini bukan akun layanan pelanggan resmi, berhati-hatilah!",
     "verifyError": "Kesalahan jaringan, coba lagi nanti",
     "connecting": "Terhubung ke layanan pelanggan...",
-    "floatingBtn": "Pusat layanan pelanggan"
+    "floatingBtn": "Bantuan"
   },
   "statementContent": {
     "updateDatePrefix": "Tanggal pembaruan: ",
@@ -430,6 +430,7 @@
       "badgeHot": "Paling laris",
       "badgeEnterprise": "Direkomendasikan untuk perusahaan",
       "labelCharCount": "Jumlah karakter: ",
+      "unitWan": "万",
       "unitChar": "karakter",
       "btnBuy": "Beli sekarang",
       "limit30Days": "Batas 30 hari",

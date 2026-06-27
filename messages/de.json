@@ -143,7 +143,7 @@
     "verifyFail": "Dieses Konto ist KEIN offizielles Support-Konto – bitte seien Sie vorsichtig!!!",
     "verifyError": "Netzwerkfehler, bitte versuchen Sie es später erneut",
     "connecting": "Verbinde mit Support...",
-    "floatingBtn": "Support-Center"
+    "floatingBtn": "Support"
   },
   "statementContent": {
     "updateDatePrefix": "Aktualisiert am: ",
@@ -430,6 +430,7 @@
       "badgeHot": "Bestseller",
       "badgeEnterprise": "Enterprise-Empfehlung",
       "labelCharCount": "Zeichenanzahl: ",
+      "unitWan": "万",
       "unitChar": "Zeichen",
       "btnBuy": "Jetzt kaufen",
       "limit30Days": "30 Tage gültig",

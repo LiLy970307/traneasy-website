@@ -469,7 +469,7 @@ const {
   error: checkAccountError,
   status: checkAccountStatus,
   execute: executeCheckAccount,
-} = await useFetch<ApiResponse<boolean>>(CHECK_ACCOUNT_API, {
+} = await useApiFetch<ApiResponse<boolean>>(CHECK_ACCOUNT_API, {
   key: "register-check-account",
   method: "POST",
   body: checkAccountBody,
@@ -482,7 +482,7 @@ const {
   error: checkUsernameError,
   status: checkUsernameStatus,
   execute: executeCheckUsername,
-} = await useFetch<ApiResponse<boolean>>(CHECK_USERNAME_API, {
+} = await useApiFetch<ApiResponse<boolean>>(CHECK_USERNAME_API, {
   key: "register-check-username",
   method: "POST",
   body: checkUsernameBody,
@@ -495,7 +495,7 @@ const {
   error: sendVCodeError,
   status: sendVCodeStatus,
   execute: executeSendVCode,
-} = await useFetch<ApiResponse<boolean>>(SEND_VCODE_API, {
+} = await useApiFetch<ApiResponse<boolean>>(SEND_VCODE_API, {
   key: "register-send-vcode",
   method: "POST",
   body: sendVCodeBody,
@@ -508,7 +508,7 @@ const {
   error: registerError,
   status: registerStatus,
   execute: executeRegister,
-} = await useFetch<ApiResponse<unknown>>(REGISTER_API, {
+} = await useApiFetch<ApiResponse<unknown>>(REGISTER_API, {
   key: "register-submit",
   method: "POST",
   body: registerBody,

@@ -124,11 +124,11 @@ interface DownloadConfigResponse {
 const pageTitle = "pages.download.seoTitle";
 const pageDescription = "pages.download.seoDesc";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const config = useRuntimeConfig();
 const DOWNLOAD_API = `${config.public.clientUserApiBase}/dataCus/get`;
 
-const { data: downloadData } = await useFetch<DownloadConfigResponse>(
+const { data: downloadData } = await useApiFetch<DownloadConfigResponse>(
   DOWNLOAD_API,
   {
     params: { id: "SOFT_DOWNLOAD_CONFIG" },
@@ -199,7 +199,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
       title: t("pages.download.cardWin"),
       iconSrc: "/images/resource/Windows.svg",
       buttons: windowsItems.map((item) => ({
-        label: item.label,
+        label: locale.value === "zh" ? item.label : item.enLabel || item.label,
         url: item.val,
         icon: item.val.endsWith(".dmg")
           ? "/images/dmg-icon.svg"
@@ -214,7 +214,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
       title: t("pages.download.cardMac"),
       iconSrc: "/images/resource/Mac.svg",
       buttons: macItems.map((item) => ({
-        label: item.label,
+        label: locale.value === "zh" ? item.label : item.enLabel || item.label,
         url: item.val,
         icon: item.val.endsWith(".dmg")
           ? "/images/dmg-icon.svg"
@@ -229,7 +229,7 @@ const downloadCards = computed<DownloadCardItem[]>(() => {
       title: t("pages.download.cardSignal"),
       iconSrc: "/images/resource/Signal.svg",
       buttons: signalItems.map((item) => ({
-        label: item.label,
+        label: locale.value === "zh" ? item.label : item.enLabel || item.label,
         url: item.val,
         icon: item.val.endsWith(".dmg")
           ? "/images/dmg-icon.svg"

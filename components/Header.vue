@@ -20,11 +20,12 @@
           :to="localePath('/')"
           class="flex items-center gap-2 flex-shrink-0"
         >
-          <img
-            :src="'/images/traneasy logo.svg'"
+          <!-- <img
+            :src="'/images/logo.svg'"
             alt="TranEasy"
             class="h-12 w-auto"
-          />
+          /> -->
+          <LogoContainer />
         </NuxtLink>
 
         <!-- Desktop nav -->

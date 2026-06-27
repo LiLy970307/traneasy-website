@@ -590,7 +590,7 @@ const API_URL = `${config.public.clientUserApiBase}/customer-service/list`;
 const VERIFY_API = `${config.public.clientUserApiBase}/customer-service/get`;
 const PLATFORM_LIST_API = `${config.public.clientUserApiBase}/customer-service/platform/list`;
 
-const { data: platformData } = await useFetch<PlatformListResponse>(
+const { data: platformData } = await useApiFetch<PlatformListResponse>(
   PLATFORM_LIST_API,
   {
     key: "customer-service-platform-list",
@@ -627,7 +627,7 @@ const floatingContactRef = ref<HTMLElement | null>(null);
 const crispRef = ref<CrispExposed | null>(null);
 const lastMessage = useCrispLastMessage();
 
-const { data, pending, error } = await useFetch<CustomerServiceResponse>(
+const { data, pending, error } = await useApiFetch<CustomerServiceResponse>(
   API_URL,
   {
     key: "floating-customer-service-list",

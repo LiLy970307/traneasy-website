@@ -143,7 +143,7 @@
     "verifyFail": "Tài khoản này KHÔNG phải là tài khoản hỗ trợ chính thức, vui lòng cẩn thận!!!",
     "verifyError": "Lỗi mạng, vui lòng thử lại sau",
     "connecting": "Đang kết nối với hỗ trợ...",
-    "floatingBtn": "Trung tâm hỗ trợ"
+    "floatingBtn": "Hỗ trợ"
   },
   "statementContent": {
     "updateDatePrefix": "Ngày cập nhật: ",
@@ -430,6 +430,7 @@
       "badgeHot": "Đề xuất hot",
       "badgeEnterprise": "Ưu tiên doanh nghiệp",
       "labelCharCount": "Số lượng ký tự: ",
+      "unitWan": "万",
       "unitChar": "ký tự",
       "btnBuy": "Mua ngay",
       "limit30Days": "Giới hạn 30 ngày",

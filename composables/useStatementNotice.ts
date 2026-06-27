@@ -21,7 +21,7 @@ export const useStatementNotice = async () => {
   const config = useRuntimeConfig();
   const noticeApi = `${config.public.clientUserApiBase}/notice/list`;
 
-  const { data, pending, error } = await useFetch<StatementNoticeResponse>(
+  const { data, pending, error } = await useApiFetch<StatementNoticeResponse>(
     noticeApi,
     {
       key: "statement-notice-list",

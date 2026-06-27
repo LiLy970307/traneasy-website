@@ -74,7 +74,7 @@
 
         <div class="lg:justify-self-end lg:text-left">
           <NuxtLink :to="localePath('/')" class="inline-flex items-center">
-            <img :src="footerLogoSrc" alt="易翻译" class="h-12 w-auto" />
+            <LogoContainer :isFooter="true" />
           </NuxtLink>
           <p
             class="mt-6 max-w-xs text-[15px] font-semibold leading-8 text-white/90"
@@ -131,7 +131,6 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-const footerLogoSrc = "/images/icon/footerLogo.svg";
 
 interface FooterLinkItem {
   labelKey?: string;

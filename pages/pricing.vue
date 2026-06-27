@@ -82,7 +82,7 @@
                   <h4
                     class="text-[20px] font-semibold leading-none text-[#111827]"
                   >
-                    {{ plan.name }}
+                    {{ plan.enName || plan.name }}
                   </h4>
                   <span
                     v-if="plan.badge"
@@ -129,8 +129,14 @@
               <span class="text-slate-500">{{
                 $t("pages.pricing.labelCharCount")
               }}</span>
-              <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
+              <span class="text-[20px] font-bold text-[#1d4ed8] mr-1">
                 {{ plan.availability }}
+              </span>
+              <span
+                v-if="plan.availabilityUnit"
+                class="text-[20px] font-bold text-[#1d4ed8] mr-2"
+              >
+                {{ plan.availabilityUnit }}
               </span>
               <span class="text-slate-500">{{
                 $t("pages.pricing.unitChar")
@@ -188,7 +194,7 @@
                 <h4
                   class="text-[20px] font-semibold leading-none text-[#111827]"
                 >
-                  {{ plan.name }}
+                  {{ plan.enName || plan.name }}
                 </h4>
                 <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
                   {{ plan.description }}
@@ -228,7 +234,7 @@
               <span class="text-slate-500">{{
                 $t("pages.pricing.labelCharCount")
               }}</span>
-              <span class="text-[20px] font-bold text-[#1d4ed8] mr-2">
+              <span class="text-[20px] font-bold text-[#1d4ed8]">
                 {{ plan.availability }}
               </span>
             </div>
@@ -291,6 +297,7 @@ interface PricingPlan {
   originalPrice: number;
   cta: string;
   availability: string;
+  availabilityUnit?: string;
   features: string[];
   badge?: string;
   badgeClass?: string;
@@ -299,7 +306,7 @@ interface PricingPlan {
 const pageTitle = "pages.pricing.seoTitle";
 const pageDescription = "pages.pricing.seoDesc";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const pricingTabs = [
   { label: t("pages.pricing.tabChar"), target: "char-packages" },
   { label: t("pages.pricing.tabMonthly"), target: "monthly-packages" },
@@ -352,7 +359,7 @@ const planBadgeKeys: Record<string, { badgeKey: string; badgeClass: string }> =
     },
   };
 
-const { data: saleData } = await useFetch<SaleListResponse>(SALE_API, {
+const { data: saleData } = await useApiFetch<SaleListResponse>(SALE_API, {
   server: false,
   lazy: true,
 });
@@ -381,12 +388,35 @@ function mapToPlan(item: SaleItem): PricingPlan {
   const descKey =
     planDescriptionKeys[item.name] || "pages.pricing.defaultPlanDesc";
 
-  const numText =
-    item.translationBillingMode === "char"
-      ? item.num >= 10000
-        ? `${item.num / 10000}万`
-        : `${item.num}`
-      : t("pages.pricing.limit30Days");
+  const isCJK = (["zh", "ja", "ko"] as string[]).includes(locale.value);
+
+  let numText: string;
+  let availabilityUnit: string | undefined;
+
+  if (item.translationBillingMode === "char") {
+    if (isCJK) {
+      if (item.num >= 10000) {
+        const val = item.num / 10000;
+        numText = val % 1 === 0 ? `${val}` : val.toFixed(1);
+        availabilityUnit = t("pages.pricing.unitWan");
+      } else {
+        numText = `${item.num}`;
+        availabilityUnit = undefined;
+      }
+    } else {
+      if (item.num >= 1000) {
+        const val = item.num / 1000;
+        numText = val % 1 === 0 ? `${val}` : val.toFixed(1);
+        availabilityUnit = "K";
+      } else {
+        numText = `${item.num}`;
+        availabilityUnit = undefined;
+      }
+    }
+  } else {
+    numText = t("pages.pricing.limit30Days");
+    availabilityUnit = undefined;
+  }
 
   return {
     name: item.name,
@@ -395,10 +425,8 @@ function mapToPlan(item: SaleItem): PricingPlan {
     price,
     originalPrice: item.showPrice / 100,
     cta: t("pages.pricing.btnBuy"),
-    availability:
-      item.translationBillingMode === "char"
-        ? numText
-        : t("pages.pricing.unlimited"),
+    availability: numText,
+    availabilityUnit,
     features:
       item.translationBillingMode === "char"
         ? [

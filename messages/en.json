@@ -143,7 +143,7 @@
     "verifyFail": "This account is NOT an official support account — please be cautious!!!",
     "verifyError": "Network error, please try again later",
     "connecting": "Connecting to support...",
-    "floatingBtn": "Support Center"
+    "floatingBtn": "Support"
   },
   "statementContent": {
     "updateDatePrefix": "Last updated: ",
@@ -430,6 +430,7 @@
       "badgeHot": "Best Seller",
       "badgeEnterprise": "Enterprise Choice",
       "labelCharCount": "Character Count: ",
+      "unitWan": "万",
       "unitChar": "characters",
       "btnBuy": "Buy Now",
       "limit30Days": "30-Day Time Limit",
