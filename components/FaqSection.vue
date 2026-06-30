@@ -1,14 +1,30 @@
 <template>
-  <section :class="sectionClass">
+  <section ref="sectionRef" :class="sectionClass">
     <div :class="containerClass">
-      <h2 class="text-[23px] font-medium leading-[1.5] text-[#000213]">
-        {{ $t(title) }}
-      </h2>
-      <p class="text-[23px] font-medium leading-[1.5] text-[#000213]">
-        {{ description }}
-      </p>
+      <div
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="transition-all duration-700 ease-out will-change-transform"
+      >
+        <h2 class="text-[23px] font-medium leading-[1.5] text-[#000213]">
+          {{ $t(title) }}
+        </h2>
+        <p class="text-[23px] font-medium leading-[1.5] text-[#000213]">
+          {{ description }}
+        </p>
+      </div>
 
-      <div class="mt-10 space-y-4">
+      <div
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="mt-10 space-y-4 transition-all delay-150 duration-700 ease-out will-change-transform"
+      >
         <div
           v-for="(faq, index) in faqs"
           :key="faq.question"
@@ -82,4 +98,32 @@ const props = withDefaults(
 );
 
 const openFaqIndex = ref<number | null>(props.initialOpenIndex);
+
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
 </script>

@@ -1,12 +1,20 @@
 <template>
-  <section class="py-16 sm:py-20 lg:py-24">
+  <section ref="sectionRef" class="py-16 sm:py-20 lg:py-24">
     <div
       :class="[
         'mx-auto grid max-w-container items-center gap-12 px-6 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:gap-16 lg:px-12',
         containerClass,
       ]"
     >
-      <div :class="reverse ? 'lg:order-2' : ''" class="max-w-xl">
+      <div
+        :class="[
+          reverse ? 'lg:order-2' : '',
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="max-w-xl transition-all duration-700 ease-out will-change-transform"
+      >
         <h2
           class="text-left text-[32px] font-normal not-italic leading-[48px] text-[#000213] normal-case"
         >
@@ -75,7 +83,15 @@
         </div>
       </div>
 
-      <div :class="reverse ? 'lg:order-1' : ''">
+      <div
+        :class="[
+          reverse ? 'lg:order-1' : '',
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="transition-all delay-150 duration-700 ease-out will-change-transform"
+      >
         <div
           :class="[
             'overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-4',
@@ -98,6 +114,34 @@
 </template>
 
 <script setup lang="ts">
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
+
 interface FeaturePoint {
   title: string;
   description: string;

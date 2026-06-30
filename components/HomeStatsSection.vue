@@ -1,8 +1,13 @@
 <template>
-  <section class="bg-white py-20 sm:py-24">
+  <section ref="sectionRef" class="bg-white py-20 sm:py-24">
     <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
       <div
-        class="flex flex-col gap-6 border-b border-slate-200 pb-10 lg:flex-row lg:items-end lg:justify-between align-center lg:align-end"
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="flex flex-col gap-6 border-b border-slate-200 pb-10 transition-all duration-700 ease-out will-change-transform lg:flex-row lg:items-end lg:justify-between align-center lg:align-end"
       >
         <div class="max-w-3xl">
           <h2
@@ -23,7 +28,14 @@
         </NuxtLink>
       </div>
 
-      <dl class="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
+      <dl
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="grid gap-10 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
+      >
         <div
           v-for="stat in stats"
           :key="stat.labelKey"
@@ -48,6 +60,33 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.6,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
 
 interface StatItem {
   labelKey: string;

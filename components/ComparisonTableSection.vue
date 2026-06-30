@@ -1,8 +1,13 @@
 <template>
-  <section class="px-6 py-20 sm:px-8 lg:px-12">
+  <section ref="sectionRef" class="px-6 py-20 sm:px-8 lg:px-12">
     <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
       <h2
-        class="text-[28px] font-semibold leading-[1.6] text-[#000213] sm:text-[32px]"
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="text-[28px] font-semibold leading-[1.6] text-[#000213] transition-all duration-700 ease-out will-change-transform sm:text-[32px]"
       >
         {{ title }}
         <br />
@@ -10,7 +15,12 @@
       </h2>
 
       <div
-        class="mt-10 overflow-hidden rounded-[20px] border border-[#E9ECF3] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.05)]"
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="mt-10 overflow-hidden rounded-[20px] border border-[#E9ECF3] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.05)] transition-all delay-150 duration-700 ease-out will-change-transform"
       >
         <div
           class="grid grid-cols-[0.6fr_1.2fr_1.2fr] gap-4 bg-[#F6F8FC] px-6 py-4 text-[14px] font-semibold text-[#000213] sm:px-8 sm:text-[15px]"
@@ -64,4 +74,32 @@ withDefaults(
 
 const checkIconSrc = "/images/product/check-icon.svg";
 const closeIconSrc = "/images/product/close-grey-icon.svg";
+
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
 </script>

@@ -1,7 +1,9 @@
 <template>
   <AuthPageWrapper>
     <div class="mb-10 flex items-center justify-between gap-4">
-      <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $t("pages.login.pageTitle") }}</h1>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+        {{ $t("pages.login.pageTitle") }}
+      </h1>
       <p class="text-sm text-slate-600">
         {{ $t("pages.login.noAccount") }}
         <NuxtLink
@@ -52,7 +54,11 @@
           <button
             type="button"
             class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-600"
-            :aria-label="showPassword ? $t('pages.login.hidePassword') : $t('pages.login.showPassword')"
+            :aria-label="
+              showPassword
+                ? $t('pages.login.hidePassword')
+                : $t('pages.login.showPassword')
+            "
             @click="showPassword = !showPassword"
           >
             <svg
@@ -100,7 +106,11 @@
         :disabled="isSubmitting"
         class="mt-4 w-full rounded-full bg-blue-500 py-2 text-xl font-bold text-white shadow-[0_12px_28px_rgba(59,130,246,0.28)] transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-blue-300"
       >
-        {{ isSubmitting ? $t("pages.login.btnLoading") : $t("pages.login.btnLogin") }}
+        {{
+          isSubmitting
+            ? $t("pages.login.btnLoading")
+            : $t("pages.login.btnLogin")
+        }}
       </button>
 
       <p class="mt-7 text-center text-sm text-slate-500">
@@ -205,12 +215,16 @@ const {
 const isSubmitting = computed(() => loginStatus.value === "pending");
 
 const validateAccount = () => {
-  fieldErrors.account = form.account ? "" : t("pages.login.errUsernameRequired");
+  fieldErrors.account = form.account
+    ? ""
+    : t("pages.login.errUsernameRequired");
   return !fieldErrors.account;
 };
 
 const validatePassword = () => {
-  fieldErrors.password = form.password ? "" : t("pages.login.errPasswordRequired");
+  fieldErrors.password = form.password
+    ? ""
+    : t("pages.login.errPasswordRequired");
   return !fieldErrors.password;
 };
 
@@ -245,7 +259,9 @@ const handleLogin = async () => {
         message?: string;
       };
       setLoginError(
-        fetchError.data?.msg || fetchError.message || t("pages.login.errLoginFailed"),
+        fetchError.data?.msg ||
+          fetchError.message ||
+          t("pages.login.errLoginFailed"),
       );
       return;
     }
@@ -301,7 +317,9 @@ const handleLogin = async () => {
       message?: string;
     };
     setLoginError(
-      fetchError.data?.msg || fetchError.message || t("pages.login.errLoginFailed"),
+      fetchError.data?.msg ||
+        fetchError.message ||
+        t("pages.login.errLoginFailed"),
     );
   }
 };

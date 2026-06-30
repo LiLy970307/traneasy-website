@@ -7,7 +7,7 @@
     />
 
     <section class="relative px-6 pb-8 pt-20 sm:px-8 lg:px-12 lg:pt-24">
-      <div class="mx-auto max-w-6xl text-center">
+      <div class="mx-auto max-w-6xl animate-hero-intro text-center">
         <h1 class="text-[48px] font-semibold leading-[1.25] text-[#000213]">
           {{ title }}
         </h1>
@@ -23,7 +23,9 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-14 max-w-container px-6 sm:px-8 lg:px-12">
+      <div
+        class="mx-auto mt-14 max-w-container animate-hero-intro-delayed px-6 sm:px-8 lg:px-12"
+      >
         <img :src="heroImageSrc" :alt="heroImageAlt" class="h-auto w-full" />
       </div>
     </section>
@@ -62,11 +64,18 @@
 
     <FaqSection :description="faqDescription" :faqs="faqs" />
 
-    <section class="px-6 pb-20 pt-4 sm:px-8 lg:px-12">
+    <section ref="ctaSectionRef" class="px-6 pb-20 pt-4 sm:px-8 lg:px-12">
       <div
         class="mx-auto max-w-container grid gap-12 rounded-[32px] py-12 px-6 sm:px-8 lg:px-12 lg:grid-cols-[2fr_1fr]"
       >
-        <div>
+        <div
+          :class="[
+            isCtaVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="transition-all duration-700 ease-out will-change-transform"
+        >
           <h2 class="text-[28px] font-medium leading-[1.45] text-[#000213]">
             {{ ctaTitle }}
             <br />
@@ -81,7 +90,14 @@
           </NuxtLink>
         </div>
 
-        <ul class="space-y-5">
+        <ul
+          :class="[
+            isCtaVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="space-y-5 transition-all delay-150 duration-700 ease-out will-change-transform"
+        >
           <li
             v-for="item in ctaPoints"
             :key="item"
@@ -170,4 +186,56 @@ const ctaLabel = computed(
 );
 
 const checkIconSrc = "/images/product/check-icon.svg";
+
+const ctaSectionRef = shallowRef<HTMLElement | null>(null);
+const isCtaVisible = ref(false);
+let ctaObserver: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!ctaSectionRef.value) {
+    return;
+  }
+
+  ctaObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isCtaVisible.value = true;
+        ctaObserver?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  ctaObserver.observe(ctaSectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  ctaObserver?.disconnect();
+});
 </script>
+
+<style scoped>
+@keyframes hero-intro {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-intro {
+  animation: hero-intro 0.8s ease-out both;
+}
+
+.animate-hero-intro-delayed {
+  animation: hero-intro 0.8s ease-out 0.15s both;
+}
+</style>

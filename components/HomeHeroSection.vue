@@ -17,7 +17,7 @@
     />
 
     <div class="relative mx-auto max-w-7xl px-6 pt-8">
-      <!-- <div class="mx-auto text-center">
+      <div class="mx-auto animate-hero-intro text-center">
         <h1
           class="mt-8 text-center text-[44px] font-semibold not-italic leading-[1.2] text-[#000213]"
         >
@@ -55,29 +55,9 @@
         <p class="mt-10 text-[14px] font-normal text-[#000213]">
           {{ $t("homeHero.platformBadge") }}
         </p>
-      </div> -->
+      </div>
 
-      <!-- 轮播 -->
-      <!-- <ClientOnly>
-        <Swiper
-          :autoplay="{ delay: 4000, disableOnInteraction: false }"
-          :loop="true"
-          :pagination="{ clickable: true }"
-          :navigation="true"
-          class="mx-auto max-w-[1120px]"
-        >
-          <SwiperSlide v-for="(slide, idx) in slides" :key="slide">
-            <img
-              :src="slide"
-              class="w-full rounded-2xl object-cover"
-              loading="eager"
-              decoding="async"
-            />
-          </SwiperSlide>
-        </Swiper>
-      </ClientOnly> -->
-
-      <swiper-container
+      <!-- <swiper-container
         :loop="true"
         :navigation="false"
         :pagination="true"
@@ -86,26 +66,43 @@
         <swiper-slide v-for="slide in slides" :key="slide">
           <img :src="slide" class="w-full rounded-2xl object-cover" />
         </swiper-slide>
-      </swiper-container>
+      </swiper-container> -->
     </div>
 
-    <div class="relative w-full px-6 pb-6 sm:px-8 lg:px-12 lg:pb-8">
-      <ul
-        class="mt-10 flex w-full flex-wrap justify-center gap-3 lg:justify-between"
+    <div
+      class="relative w-full overflow-hidden px-6 pb-6 sm:px-8 lg:px-12 lg:pb-8"
+    >
+      <div
+        class="mt-10 flex w-max animate-platform-scroll gap-3"
         :aria-label="$t('homeHero.supportedPlatforms')"
       >
-        <li v-for="platform in platforms" :key="platform.name">
-          <img
-            :src="platform.src"
-            :alt="platform.name"
-            width="48"
-            height="48"
-            class="h-12 w-12 object-contain"
-            loading="lazy"
-            decoding="async"
-          />
-        </li>
-      </ul>
+        <ul class="flex shrink-0 gap-3">
+          <li v-for="platform in platforms" :key="platform.name">
+            <img
+              :src="platform.src"
+              :alt="platform.name"
+              width="48"
+              height="48"
+              class="h-12 w-12 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        </ul>
+        <ul class="flex shrink-0 gap-3" aria-hidden="true">
+          <li v-for="platform in platforms" :key="`duplicate-${platform.name}`">
+            <img
+              :src="platform.src"
+              :alt="platform.name"
+              width="48"
+              height="48"
+              class="h-12 w-12 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
@@ -147,3 +144,37 @@ const platforms: readonly PlatformIcon[] = [
   { name: "Dropbox", src: "/images/icon/Dropbox.svg" },
 ];
 </script>
+
+<style scoped>
+@keyframes platform-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.375rem));
+  }
+}
+
+.animate-platform-scroll {
+  animation: platform-scroll 28s linear infinite;
+}
+
+@keyframes hero-intro {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-intro {
+  animation: hero-intro 0.8s ease-out both;
+}
+</style>

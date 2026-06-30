@@ -1,11 +1,19 @@
 <template>
   <section
+    ref="sectionRef"
     class="relative overflow-hidden bg-[#000213] py-20 text-white sm:py-24"
   >
     <div
       class="relative mx-auto grid max-w-container items-center gap-14 px-6 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12"
     >
-      <div class="max-w-xl">
+      <div
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="max-w-xl transition-all duration-700 ease-out will-change-transform"
+      >
         <ul class="mt-10 divide-y divide-white/10 border-y border-white/10">
           <li
             v-for="benefit in benefits"
@@ -35,7 +43,12 @@
       </div>
 
       <div
-        class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-sm"
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all delay-150 duration-700 ease-out will-change-transform"
       >
         <NuxtImg
           :src="imageSrc"
@@ -52,6 +65,34 @@
 </template>
 
 <script setup lang="ts">
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.6,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
+
 interface CapabilityBenefit {
   titleKey: string;
   descKey: string;

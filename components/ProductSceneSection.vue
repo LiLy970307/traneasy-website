@@ -1,8 +1,16 @@
 <template>
-  <section class="bg-[#070B1A] px-6 py-20 text-white sm:px-8 lg:px-12">
+  <section
+    ref="sectionRef"
+    class="bg-[#070B1A] px-6 py-20 text-white sm:px-8 lg:px-12"
+  >
     <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
       <div
-        class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+        :class="[
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="flex flex-col gap-6 transition-all duration-700 ease-out will-change-transform lg:flex-row lg:items-end lg:justify-between"
       >
         <div>
           <p v-if="eyebrow" class="text-[28px] text-[#F2F2FF]">
@@ -36,7 +44,15 @@
         </NuxtLink>
       </div>
 
-      <div :class="gridClass">
+      <div
+        :class="[
+          gridClass,
+          isVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="transition-all delay-150 duration-700 ease-out will-change-transform"
+      >
         <div
           v-for="scene in items"
           :key="scene.title"
@@ -82,5 +98,33 @@ const gridClass = computed(() => {
   }
 
   return "mt-14 grid gap-8 md:grid-cols-3 md:gap-10";
+});
+
+const sectionRef = shallowRef<HTMLElement | null>(null);
+const isVisible = ref(false);
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!sectionRef.value) {
+    return;
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isVisible.value = true;
+        observer?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  observer.observe(sectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
 });
 </script>

@@ -8,7 +8,7 @@
 
     <section class="relative pb-10 pt-16 lg:pt-20">
       <div class="px-6 sm:px-8 lg:px-12">
-        <div class="mx-auto max-w-container text-center">
+        <div class="mx-auto max-w-container animate-hero-intro text-center">
           <img
             :src="logoSrc"
             :alt="logoAlt || title"
@@ -26,7 +26,9 @@
           </p>
         </div>
 
-        <div class="mx-auto mt-12 max-w-container px-6 sm:px-8 lg:px-12">
+        <div
+          class="mx-auto mt-12 max-w-container animate-hero-intro-delayed px-6 sm:px-8 lg:px-12"
+        >
           <img
             :src="heroImageSrc"
             :alt="heroImageAlt"
@@ -37,7 +39,7 @@
       </div>
 
       <div
-        class="mx-auto mt-10 overflow-hidden bg-white/[0.32] backdrop-blur-sm"
+        class="mx-auto mt-10 animate-hero-intro-delayed-2 overflow-hidden bg-white/[0.32] backdrop-blur-sm"
       >
         <div
           class="grid mx-auto max-w-container gap-6 px-6 py-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8"
@@ -100,11 +102,17 @@
 
     <section
       :id="setupSectionId"
+      ref="setupSectionRef"
       class="scroll-mt-28 px-6 py-20 sm:px-8 lg:px-12"
     >
       <div class="mx-auto max-w-container px-6 sm:px-8 lg:px-12">
         <div
-          class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+          :class="[
+            isSetupVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="flex flex-col gap-6 transition-all duration-700 ease-out will-change-transform lg:flex-row lg:items-end lg:justify-between"
         >
           <div>
             <p class="text-[14px] font-medium tracking-[0.18em] text-[#205DFF]">
@@ -125,7 +133,14 @@
           </a>
         </div>
 
-        <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          :class="[
+            isSetupVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="mt-12 grid gap-4 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
+        >
           <div v-for="(step, index) in setupSteps" :key="step.title">
             <div class="flex items-center gap-4">
               <img
@@ -235,4 +250,60 @@ useHead({
     },
   ],
 });
+
+const setupSectionRef = shallowRef<HTMLElement | null>(null);
+const isSetupVisible = ref(false);
+let setupObserver: IntersectionObserver | null = null;
+
+onMounted(() => {
+  if (!setupSectionRef.value) {
+    return;
+  }
+
+  setupObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        isSetupVisible.value = true;
+        setupObserver?.disconnect();
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  setupObserver.observe(setupSectionRef.value);
+});
+
+onBeforeUnmount(() => {
+  setupObserver?.disconnect();
+});
 </script>
+
+<style scoped>
+@keyframes hero-intro {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-intro {
+  animation: hero-intro 0.8s ease-out both;
+}
+
+.animate-hero-intro-delayed {
+  animation: hero-intro 0.8s ease-out 0.15s both;
+}
+
+.animate-hero-intro-delayed-2 {
+  animation: hero-intro 0.8s ease-out 0.3s both;
+}
+</style>
