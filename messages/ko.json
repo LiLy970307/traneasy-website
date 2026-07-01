@@ -331,6 +331,7 @@
       "seoDesc": "공식 원본 설치 패키지 다운로드 입구. Windows, Mac 및 Signal 번역판 클라이언트 제공. 안전 검증, 고속 다운로드.",
       "pageTitle": "클라이언트 다운로드",
       "pageDesc": "공식 원본 설치 패키지, 안전 검증, 대기 시간 없는 고속 다운로드",
+      "loadError": "다운로드 정보를 불러오지 못했습니다. 나중에 다시 시도해 주세요.",
       "faqTitle": "자주 묻는 질문",
       "faqDesc": "모든 시스템 적응 가이드 + 문제 해결, 빠르게 시작하세요!",
       "cardWin": "Windows 클라이언트",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "번역 기능 지원",
       "sectionChar": "문자 요금제",
       "sectionMonthly": "월간 요금제",
+      "loadError": "요금제 정보를 불러오지 못했습니다. 나중에 다시 시도해 주세요.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

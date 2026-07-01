@@ -331,6 +331,7 @@
       "seoDesc": "官方原版安装包下载入口，提供 Windows、Mac 与 Signal 翻译版客户端，安全校验，高速下载。",
       "pageTitle": "客户端下载",
       "pageDesc": "官方原版安装包，安全校验，高速下载无需等待",
+      "loadError": "下载信息暂时加载失败，请稍后重试。",
       "faqTitle": "常见问题",
       "faqDesc": "全系统适配指南+故障排查，快速上手无门槛！",
       "cardWin": "Windows客户端",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "支持翻译功能",
       "sectionChar": "字符套餐",
       "sectionMonthly": "包月套餐",
+      "loadError": "套餐信息暂时加载失败，请稍后重试。",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

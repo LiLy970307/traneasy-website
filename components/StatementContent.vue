@@ -45,21 +45,29 @@
       </p>
     </div>
 
-    <div v-if="pending" class="space-y-4">
-      <div class="h-5 w-2/3 animate-pulse rounded bg-slate-100" />
-      <div class="h-5 w-full animate-pulse rounded bg-slate-100" />
-      <div class="h-5 w-5/6 animate-pulse rounded bg-slate-100" />
-      <div class="h-32 w-full animate-pulse rounded-xl bg-slate-100" />
-    </div>
+    <Transition name="statement-reveal" mode="out-in">
+      <div v-if="pending" key="pending" class="space-y-4">
+        <div class="h-5 w-2/3 animate-pulse rounded bg-slate-100" />
+        <div class="h-5 w-full animate-pulse rounded bg-slate-100" />
+        <div class="h-5 w-5/6 animate-pulse rounded bg-slate-100" />
+        <div class="h-32 w-full animate-pulse rounded-xl bg-slate-100" />
+      </div>
 
-    <div
-      v-else-if="error || !currentNotice"
-      class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-800"
-    >
-      {{ $t("statementContent.loadError") }}
-    </div>
+      <div
+        v-else-if="error || !currentNotice"
+        key="error"
+        class="rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-800"
+      >
+        {{ $t("statementContent.loadError") }}
+      </div>
 
-    <div v-else class="statement-content" v-html="currentNotice.content" />
+      <div
+        v-else
+        key="content"
+        class="statement-content"
+        v-html="currentNotice.content"
+      />
+    </Transition>
   </article>
 </template>
 
@@ -118,5 +126,26 @@ const { currentNotice, noticeTitle, formattedUpdateDate, pending, error } =
 
 .statement-content :deep(strong) {
   font-weight: 700;
+}
+
+.statement-reveal-enter-active {
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out,
+    filter 0.8s ease-out;
+}
+
+.statement-reveal-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.statement-reveal-enter-from {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(8px);
+}
+
+.statement-reveal-leave-to {
+  opacity: 0;
 }
 </style>

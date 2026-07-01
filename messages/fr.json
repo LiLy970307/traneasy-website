@@ -331,6 +331,7 @@
       "seoDesc": "Téléchargement officiel des packages d'installation originaux, avec versions Windows, Mac et Signal.",
       "pageTitle": "Téléchargement du client",
       "pageDesc": "Packages d'installation officiels originaux, vérification sécurisée, téléchargement rapide",
+      "loadError": "Échec du chargement des informations de téléchargement. Veuillez réessayer plus tard.",
       "faqTitle": "Foire aux questions",
       "faqDesc": "Guide d'adaptation multi-système + dépannage, prise en main rapide !",
       "cardWin": "Client Windows",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Prend en charge la fonction de traduction",
       "sectionChar": "Forfaits en caractères",
       "sectionMonthly": "Abonnements mensuels",
+      "loadError": "Échec du chargement des forfaits. Veuillez réessayer plus tard.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

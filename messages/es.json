@@ -331,6 +331,7 @@
       "seoDesc": "Portal de descarga del paquete de instalación oficial original, con clientes para Windows, Mac y versión de traducción Signal, con verificación de seguridad y descarga de alta velocidad.",
       "pageTitle": "Descarga del cliente",
       "pageDesc": "Paquete de instalación oficial original, con verificación de seguridad y descarga de alta velocidad sin esperas",
+      "loadError": "No se pudo cargar la información de descarga. Inténtalo de nuevo más tarde.",
       "faqTitle": "Preguntas frecuentes",
       "faqDesc": "¡Guía de compatibilidad para todos los sistemas y resolución de problemas, fácil de empezar sin barreras!",
       "cardWin": "Cliente para Windows",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Compatible con función de traducción",
       "sectionChar": "Plan de caracteres",
       "sectionMonthly": "Plan mensual",
+      "loadError": "No se pudieron cargar los planes. Inténtalo de nuevo más tarde.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

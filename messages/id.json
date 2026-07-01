@@ -331,6 +331,7 @@
       "seoDesc": "Portal unduhan paket instalasi resmi asli, dengan klien untuk Windows, Mac, dan versi terjemahan Signal, dengan verifikasi keamanan dan unduhan kecepatan tinggi.",
       "pageTitle": "Unduhan klien",
       "pageDesc": "Paket instalasi resmi asli, dengan verifikasi keamanan dan unduhan kecepatan tinggi tanpa menunggu",
+      "loadError": "Gagal memuat informasi unduhan. Silakan coba lagi nanti.",
       "faqTitle": "Pertanyaan Umum",
       "faqDesc": "Panduan kompatibilitas untuk semua sistem dan pemecahan masalah, mudah untuk memulai tanpa hambatan!",
       "cardWin": "Klien untuk Windows",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Kompatibel dengan fungsi terjemahan",
       "sectionChar": "Paket karakter",
       "sectionMonthly": "Paket bulanan",
+      "loadError": "Gagal memuat informasi paket. Silakan coba lagi nanti.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

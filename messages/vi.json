@@ -331,6 +331,7 @@
       "seoDesc": "Cổng tải xuống gói cài đặt gốc chính thức, cung cấp client Windows, Mac và phiên bản dịch Signal, kiểm tra an toàn, tải xuống tốc độ cao.",
       "pageTitle": "Tải xuống Client",
       "pageDesc": "Gói cài đặt gốc chính thức, kiểm tra an toàn, tải xuống tốc độ cao không cần chờ đợi",
+      "loadError": "Không thể tải thông tin tải xuống. Vui lòng thử lại sau.",
       "faqTitle": "Câu hỏi thường gặp",
       "faqDesc": "Hướng dẫn tương thích mọi hệ thống + khắc phục sự cố, bắt đầu nhanh chóng không rào cản!",
       "cardWin": "Client Windows",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Hỗ trợ chức năng dịch thuật",
       "sectionChar": "Gói ký tự",
       "sectionMonthly": "Gói theo tháng",
+      "loadError": "Không thể tải thông tin gói cước. Vui lòng thử lại sau.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

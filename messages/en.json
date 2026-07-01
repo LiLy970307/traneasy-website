@@ -331,6 +331,7 @@
       "seoDesc": "Official original installer download portal, offering Windows, Mac, and Signal Translation Edition clients, with security verification and high-speed downloads.",
       "pageTitle": "Client Download",
       "pageDesc": "Official original installer, security-verified, high-speed download with no waiting",
+      "loadError": "Failed to load download information. Please try again later.",
       "faqTitle": "Frequently Asked Questions",
       "faqDesc": "A full system compatibility guide and troubleshooting — get started quickly with zero barriers!",
       "cardWin": "Windows Client",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Supports translation features",
       "sectionChar": "Character Plans",
       "sectionMonthly": "Monthly Plans",
+      "loadError": "Failed to load pricing plans. Please try again later.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

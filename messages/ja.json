@@ -331,6 +331,7 @@
       "seoDesc": "公式オリジナルインストールパッケージのダウンロード入口。Windows、Mac、Signal翻訳版クライアントを提供。安全チェック済み、高速ダウンロード。",
       "pageTitle": "クライアントダウンロード",
       "pageDesc": "公式オリジナルインストールパッケージ、安全チェック済み、待ち時間なしの高速ダウンロード",
+      "loadError": "ダウンロード情報の読み込みに失敗しました。後でもう一度お試しください。",
       "faqTitle": "よくある質問",
       "faqDesc": "全システム対応ガイド＋トラブルシューティング、すぐに使える！",
       "cardWin": "Windowsクライアント",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "翻訳機能対応",
       "sectionChar": "文字数プラン",
       "sectionMonthly": "月額プラン",
+      "loadError": "プラン情報の読み込みに失敗しました。後でもう一度お試しください。",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

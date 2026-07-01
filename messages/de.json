@@ -331,6 +331,7 @@
       "seoDesc": "Offizieller Download für Original-Installationspakete, mit Windows-, Mac- und Signal-Übersetzungsversion. Sicher geprüft, schneller Download.",
       "pageTitle": "Client-Download",
       "pageDesc": "Offizielle Original-Installationspakete, sicher geprüft, schneller Download ohne Wartezeit",
+      "loadError": "Download-Informationen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
       "faqTitle": "Häufig gestellte Fragen",
       "faqDesc": "Systemübergreifende Anpassungsanleitung + Fehlerbehebung, schnell einrichten ohne Hürden!",
       "cardWin": "Windows-Client",
@@ -460,6 +461,7 @@
       "defaultPlanDesc": "Unterstützt Übersetzungsfunktion",
       "sectionChar": "Zeichenpakete",
       "sectionMonthly": "Monatsabos",
+      "loadError": "Tarifinformationen konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
       "badgeHotKey": "pages.pricing.badgeHot",
       "badgeEnterpriseKey": "pages.pricing.badgeEnterprise"
     },

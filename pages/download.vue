@@ -8,7 +8,7 @@
     <section
       class="relative px-6 pb-12 pt-20 sm:px-8 lg:px-12 lg:pt-24 max-w-7xl mx-auto"
     >
-      <div class="mx-auto text-center">
+      <div class="mx-auto animate-hero-intro text-center">
         <h1
           class="text-[40px] font-semibold leading-[1.25] text-[#000213] sm:text-[52px]"
         >
@@ -21,61 +21,101 @@
         </p>
       </div>
 
-      <div class="mx-auto mt-14 flex flex-wrap justify-center gap-5">
-        <article
-          v-for="item in downloadCards"
-          :key="item.title"
-          class="min-w-[280px] flex-1 rounded-[18px] border border-[#E8EDF5] bg-white px-6 pb-6 pt-8 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
+      <Transition name="content-reveal" mode="out-in">
+        <div
+          v-if="pending"
+          key="pending"
+          class="mx-auto mt-14 flex flex-wrap justify-center gap-5"
         >
-          <img
-            :src="item.iconSrc"
-            :alt="item.title"
-            class="mx-auto h-14 w-14"
-          />
-          <h2 class="mt-4 text-center text-[16px] font-medium text-[#2A2F3A]">
-            {{ item.title }}
-          </h2>
-
-          <div class="mt-6 flex flex-col gap-3">
+          <article
+            v-for="index in 3"
+            :key="`download-skeleton-${index}`"
+            class="min-w-[280px] flex-1 rounded-[18px] border border-[#E8EDF5] bg-white px-6 pb-6 pt-8 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
+          >
             <div
-              v-for="button in item.buttons"
-              :key="button.label"
-              class="flex items-center gap-3 rounded-[10px] border border-[#E8EDF5] bg-[#F9FAFB] px-4 py-3"
-            >
-              <img
-                :src="button.icon"
-                :alt="button.label"
-                class="h-9 w-9 flex-shrink-0"
+              class="mx-auto h-14 w-14 animate-pulse rounded-full bg-slate-100"
+            />
+            <div
+              class="mx-auto mt-4 h-4 w-28 animate-pulse rounded bg-slate-100"
+            />
+            <div class="mt-6 space-y-3">
+              <div
+                v-for="row in 2"
+                :key="row"
+                class="h-[58px] animate-pulse rounded-[10px] bg-slate-100"
               />
-              <span class="flex-1 text-[13px] font-medium text-[#2A2F3A]">
-                {{ button.label }}
-              </span>
-              <a
-                :href="button.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex flex-shrink-0 items-center gap-1.5 rounded-[6px] bg-[#205DFF] px-4 py-2 text-[12px] font-semibold text-white transition-colors hover:bg-[#174fe0]"
-              >
-                <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M8 1L8 11M8 11L12 7M8 11L4 7"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M1 12L1 13.5C1 14.3284 1.67157 15 2.5 15L13.5 15C14.3284 15 15 14.3284 15 13.5V12"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-              </a>
             </div>
-          </div>
-        </article>
-      </div>
+          </article>
+        </div>
+
+        <div
+          v-else-if="showLoadError"
+          key="error"
+          class="mx-auto mt-14 max-w-3xl rounded-xl border border-amber-200 bg-amber-50 p-5 text-center text-amber-800"
+        >
+          {{ $t("pages.download.loadError") }}
+        </div>
+
+        <div
+          v-else
+          key="content"
+          class="mx-auto mt-14 flex flex-wrap justify-center gap-5"
+        >
+          <article
+            v-for="item in downloadCards"
+            :key="item.title"
+            class="min-w-[280px] flex-1 rounded-[18px] border border-[#E8EDF5] bg-white px-6 pb-6 pt-8 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
+          >
+            <img
+              :src="item.iconSrc"
+              :alt="item.title"
+              class="mx-auto h-14 w-14"
+            />
+            <h2 class="mt-4 text-center text-[16px] font-medium text-[#2A2F3A]">
+              {{ item.title }}
+            </h2>
+
+            <div class="mt-6 flex flex-col gap-3">
+              <div
+                v-for="button in item.buttons"
+                :key="button.label"
+                class="flex items-center gap-3 rounded-[10px] border border-[#E8EDF5] bg-[#F9FAFB] px-4 py-3"
+              >
+                <img
+                  :src="button.icon"
+                  :alt="button.label"
+                  class="h-9 w-9 flex-shrink-0"
+                />
+                <span class="flex-1 text-[13px] font-medium text-[#2A2F3A]">
+                  {{ button.label }}
+                </span>
+                <a
+                  :href="button.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex flex-shrink-0 items-center gap-1.5 rounded-[6px] bg-[#205DFF] px-4 py-2 text-[12px] font-semibold text-white transition-colors hover:bg-[#174fe0]"
+                >
+                  <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M8 1L8 11M8 11L12 7M8 11L4 7"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1 12L1 13.5C1 14.3284 1.67157 15 2.5 15L13.5 15C14.3284 15 15 14.3284 15 13.5V12"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </Transition>
     </section>
 
     <FaqSection
@@ -128,13 +168,19 @@ const { t, locale } = useI18n();
 const config = useRuntimeConfig();
 const DOWNLOAD_API = `${config.public.clientUserApiBase}/dataCus/get`;
 
-const { data: downloadData } = await useApiFetch<DownloadConfigResponse>(
-  DOWNLOAD_API,
-  {
-    params: { id: "SOFT_DOWNLOAD_CONFIG" },
-    server: false,
-    lazy: true,
-  },
+const {
+  data: downloadData,
+  pending,
+  error,
+} = await useApiFetch<DownloadConfigResponse>(DOWNLOAD_API, {
+  params: { id: "SOFT_DOWNLOAD_CONFIG" },
+  server: false,
+  lazy: true,
+});
+
+const showLoadError = computed(
+  () =>
+    !pending.value && (!!error.value || downloadData.value?.success === false),
 );
 
 interface DownloadCardItem {
@@ -254,3 +300,48 @@ useHead({
   meta: [{ name: "description", content: t(pageDescription) }],
 });
 </script>
+
+<style scoped>
+@keyframes hero-intro {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-intro {
+  animation: hero-intro 0.8s ease-out both;
+}
+
+.animate-hero-intro-delayed {
+  animation: hero-intro 0.8s ease-out 0.15s both;
+}
+
+.content-reveal-enter-active {
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out,
+    filter 0.8s ease-out;
+}
+
+.content-reveal-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.content-reveal-enter-from {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(8px);
+}
+
+.content-reveal-leave-to {
+  opacity: 0;
+}
+</style>

@@ -9,7 +9,7 @@
       class="relative h-[286px] mx-auto max-w-container flex flex-col justify-between pt-[60px] sm:px-8 lg:px-12"
     >
       <div
-        class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between"
+        class="animate-hero-intro flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between"
       >
         <div class="w-full">
           <h1
@@ -39,7 +39,9 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-8 border-b border-[#E7ECF4]">
+      <div
+        class="animate-hero-intro-delayed flex items-center gap-8 border-b border-[#E7ECF4]"
+      >
         <button
           v-for="tab in pricingTabs"
           :key="tab.target"
@@ -66,10 +68,59 @@
       ref="charPackagesRef"
       class="relative mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12"
     >
-      <h3 class="text-[14px] font-medium text-[#374151]">
+      <h3
+        :class="[
+          isCharSectionVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="text-[14px] font-medium text-[#374151] transition-all duration-700 ease-out will-change-transform"
+      >
         {{ $t("pages.pricing.sectionChar") }}
       </h3>
-      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <Transition name="content-reveal" mode="out-in">
+        <div
+          v-if="pending"
+          key="char-pending"
+          class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4"
+        >
+          <article
+            v-for="index in 4"
+            :key="`char-skeleton-${index}`"
+            class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF3] bg-white px-5 pb-5 pt-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+          >
+            <div class="h-5 w-24 animate-pulse rounded bg-slate-100" />
+            <div class="mt-2 h-3 w-full animate-pulse rounded bg-slate-100" />
+            <div class="mt-5 h-10 w-20 animate-pulse rounded bg-slate-100" />
+            <div class="mt-5 border-t border-[#EDF1F7] pt-5">
+              <div class="h-4 w-3/4 animate-pulse rounded bg-slate-100" />
+            </div>
+            <div class="mt-5 flex gap-4">
+              <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
+              <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
+            </div>
+            <div class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100" />
+          </article>
+        </div>
+
+        <div
+          v-else-if="showLoadError"
+          key="char-error"
+          class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-800"
+        >
+          {{ $t("pages.pricing.loadError") }}
+        </div>
+
+        <div
+          v-else
+          key="char-content"
+          :class="[
+            isCharSectionVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="mt-5 grid gap-5 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
+        >
         <article
           v-for="plan in characterPlans"
           :key="plan.name"
@@ -82,7 +133,7 @@
                   <h4
                     class="text-[20px] font-semibold leading-none text-[#111827]"
                   >
-                    {{ plan.enName || plan.name }}
+                    {{ plan.name }}
                   </h4>
                   <span
                     v-if="plan.badge"
@@ -171,7 +222,8 @@
             </button>
           </div>
         </article>
-      </div>
+        </div>
+      </Transition>
     </section>
 
     <section
@@ -179,10 +231,59 @@
       ref="monthlyPackagesRef"
       class="relative mx-auto max-w-7xl px-6 pb-20 sm:px-8 lg:px-12"
     >
-      <h3 class="text-[14px] font-medium text-[#374151]">
+      <h3
+        :class="[
+          isMonthlySectionVisible
+            ? 'translate-y-0 opacity-100 blur-0'
+            : 'translate-y-8 opacity-0 blur-sm',
+        ]"
+        class="text-[14px] font-medium text-[#374151] transition-all duration-700 ease-out will-change-transform"
+      >
         {{ $t("pages.pricing.sectionMonthly") }}
       </h3>
-      <div class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <Transition name="content-reveal" mode="out-in">
+        <div
+          v-if="pending"
+          key="monthly-pending"
+          class="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4"
+        >
+          <article
+            v-for="index in 4"
+            :key="`monthly-skeleton-${index}`"
+            class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF3] bg-white px-5 pb-5 pt-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+          >
+            <div class="h-5 w-24 animate-pulse rounded bg-slate-100" />
+            <div class="mt-2 h-3 w-full animate-pulse rounded bg-slate-100" />
+            <div class="mt-5 h-10 w-20 animate-pulse rounded bg-slate-100" />
+            <div class="mt-5 border-t border-[#EDF1F7] pt-5">
+              <div class="h-4 w-3/4 animate-pulse rounded bg-slate-100" />
+            </div>
+            <div class="mt-5 flex gap-4">
+              <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
+              <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
+            </div>
+            <div class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100" />
+          </article>
+        </div>
+
+        <div
+          v-else-if="showLoadError"
+          key="monthly-error"
+          class="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-5 text-amber-800"
+        >
+          {{ $t("pages.pricing.loadError") }}
+        </div>
+
+        <div
+          v-else
+          key="monthly-content"
+          :class="[
+            isMonthlySectionVisible
+              ? 'translate-y-0 opacity-100 blur-0'
+              : 'translate-y-8 opacity-0 blur-sm',
+          ]"
+          class="mt-5 grid gap-5 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
+        >
         <article
           v-for="plan in monthlyPlans"
           :key="plan.name"
@@ -194,7 +295,7 @@
                 <h4
                   class="text-[20px] font-semibold leading-none text-[#111827]"
                 >
-                  {{ plan.enName || plan.name }}
+                  {{ plan.name }}
                 </h4>
                 <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
                   {{ plan.description }}
@@ -273,7 +374,8 @@
             </button>
           </div>
         </article>
-      </div>
+        </div>
+      </Transition>
     </section>
     <FaqSection
       :title="$t('pages.pricing.faqTitle')"
@@ -291,7 +393,6 @@ const { goLogin } = useLoginRedirect();
 
 interface PricingPlan {
   name: string;
-  enName?: string;
   description: string;
   price: number;
   originalPrice: number;
@@ -312,9 +413,11 @@ const pricingTabs = [
   { label: t("pages.pricing.tabMonthly"), target: "monthly-packages" },
 ] as const;
 
-const charPackagesRef = ref<HTMLElement | null>(null);
-const monthlyPackagesRef = ref<HTMLElement | null>(null);
+const charPackagesRef = shallowRef<HTMLElement | null>(null);
+const monthlyPackagesRef = shallowRef<HTMLElement | null>(null);
 const activeTab = ref<(typeof pricingTabs)[number]["target"]>("char-packages");
+const isCharSectionVisible = ref(false);
+const isMonthlySectionVisible = ref(false);
 
 const config = useRuntimeConfig();
 const SALE_API = `${config.public.clientUserApiBase}/memberGroup/saleList`;
@@ -359,10 +462,14 @@ const planBadgeKeys: Record<string, { badgeKey: string; badgeClass: string }> =
     },
   };
 
-const { data: saleData } = await useApiFetch<SaleListResponse>(SALE_API, {
+const { data: saleData, pending, error } = await useApiFetch<SaleListResponse>(SALE_API, {
   server: false,
   lazy: true,
 });
+
+const showLoadError = computed(
+  () => !pending.value && (!!error.value || saleData.value?.success === false),
+);
 
 const allPlans = computed(() => {
   return [...(saleData.value?.data ?? [])].sort((a, b) => a.sort - b.sort);
@@ -419,8 +526,7 @@ function mapToPlan(item: SaleItem): PricingPlan {
   }
 
   return {
-    name: item.name,
-    enName: item.enName,
+    name: locale.value === "zh" ? item.name : item.enName,
     description: t(descKey),
     price,
     originalPrice: item.showPrice / 100,
@@ -476,7 +582,7 @@ const scrollToSection = (target: (typeof pricingTabs)[number]["target"]) => {
 };
 
 onMounted(() => {
-  const observer = new IntersectionObserver(
+  const tabObserver = new IntersectionObserver(
     (entries) => {
       const visibleEntry = entries
         .filter((entry) => entry.isIntersecting)
@@ -499,12 +605,44 @@ onMounted(() => {
 
   Object.values(sectionRefs).forEach((sectionRef) => {
     if (sectionRef.value) {
-      observer.observe(sectionRef.value);
+      tabObserver.observe(sectionRef.value);
     }
   });
 
+  const animationObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          continue;
+        }
+
+        if (entry.target.id === "char-packages") {
+          isCharSectionVisible.value = true;
+        }
+
+        if (entry.target.id === "monthly-packages") {
+          isMonthlySectionVisible.value = true;
+        }
+
+        animationObserver.unobserve(entry.target);
+      }
+    },
+    {
+      threshold: 0.4,
+    },
+  );
+
+  if (charPackagesRef.value) {
+    animationObserver.observe(charPackagesRef.value);
+  }
+
+  if (monthlyPackagesRef.value) {
+    animationObserver.observe(monthlyPackagesRef.value);
+  }
+
   onBeforeUnmount(() => {
-    observer.disconnect();
+    tabObserver.disconnect();
+    animationObserver.disconnect();
   });
 });
 
@@ -513,3 +651,48 @@ useHead({
   meta: [{ name: "description", content: t(pageDescription) }],
 });
 </script>
+
+<style scoped>
+@keyframes hero-intro {
+  from {
+    filter: blur(8px);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-intro {
+  animation: hero-intro 0.8s ease-out both;
+}
+
+.animate-hero-intro-delayed {
+  animation: hero-intro 0.8s ease-out 0.15s both;
+}
+
+.content-reveal-enter-active {
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out,
+    filter 0.8s ease-out;
+}
+
+.content-reveal-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.content-reveal-enter-from {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(8px);
+}
+
+.content-reveal-leave-to {
+  opacity: 0;
+}
+</style>
