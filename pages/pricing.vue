@@ -99,7 +99,9 @@
               <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
               <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
             </div>
-            <div class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100" />
+            <div
+              class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100"
+            />
           </article>
         </div>
 
@@ -121,107 +123,111 @@
           ]"
           class="mt-5 grid gap-5 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
         >
-        <article
-          v-for="plan in characterPlans"
-          :key="plan.name"
-          class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF4] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
-        >
-          <div class="px-5 pt-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <div class="flex items-center gap-2">
-                  <h4
-                    class="text-[20px] font-semibold leading-none text-[#111827]"
-                  >
-                    {{ plan.name }}
-                  </h4>
-                  <span
-                    v-if="plan.badge"
-                    class="inline-flex rounded-[3px] border px-1.5 py-0.5 text-[10px] font-semibold leading-none"
-                    :class="plan.badgeClass"
-                  >
-                    {{ plan.badge }}
-                  </span>
+          <article
+            v-for="plan in characterPlans"
+            :key="plan.name"
+            class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF4] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+          >
+            <div class="px-5 pt-5">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h4
+                      class="text-[20px] font-semibold leading-none text-[#111827]"
+                    >
+                      {{ plan.name }}
+                    </h4>
+                    <span
+                      v-if="plan.badge"
+                      class="inline-flex rounded-[3px] border px-1.5 py-0.5 text-[10px] font-semibold leading-none"
+                      :class="plan.badgeClass"
+                    >
+                      {{ plan.badge }}
+                    </span>
+                  </div>
+                  <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
+                    {{ plan.description }}
+                  </p>
                 </div>
-                <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
-                  {{ plan.description }}
-                </p>
+                <span
+                  v-if="plan.originalPrice > plan.price"
+                  class="text-[10px] font-medium text-[#8B90A0]"
+                >
+                  {{ $t("pages.pricing.discountLabel")
+                  }}{{
+                    Math.round((1 - plan.price / plan.originalPrice) * 100)
+                  }}%
+                </span>
               </div>
-              <span
-                v-if="plan.originalPrice > plan.price"
-                class="text-[10px] font-medium text-[#8B90A0]"
+
+              <div class="mt-5 flex items-end gap-1">
+                <span class="text-[20px] font-semibold text-[#111827]">￥</span>
+                <span
+                  class="text-[40px] font-semibold leading-none text-[#111827]"
+                >
+                  {{ plan.price }}
+                </span>
+              </div>
+              <div
+                class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
               >
-                {{ $t("pages.pricing.discountLabel")
-                }}{{ Math.round((1 - plan.price / plan.originalPrice) * 100) }}%
-              </span>
+                <span v-if="plan.originalPrice > plan.price">{{
+                  plan.originalPrice > plan.price
+                    ? "￥" + plan.originalPrice
+                    : ""
+                }}</span>
+              </div>
             </div>
 
-            <div class="mt-5 flex items-end gap-1">
-              <span class="text-[20px] font-semibold text-[#111827]">￥</span>
-              <span
-                class="text-[40px] font-semibold leading-none text-[#111827]"
-              >
-                {{ plan.price }}
-              </span>
-            </div>
             <div
-              class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
+              class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
             >
-              <span v-if="plan.originalPrice > plan.price">{{
-                plan.originalPrice > plan.price ? "￥" + plan.originalPrice : ""
-              }}</span>
+              <div class="whitespace-nowrap">
+                <span class="text-slate-500">{{
+                  $t("pages.pricing.labelCharCount")
+                }}</span>
+                <span class="text-[20px] font-bold text-[#1d4ed8] mr-1">
+                  {{ plan.availability }}
+                </span>
+                <span
+                  v-if="plan.availabilityUnit"
+                  class="text-[20px] font-bold text-[#1d4ed8] mr-2"
+                >
+                  {{ plan.availabilityUnit }}
+                </span>
+                <span class="text-slate-500">{{
+                  $t("pages.pricing.unitChar")
+                }}</span>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
-          >
-            <div class="whitespace-nowrap">
-              <span class="text-slate-500">{{
-                $t("pages.pricing.labelCharCount")
-              }}</span>
-              <span class="text-[20px] font-bold text-[#1d4ed8] mr-1">
-                {{ plan.availability }}
-              </span>
-              <span
-                v-if="plan.availabilityUnit"
-                class="text-[20px] font-bold text-[#1d4ed8] mr-2"
-              >
-                {{ plan.availabilityUnit }}
-              </span>
-              <span class="text-slate-500">{{
-                $t("pages.pricing.unitChar")
-              }}</span>
-            </div>
-          </div>
-
-          <div
-            class="mt-5 flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
-          >
             <div
-              v-for="feature in plan.features"
-              :key="plan.name + feature"
-              class="flex items-center gap-2"
+              class="mt-5 flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
             >
-              <img
-                src="/public/images/correct-icon.svg"
-                width="20"
-                height="20"
-              />
-              <span>{{ feature }}</span>
+              <div
+                v-for="feature in plan.features"
+                :key="plan.name + feature"
+                class="flex items-center gap-2"
+              >
+                <img
+                  src="/public/images/correct-icon.svg"
+                  width="20"
+                  height="20"
+                />
+                <span>{{ feature }}</span>
+              </div>
             </div>
-          </div>
 
-          <div class="mt-auto px-5 pb-5">
-            <button
-              type="button"
-              @click="goLogin"
-              class="inline-flex h-11 w-full items-center justify-center rounded-[4px] bg-[#05091B] text-[13px] font-semibold text-white transition-colors hover:bg-[#111827]"
-            >
-              {{ plan.cta }}
-            </button>
-          </div>
-        </article>
+            <div class="mt-auto px-5 pb-5">
+              <button
+                type="button"
+                @click="goLogin"
+                class="inline-flex h-11 w-full items-center justify-center rounded-[4px] bg-[#05091B] text-[13px] font-semibold text-white transition-colors hover:bg-[#111827]"
+              >
+                {{ plan.cta }}
+              </button>
+            </div>
+          </article>
         </div>
       </Transition>
     </section>
@@ -262,7 +268,9 @@
               <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
               <div class="h-4 w-20 animate-pulse rounded bg-slate-100" />
             </div>
-            <div class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100" />
+            <div
+              class="mt-auto h-11 w-full animate-pulse rounded bg-slate-100"
+            />
           </article>
         </div>
 
@@ -284,96 +292,100 @@
           ]"
           class="mt-5 grid gap-5 transition-all delay-150 duration-700 ease-out will-change-transform md:grid-cols-2 xl:grid-cols-4"
         >
-        <article
-          v-for="plan in monthlyPlans"
-          :key="plan.name"
-          class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF4] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
-        >
-          <div class="px-5 pt-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <h4
-                  class="text-[20px] font-semibold leading-none text-[#111827]"
+          <article
+            v-for="plan in monthlyPlans"
+            :key="plan.name"
+            class="flex min-h-[376px] flex-col rounded-[10px] border border-[#E7ECF4] bg-white shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+          >
+            <div class="px-5 pt-5">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h4
+                    class="text-[20px] font-semibold leading-none text-[#111827]"
+                  >
+                    {{ plan.name }}
+                  </h4>
+                  <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
+                    {{ plan.description }}
+                  </p>
+                </div>
+                <span
+                  v-if="plan.originalPrice > plan.price"
+                  class="text-[10px] font-medium text-[#8B90A0]"
                 >
-                  {{ plan.name }}
-                </h4>
-                <p class="mt-2 text-[11px] leading-5 text-[#8B90A0]">
-                  {{ plan.description }}
-                </p>
+                  {{ $t("pages.pricing.discountLabel")
+                  }}{{
+                    Math.round((1 - plan.price / plan.originalPrice) * 100)
+                  }}%
+                </span>
               </div>
-              <span
-                v-if="plan.originalPrice > plan.price"
-                class="text-[10px] font-medium text-[#8B90A0]"
-              >
-                {{ $t("pages.pricing.discountLabel")
-                }}{{ Math.round((1 - plan.price / plan.originalPrice) * 100) }}%
-              </span>
-            </div>
 
-            <div class="mt-5 flex items-end gap-1">
-              <span class="text-[20px] font-semibold text-[#111827]">￥</span>
-              <span
-                class="text-[40px] font-semibold leading-none text-[#111827]"
+              <div class="mt-5 flex items-end gap-1">
+                <span class="text-[20px] font-semibold text-[#111827]">￥</span>
+                <span
+                  class="text-[40px] font-semibold leading-none text-[#111827]"
+                >
+                  {{ plan.price }}
+                </span>
+              </div>
+
+              <div
+                class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
               >
-                {{ plan.price }}
-              </span>
+                <span v-if="plan.originalPrice > plan.price">{{
+                  plan.originalPrice > plan.price
+                    ? "￥" + plan.originalPrice
+                    : ""
+                }}</span>
+              </div>
             </div>
 
             <div
-              class="mt-2 flex items-center justify-between text-[12px] text-[#B4B9C5]"
+              class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
             >
-              <span v-if="plan.originalPrice > plan.price">{{
-                plan.originalPrice > plan.price ? "￥" + plan.originalPrice : ""
-              }}</span>
+              <div class="whitespace-nowrap">
+                <span class="text-slate-500">{{
+                  $t("pages.pricing.labelCharCount")
+                }}</span>
+                <span class="text-[20px] font-bold text-[#1d4ed8]">
+                  {{ plan.availability }}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div
-            class="mt-5 flex flex-wrap gap-2 border-t border-[#EDF1F7] px-5 py-5 text-[14px] text-[#5F6472]"
-          >
-            <div class="whitespace-nowrap">
-              <span class="text-slate-500">{{
-                $t("pages.pricing.labelCharCount")
-              }}</span>
-              <span class="text-[20px] font-bold text-[#1d4ed8]">
-                {{ plan.availability }}
-              </span>
-            </div>
-          </div>
-
-          <div
-            class="flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
-          >
             <div
-              v-for="(feature, index) in plan.features"
-              :key="plan.name + feature"
-              class="flex items-center gap-2"
+              class="flex justify-between gap-2 px-5 text-[12px] text-[#5F6472]"
             >
-              <img
-                v-if="index === 0"
-                src="/public/images/time-icon.svg"
-                width="20"
-                height="20"
-              />
-              <img
-                v-else
-                src="/public/images/incorrect-icon.svg"
-                width="20"
-                height="20"
-              />
-              <span>{{ feature }}</span>
+              <div
+                v-for="(feature, index) in plan.features"
+                :key="plan.name + feature"
+                class="flex items-center gap-2"
+              >
+                <img
+                  v-if="index === 0"
+                  src="/public/images/time-icon.svg"
+                  width="20"
+                  height="20"
+                />
+                <img
+                  v-else
+                  src="/public/images/incorrect-icon.svg"
+                  width="20"
+                  height="20"
+                />
+                <span>{{ feature }}</span>
+              </div>
             </div>
-          </div>
 
-          <div class="mt-auto px-5 pb-5">
-            <button
-              type="button"
-              class="inline-flex h-11 w-full items-center justify-center rounded-[4px] bg-[#05091B] text-[13px] font-semibold text-white transition-colors hover:bg-[#111827]"
-            >
-              {{ plan.cta }}
-            </button>
-          </div>
-        </article>
+            <div class="mt-auto px-5 pb-5">
+              <button
+                type="button"
+                class="inline-flex h-11 w-full items-center justify-center rounded-[4px] bg-[#05091B] text-[13px] font-semibold text-white transition-colors hover:bg-[#111827]"
+              >
+                {{ plan.cta }}
+              </button>
+            </div>
+          </article>
         </div>
       </Transition>
     </section>
@@ -450,6 +462,12 @@ const planDescriptionKeys: Record<string, string> = {
   AI翻译: "pages.pricing.planAIDesc",
 };
 
+// 包月套餐根据 tranChannelId 对应字符套餐的描述
+const tranChannelDescKeys: Record<number, string> = {
+  1: "pages.pricing.planStandardDesc",
+  2: "pages.pricing.planAdvancedDesc",
+};
+
 const planBadgeKeys: Record<string, { badgeKey: string; badgeClass: string }> =
   {
     高级版: {
@@ -462,7 +480,11 @@ const planBadgeKeys: Record<string, { badgeKey: string; badgeClass: string }> =
     },
   };
 
-const { data: saleData, pending, error } = await useApiFetch<SaleListResponse>(SALE_API, {
+const {
+  data: saleData,
+  pending,
+  error,
+} = await useApiFetch<SaleListResponse>(SALE_API, {
   server: false,
   lazy: true,
 });
@@ -521,13 +543,16 @@ function mapToPlan(item: SaleItem): PricingPlan {
       }
     }
   } else {
-    numText = t("pages.pricing.limit30Days");
+    numText = t("pages.pricing.unlimited");
     availabilityUnit = undefined;
   }
 
   return {
     name: locale.value === "zh" ? item.name : item.enName,
-    description: t(descKey),
+    description:
+      item.translationBillingMode === "time"
+        ? t(tranChannelDescKeys[item.tranChannelId] || "")
+        : t(descKey),
     price,
     originalPrice: item.showPrice / 100,
     cta: t("pages.pricing.btnBuy"),
@@ -539,7 +564,10 @@ function mapToPlan(item: SaleItem): PricingPlan {
             t("pages.pricing.featureNoTimeLimit"),
             t("pages.pricing.featureSubAccount"),
           ]
-        : [numText, t("pages.pricing.featureNoSubAccount")],
+        : [
+            t("pages.pricing.limit30Days"),
+            t("pages.pricing.featureNoSubAccount"),
+          ],
     badge: badgeInfo ? t(badgeInfo.badgeKey) : undefined,
     badgeClass: badgeInfo?.badgeClass,
   };

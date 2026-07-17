@@ -56,65 +56,37 @@
           {{ $t("homeHero.platformBadge") }}
         </p>
       </div>
-
-      <!-- <swiper-container
-        :loop="true"
-        :navigation="false"
-        :pagination="true"
-        :autoplay-delay="4000"
-      >
-        <swiper-slide v-for="slide in slides" :key="slide">
-          <img :src="slide" class="w-full rounded-2xl object-cover" />
-        </swiper-slide>
-      </swiper-container> -->
     </div>
 
     <div
       class="relative w-full overflow-hidden px-6 pb-6 sm:px-8 lg:px-12 lg:pb-8"
     >
-      <div
-        class="mt-10 flex w-max animate-platform-scroll gap-3"
+      <ul
+        class="mt-10 flex w-max gap-3 animate-platform-scroll"
         :aria-label="$t('homeHero.supportedPlatforms')"
       >
-        <ul class="flex shrink-0 gap-3">
-          <li v-for="platform in platforms" :key="platform.name">
-            <img
-              :src="platform.src"
-              :alt="platform.name"
-              width="48"
-              height="48"
-              class="h-12 w-12 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          </li>
-        </ul>
-        <ul class="flex shrink-0 gap-3" aria-hidden="true">
-          <li v-for="platform in platforms" :key="`duplicate-${platform.name}`">
-            <img
-              :src="platform.src"
-              :alt="platform.name"
-              width="48"
-              height="48"
-              class="h-12 w-12 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
-          </li>
-        </ul>
-      </div>
+        <li
+          v-for="(platform, index) in displayPlatforms"
+          :key="`${platform.name}-${index}`"
+          class="shrink-0"
+        >
+          <img
+            :src="platform.src"
+            :alt="platform.name"
+            width="48"
+            height="48"
+            class="h-12 w-12 object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </li>
+      </ul>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 const localePath = useLocalePath();
-
-const slides = [
-  "/images/index/carousel-1.png",
-  "/images/index/carousel-2.png",
-  "/images/index/carousel-3.png",
-];
 
 interface PlatformIcon {
   name: string;
@@ -128,7 +100,6 @@ const platforms: readonly PlatformIcon[] = [
   { name: "Vimeo", src: "/images/icon/Vimeo.svg" },
   { name: "Line", src: "/images/icon/Line.svg" },
   { name: "Telegram", src: "/images/icon/Telegram.svg" },
-  { name: "Twitter", src: "/images/icon/Twitter.svg" },
   { name: "WhatsApp", src: "/images/icon/Whatsapp.svg" },
   { name: "TikTok", src: "/images/icon/TikTok.svg" },
   { name: "Messenger", src: "/images/icon/Messenger.svg" },
@@ -143,6 +114,8 @@ const platforms: readonly PlatformIcon[] = [
   { name: "Google", src: "/images/icon/Google.svg" },
   { name: "Dropbox", src: "/images/icon/Dropbox.svg" },
 ];
+
+const displayPlatforms = [...platforms, ...platforms, ...platforms];
 </script>
 
 <style scoped>
@@ -152,29 +125,12 @@ const platforms: readonly PlatformIcon[] = [
   }
 
   to {
-    transform: translateX(calc(-50% - 0.375rem));
+    transform: translateX(-33.333333%);
   }
 }
 
 .animate-platform-scroll {
-  animation: platform-scroll 28s linear infinite;
-}
-
-@keyframes hero-intro {
-  from {
-    filter: blur(8px);
-    opacity: 0;
-    transform: translateY(32px);
-  }
-
-  to {
-    filter: blur(0);
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-hero-intro {
-  animation: hero-intro 0.8s ease-out both;
+  animation: platform-scroll 18s linear infinite;
+  will-change: transform;
 }
 </style>
