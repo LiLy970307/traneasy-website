@@ -95,7 +95,7 @@
       :title="sceneTitle"
       :description="sceneDescription"
       :button-label="$t('integrationDetail.downloadBtn')"
-      :button-to="`#${setupSectionId}`"
+      :button-to="downloadAnchor"
       :items="sceneItems"
       :columns="4"
     />
@@ -237,7 +237,7 @@ const props = withDefaults(
     backgroundImageSrc: "/images/integration/detail-bg.png",
     stagePointSrc: "/images/integration/stage-point.svg",
     setupSectionId: "setup-guide",
-    downloadAnchor: "#download",
+    downloadAnchor: "/download",
   },
 );
 
@@ -256,6 +256,8 @@ const isSetupVisible = ref(false);
 let setupObserver: IntersectionObserver | null = null;
 
 onMounted(() => {
+  console.log(props.setupSectionId);
+
   if (!setupSectionRef.value) {
     return;
   }

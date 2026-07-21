@@ -29,7 +29,7 @@
 <script setup lang="ts">
 const localePath = useLocalePath();
 const { t } = useI18n();
-const downloadAnchor = `${localePath("/")}#download`;
+const downloadAnchor = `${localePath("/download")}`;
 const p = "pages.integrations.tiktok";
 
 const highlights = computed(() => [

@@ -76,9 +76,16 @@
                 </span> -->
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-3">
-                    <div class="font-semibold text-slate-900">
-                      <!-- {{ lastMessage?.nickname || $t("floatingContact.defaultNickname") }} -->
+                    <!-- {{ lastMessage?.nickname || $t("floatingContact.defaultNickname") }} -->
+                    <div
+                      class="relative inline-block font-semibold text-slate-900"
+                    >
                       {{ $t("floatingContact.defaultNickname") }}
+
+                      <span
+                        v-if="crispHasNewMessage"
+                        class="absolute -right-2 h-2 w-2 rounded-full bg-red-500"
+                      ></span>
                     </div>
                     <div
                       class="shrink-0 text-sm text-slate-400"
@@ -352,8 +359,7 @@
         <!-- 新消息呼吸红点 -->
         <span
           v-if="crispHasNewMessage"
-          class="absolute -right-0.5 -top-0.5 h-5 w-5 rounded-full bg-red-500"
-          style="animation: crisp-dot-breathe 1.5s ease-in-out infinite"
+          class="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full bg-red-500"
         ></span>
         <div
           v-if="!compactFloatingButton"
