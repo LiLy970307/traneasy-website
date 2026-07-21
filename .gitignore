@@ -14,3 +14,6 @@ dist/
 # 顺带忽略纯 output.zip 这种不带点的
 output*.zip
 
+# macOS 系统文件
+.DS_Store
+**/.DS_Store

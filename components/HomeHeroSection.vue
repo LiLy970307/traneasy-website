@@ -39,7 +39,7 @@
           class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
           <NuxtLink
-            :to="localePath('/register')"
+            @click="goLogin"
             class="inline-flex min-w-36 items-center justify-center rounded bg-brand-600 px-7 py-3.5 text-base font-semibold text-white shadow-[0_14px_40px_rgba(37,99,235,0.28)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-brand-700"
           >
             {{ $t("homeHero.ctaTrial") }}
@@ -87,6 +87,7 @@
 
 <script setup lang="ts">
 const localePath = useLocalePath();
+const { goLogin } = useLoginRedirect();
 
 interface PlatformIcon {
   name: string;

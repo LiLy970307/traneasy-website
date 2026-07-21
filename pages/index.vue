@@ -1,6 +1,7 @@
 <template>
   <main class="pt-[68px]">
     <HomeHeroSection />
+    <HomeCapabilitySection />
 
     <MarketingFeatureSplit
       v-for="section in showcaseSections"
@@ -11,8 +12,6 @@
       :image-alt="section.imageAlt"
       :reverse="section.reverse"
     />
-
-    <HomeCapabilitySection />
 
     <HomeStatsSection />
   </main>

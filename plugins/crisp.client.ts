@@ -36,7 +36,7 @@
 
 
 
-import { useCrispLastMessage } from "~/composables/useCrisp";
+import { useCrispLastMessage, useCrispHasNewMessage } from "~/composables/useCrisp";
 
 declare global {
         interface Window {
@@ -52,6 +52,7 @@ export default defineNuxtPlugin(() => {
         onNuxtReady(() => {
                 requestAnimationFrame(() => {
                         const crispLastMessage = useCrispLastMessage();
+                        const crispHasNewMessage = useCrispHasNewMessage();
 
                         // 页面刷新后恢复缓存
                         const cache = localStorage.getItem("crisp-last-message");
@@ -88,6 +89,7 @@ export default defineNuxtPlugin(() => {
                                         if (message.from !== "operator") {
                                                 return;
                                         }
+                                        console.log(message);
 
                                         const data = {
                                                 content: message.content,
@@ -97,6 +99,7 @@ export default defineNuxtPlugin(() => {
 
                                         // 更新响应式状态
                                         crispLastMessage.value = data;
+                                        crispHasNewMessage.value = true;
 
                                         // 持久化
                                         localStorage.setItem(

@@ -9,3 +9,6 @@ export const useCrispLastMessage = () =>
                 "crisp-last-message",
                 () => null,
         );
+
+export const useCrispHasNewMessage = () =>
+        useState<boolean>("crisp-has-new-message", () => false);

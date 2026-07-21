@@ -125,7 +125,7 @@
   "floatingContact": {
     "closeAriaLabel": "Fechar a entrada de atendimento ao cliente",
     "greeting": "👋 Olá! Bem-vindo à central de atendimento ao cliente da Yifanyi",
-    "defaultNickname": "Atendimento",
+    "defaultNickname": "Online Service",
     "noMessages": "Sem mensagens por enquanto",
     "consultService": "Consultar atendimento",
     "contactUs": "Contate-nos",

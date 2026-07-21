@@ -65,7 +65,7 @@
               class="rounded-xl bg-white/92 p-3.5 shadow-[0_12px_34px_rgba(30,41,59,0.1)]"
             >
               <div class="flex items-start gap-3">
-                <span
+                <!-- <span
                   class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-50"
                 >
                   <img
@@ -73,11 +73,12 @@
                     alt="Traneasy"
                     class="h-7 w-7 object-contain"
                   />
-                </span>
+                </span> -->
                 <div class="min-w-0 flex-1">
                   <div class="flex items-center justify-between gap-3">
                     <div class="font-semibold text-slate-900">
-                      {{ lastMessage?.nickname || $t("floatingContact.defaultNickname") }}
+                      <!-- {{ lastMessage?.nickname || $t("floatingContact.defaultNickname") }} -->
+                      {{ $t("floatingContact.defaultNickname") }}
                     </div>
                     <div
                       class="shrink-0 text-sm text-slate-400"
@@ -87,7 +88,9 @@
                     </div>
                   </div>
                   <div class="mt-2 truncate text-sm text-slate-500">
-                    {{ lastMessage?.content || $t("floatingContact.noMessages") }}
+                    {{
+                      lastMessage?.content || $t("floatingContact.noMessages")
+                    }}
                   </div>
                 </div>
               </div>
@@ -172,8 +175,8 @@
                     v-for="account in group.accountList"
                     :key="account.id"
                     type="button"
-                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700"
-                    @click="activeAccountId = account.id"
+                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900"
+                    @click="openAccountContact(account)"
                   >
                     {{ formatAccountName(account.account, group.platform) }}
                   </button>
@@ -257,7 +260,8 @@
                 <div class="grid gap-3 pt-4">
                   <button
                     type="button"
-                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700"
+                    class="rounded-lg border px-3 py-2 text-left text-sm transition-colors border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900"
+                    @click="openAccountContact(afterSalesAccount)"
                   >
                     {{ afterSalesAccount.account }}
                   </button>
@@ -307,7 +311,9 @@
                   />
                 </svg>
               </span>
-              <span class="flex-1 text-base text-slate-500">{{ $t("floatingContact.verifyTitle") }}</span>
+              <span class="flex-1 text-base text-slate-500">{{
+                $t("floatingContact.verifyTitle")
+              }}</span>
               <span
                 class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-300 text-white"
               >
@@ -336,13 +342,19 @@
       <button
         type="button"
         :class="[
-          'flex items-center justify-center bg-[#2364f4] text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-[#1756df]',
+          'relative flex items-center justify-center bg-[#2364f4] text-white shadow-[0_18px_36px_rgba(37,99,235,0.34)] transition-all hover:-translate-y-0.5 hover:bg-[#1756df]',
           compactFloatingButton
             ? 'h-12 w-12 rounded-full'
             : 'h-auto w-auto flex-col rounded-[120px] px-1.5 py-3 tracking-[4px]',
         ]"
         @click="toggleFloatingContact"
       >
+        <!-- 新消息呼吸红点 -->
+        <span
+          v-if="crispHasNewMessage"
+          class="absolute -right-0.5 -top-0.5 h-5 w-5 rounded-full bg-red-500"
+          style="animation: crisp-dot-breathe 1.5s ease-in-out infinite"
+        ></span>
         <div
           v-if="!compactFloatingButton"
           style="writing-mode: vertical-rl; text-orientation: upright"
@@ -399,7 +411,9 @@
         @click.stop
       >
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-bold text-slate-900">{{ $t("floatingContact.verifyTitle") }}</h3>
+          <h3 class="text-lg font-bold text-slate-900">
+            {{ $t("floatingContact.verifyTitle") }}
+          </h3>
           <button
             type="button"
             class="flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
@@ -418,9 +432,9 @@
 
         <div class="mt-6 space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700"
-              >{{ $t("floatingContact.verifyPlatformLabel") }}</label
-            >
+            <label class="block text-sm font-medium text-slate-700">{{
+              $t("floatingContact.verifyPlatformLabel")
+            }}</label>
             <select
               v-model="verifyDialog.platform"
               class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-black shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -437,9 +451,9 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-slate-700"
-              >{{ $t("floatingContact.verifyAccountLabel") }}</label
-            >
+            <label class="block text-sm font-medium text-slate-700">{{
+              $t("floatingContact.verifyAccountLabel")
+            }}</label>
             <input
               ref="accountInputRef"
               v-model="verifyDialog.account"
@@ -539,7 +553,10 @@
 
 <script setup lang="ts">
 import formatMessageTime from "@/utils/formatDateTime";
-import { useCrispLastMessage } from "~/composables/useCrisp";
+import {
+  useCrispLastMessage,
+  useCrispHasNewMessage,
+} from "~/composables/useCrisp";
 
 interface CustomerAccount {
   id: number;
@@ -621,11 +638,11 @@ const compactFloatingButton = ref(false);
 const crispChatOpen = computed(() => crispRef.value?.isOpen ?? false);
 const crispLoading = computed(() => crispRef.value?.isLoading ?? false);
 const activePlatform = ref("");
-const activeAccountId = ref<number>();
 const accountInputRef = ref<HTMLInputElement | null>(null);
 const floatingContactRef = ref<HTMLElement | null>(null);
 const crispRef = ref<CrispExposed | null>(null);
 const lastMessage = useCrispLastMessage();
+const crispHasNewMessage = useCrispHasNewMessage();
 
 const { data, pending, error } = await useApiFetch<CustomerServiceResponse>(
   API_URL,
@@ -679,13 +696,11 @@ const sortedGroups = computed(() => {
 
 const selectPlatform = (group: CustomerServiceGroup) => {
   activePlatform.value = group.platform;
-  activeAccountId.value = group.accountList[0]?.id;
 };
 
 const toggleContactGroup = (group: CustomerServiceGroup) => {
   if (activePlatform.value === group.platform) {
     activePlatform.value = "";
-    activeAccountId.value = undefined;
     return;
   }
 
@@ -695,26 +710,18 @@ const toggleContactGroup = (group: CustomerServiceGroup) => {
 const toggleAfterSalesContact = () => {
   if (activePlatform.value === afterSalesPlatformKey) {
     activePlatform.value = "";
-    activeAccountId.value = undefined;
     return;
   }
 
   activePlatform.value = afterSalesPlatformKey;
-  activeAccountId.value = afterSalesAccount.value?.id;
 };
 
 const selectedGroupAccount = (group: CustomerServiceGroup) => {
-  return (
-    group.accountList.find((account) => account.id === activeAccountId.value) ??
-    group.accountList[0]
-  );
-};
-
-const defaultContactAccount = (group: CustomerServiceGroup) => {
   return group.accountList[0];
 };
 
 const openAccountContact = (account?: CustomerAccount) => {
+  console.log(account);
   const referUrl = account?.referUrl;
   if (!referUrl || typeof window === "undefined") return;
 
@@ -722,14 +729,18 @@ const openAccountContact = (account?: CustomerAccount) => {
 };
 
 const openDefaultContact = (group: CustomerServiceGroup) => {
-  openAccountContact(defaultContactAccount(group));
+  console.log(group);
+  openAccountContact(group.accountList?.[0]);
 };
 
 const formatAccountName = (account: string, fallback: string) => {
-  return account === "@traneasy" ? t("floatingContact.afterSales") : account || fallback;
+  return account === "@traneasy"
+    ? t("floatingContact.afterSales")
+    : account || fallback;
 };
 
 const openCrispPanel = () => {
+  crispHasNewMessage.value = false;
   crispRef.value?.open();
 };
 
@@ -839,8 +850,7 @@ const doVerify = async () => {
       verifyDialog.result = t("floatingContact.verifySuccess");
       verifyDialog.resultType = "success";
     } else {
-      verifyDialog.result =
-        data.msg || t("floatingContact.verifyFail");
+      verifyDialog.result = data.msg || t("floatingContact.verifyFail");
       verifyDialog.resultType = "error";
     }
   } catch (err) {
@@ -859,9 +869,7 @@ watch(
     if (activePlatform.value === afterSalesPlatformKey) {
       if (!afterSalesAccount.value) {
         activePlatform.value = "";
-        activeAccountId.value = undefined;
       }
-
       return;
     }
 
@@ -871,16 +879,6 @@ watch(
 
     if (!currentGroup) {
       activePlatform.value = "";
-      activeAccountId.value = undefined;
-      return;
-    }
-
-    const currentAccount = currentGroup.accountList.find(
-      (account) => account.id === activeAccountId.value,
-    );
-
-    if (!currentAccount) {
-      activeAccountId.value = currentGroup.accountList[0]?.id;
     }
   },
   { immediate: true },
@@ -900,3 +898,17 @@ onBeforeUnmount(() => {
   document.removeEventListener("click", handleOutsideClick);
 });
 </script>
+
+<style>
+@keyframes crisp-dot-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.35);
+  }
+}
+</style>

@@ -1,10 +1,10 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative overflow-hidden bg-[#000213] py-20 text-white sm:py-24"
+    class="relative overflow-hidden py-20 sm:pb-12 sm:pt-20"
   >
     <div
-      class="relative mx-auto grid max-w-container items-center gap-14 px-6 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12"
+      class="relative mx-auto grid max-w-container gap-36 px-6 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12"
     >
       <div
         :class="[
@@ -13,8 +13,9 @@
             : 'translate-y-8 opacity-0 blur-sm',
         ]"
         class="max-w-xl transition-all duration-700 ease-out will-change-transform"
+        style="transition-delay: 150ms"
       >
-        <ul class="mt-10 divide-y divide-white/10 border-y border-white/10">
+        <ul class="mt-10 divide-y divide-slate-200 border-y border-slate-200">
           <li
             v-for="benefit in benefits"
             :key="benefit.titleKey"
@@ -31,10 +32,10 @@
               decoding="async"
             />
             <div>
-              <h3 class="text-lg font-semibold text-white">
+              <h3 class="text-lg font-semibold text-slate-900">
                 {{ $t(benefit.titleKey) }}
               </h3>
-              <p class="mt-2 text-sm leading-7 text-slate-300 sm:text-base">
+              <p class="mt-2 text-sm leading-7 text-slate-500 sm:text-base">
                 {{ $t(benefit.descKey) }}
               </p>
             </div>
@@ -48,7 +49,8 @@
             ? 'translate-y-0 opacity-100 blur-0'
             : 'translate-y-8 opacity-0 blur-sm',
         ]"
-        class="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all delay-150 duration-700 ease-out will-change-transform"
+        class="transition-all duration-700 ease-out will-change-transform"
+        style="transition-delay: 300ms"
       >
         <NuxtImg
           :src="imageSrc"
@@ -87,6 +89,13 @@ onMounted(() => {
   );
 
   observer.observe(sectionRef.value);
+
+  // 页面初始化时若已在视口内，直接显示
+  const rect = sectionRef.value.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    isVisible.value = true;
+    observer?.disconnect();
+  }
 });
 
 onBeforeUnmount(() => {
@@ -105,17 +114,17 @@ const benefits: readonly CapabilityBenefit[] = [
   {
     titleKey: "homeCapability.benefit1Title",
     descKey: "homeCapability.benefit1Desc",
-    iconSrc: "/images/index/black-1.png",
+    iconSrc: "/images/index/scene-1.svg",
   },
   {
     titleKey: "homeCapability.benefit2Title",
     descKey: "homeCapability.benefit2Desc",
-    iconSrc: "/images/index/black-3.png",
+    iconSrc: "/images/index/scene-2.svg",
   },
   {
     titleKey: "homeCapability.benefit3Title",
     descKey: "homeCapability.benefit3Desc",
-    iconSrc: "/images/index/black-2.png",
+    iconSrc: "/images/index/scene-3.svg",
   },
 ];
 </script>
