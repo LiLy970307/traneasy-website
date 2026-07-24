@@ -178,6 +178,5 @@ const faqs = computed(() => [
   { question: t(p + ".faq1Q"), answer: t(p + ".faq1A") },
   { question: t(p + ".faq2Q"), answer: t(p + ".faq2A") },
   { question: t(p + ".faq3Q"), answer: t(p + ".faq3A") },
-  { question: t(p + ".faq4Q"), answer: t(p + ".faq4A") },
 ]);
 </script>

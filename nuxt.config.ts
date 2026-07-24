@@ -65,6 +65,23 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/png', href: '/images/icon.png' },
       ],
+      script: [
+        {
+          children: `
+            (function () {
+              var hash = window.location.hash;
+              if (hash) {
+                window.location.replace(
+                  "${process.env.MIDDLEWARE_URL}" +
+                  window.location.pathname +
+                  window.location.search +
+                  window.location.hash
+                );
+              }
+            })();
+          `
+        }
+      ]
     },
   },
 
